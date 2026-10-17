@@ -4,7 +4,7 @@ import { ChatError, describeToolCall, sendChat, type ChatMessage, type ToolCall 
 import { cn } from '@/lib/utils'
 
 // Floating School Finder chat: a round button in the bottom-right corner that opens a chat panel.
-// It sits left of the map's zoom buttons, which take the map's bottom-right corner.
+// It owns the bottom-right corner; the map's zoom buttons stack above it (see index.css).
 
 const WELCOME =
   'Hi! I can help you find schools and early learning programs in Miami-Dade County, from infant care to grade 12. ' +
@@ -86,7 +86,7 @@ export function ChatWidget() {
           role="dialog"
           aria-label="School Finder chat"
           onKeyDown={(e) => e.key === 'Escape' && close()}
-          className="fixed inset-x-4 bottom-[84px] top-[80px] z-50 flex flex-col overflow-hidden rounded-2xl border border-line bg-white text-ink shadow-[0_16px_48px_rgb(2,44,59,0.25)] sm:inset-x-auto sm:right-16 sm:top-auto sm:h-[min(580px,calc(100vh-120px))] sm:w-[380px]"
+          className="fixed inset-x-4 bottom-[84px] top-[80px] z-50 flex flex-col overflow-hidden rounded-2xl border border-line bg-white text-ink shadow-[0_16px_48px_rgb(2,44,59,0.25)] sm:inset-x-auto sm:right-5 sm:top-auto sm:h-[min(580px,calc(100vh-120px))] sm:w-[380px]"
         >
           <header className="flex items-center gap-2 bg-deep py-3 pl-4 pr-2 text-white">
             <div className="min-w-0 flex-1">
@@ -175,7 +175,7 @@ export function ChatWidget() {
         onClick={() => (open ? close() : setOpen(true))}
         aria-expanded={open}
         aria-label={open ? 'Close School Finder chat' : 'Chat with School Finder'}
-        className="fixed bottom-4 right-4 z-50 grid size-14 place-items-center rounded-full bg-brand text-white shadow-[0_6px_20px_rgb(2,44,59,0.28)] transition hover:-translate-y-px hover:bg-[#17439a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:bottom-5 sm:right-16"
+        className="fixed bottom-5 right-5 z-50 grid size-14 place-items-center rounded-full bg-brand text-white shadow-[0_6px_20px_rgb(2,44,59,0.28)] transition hover:-translate-y-px hover:bg-[#17439a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
       >
         {open ? <X className="size-6" aria-hidden /> : <MessageCircle className="size-6" aria-hidden />}
       </button>

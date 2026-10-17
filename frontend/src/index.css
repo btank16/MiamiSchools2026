@@ -146,6 +146,13 @@
     display: none;
 }
 
+/* the chat button owns the bottom-right corner (20px in, 56px wide); stack the map's zoom buttons
+   directly above it on the same vertical axis: container offset + the control's own 10px margin */
+.maplibregl-map .maplibregl-ctrl-bottom-right {
+    right: 23.5px;
+    bottom: 78px;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

@@ -62,9 +62,19 @@ export function Photo({ place, className, children, arrows, width = 480 }: { pla
   const names = usePhotoNames(place)
   const dots = photoCount(place) || 1
   const name = names[slide]
+  // like Airbnb: the arrows fade in when the pointer is over the photo (or a button has keyboard focus) and are
+  // always there on touch screens; the map popup (arrows prop) keeps them visible
+  const arrow =
+    'absolute top-1/2 z-10 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-white text-ink shadow-md ring-1 ring-ink/5 transition duration-150 hover:scale-105 focus-visible:opacity-100'
+  const shown = arrows ? '' : 'opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100'
+  const preloadNext = () => {
+    const next = names[slide + 1]
+    if (next) new Image().src = photoUrl(next, width) // the next photo is ready by the time the arrow is clicked
+  }
   return (
     <div
-      className={cn('relative overflow-hidden', className)}
+      onMouseEnter={preloadNext}
+      className={cn('group relative overflow-hidden', className)}
       style={{
         backgroundImage: `linear-gradient(${135 + slide * 25}deg, oklch(0.78 0.09 ${place.hue}), oklch(0.5 0.12 ${place.hue + 40}))`,
       }}
@@ -84,23 +94,15 @@ export function Photo({ place, className, children, arrows, width = 480 }: { pla
         <span className="absolute bottom-2.5 right-3 z-10 rounded-full bg-ink/70 px-2 py-0.5 text-[11px] text-white">Street View</span>
       )}
       {children}
-      {arrows && dots > 1 && (
+      {dots > 1 && (
         <>
           {slide > 0 && (
-            <button
-              aria-label="Previous photo"
-              onClick={() => setSlide(slide - 1)}
-              className="absolute left-3 top-1/2 z-10 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-white shadow"
-            >
+            <button aria-label="Previous photo" onClick={() => setSlide(slide - 1)} className={cn(arrow, 'left-3', shown)}>
               <ChevronLeft className="size-4" />
             </button>
           )}
           {slide < dots - 1 && (
-            <button
-              aria-label="Next photo"
-              onClick={() => setSlide(slide + 1)}
-              className="absolute right-3 top-1/2 z-10 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-white shadow"
-            >
+            <button aria-label="Next photo" onClick={() => setSlide(slide + 1)} className={cn(arrow, 'right-3', shown)}>
               <ChevronRight className="size-4" />
             </button>
           )}
