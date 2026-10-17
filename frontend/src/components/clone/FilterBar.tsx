@@ -46,13 +46,14 @@ function SortDropdown({ value, hasOrigin, onChange }: { value: Sort; hasOrigin: 
   )
 }
 
+// the button always looks normal; with no address searched its menu explains what to do and shows the choices greyed
 function DistanceDropdown({
   value,
-  disabled,
+  needsAddress,
   onChange,
 }: {
   value: number | null
-  disabled: boolean
+  needsAddress: boolean
   onChange: (v: number | null) => void
 }) {
   const active = value != null
@@ -60,12 +61,7 @@ function DistanceDropdown({
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <Button
-            variant="outline"
-            disabled={disabled}
-            title={disabled ? 'Search an address first' : undefined}
-            className={cn(pill, active && 'border-primary bg-primary/10 text-primary')}
-          />
+          <Button variant="outline" className={cn(pill, active && 'border-primary bg-primary/10 text-primary')} />
         }
       >
         <MapPin className="text-brand" />
@@ -74,7 +70,9 @@ function DistanceDropdown({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="min-w-52">
         <DropdownMenuGroup>
-          <DropdownMenuLabel>From your search location</DropdownMenuLabel>
+          <DropdownMenuLabel className={cn(needsAddress && 'max-w-60 whitespace-normal text-sm font-medium text-ink')}>
+            {needsAddress ? 'Search an address to filter by distance' : 'From your search location'}
+          </DropdownMenuLabel>
         </DropdownMenuGroup>
         <DropdownMenuRadioGroup
           value={value == null ? 'any' : String(value)}
@@ -83,9 +81,11 @@ function DistanceDropdown({
             onChange(Number.isFinite(miles) && miles > 0 ? miles : null)
           }}
         >
-          <DropdownMenuRadioItem value="any">Any distance</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="any" disabled={needsAddress}>
+            Any distance
+          </DropdownMenuRadioItem>
           {DISTANCES.map((d) => (
-            <DropdownMenuRadioItem key={d} value={String(d)}>
+            <DropdownMenuRadioItem key={d} value={String(d)} disabled={needsAddress}>
               Within {d} {d === 1 ? 'mile' : 'miles'}
             </DropdownMenuRadioItem>
           ))}
@@ -234,7 +234,7 @@ export function FilterBar({
             onFilters({ ...filters, levels, grades: toggle(filters.grades, id) })
           }}
         />
-        <DistanceDropdown value={filters.distance} disabled={!hasOrigin} onChange={(distance) => onFilters({ ...filters, distance })} />
+        <DistanceDropdown value={filters.distance} needsAddress={!hasOrigin} onChange={(distance) => onFilters({ ...filters, distance })} />
         <CostDropdown value={filters.cost} onChange={(cost) => onFilters({ ...filters, cost })} />
         {pills.map((p) => (
           <Button key={p} variant="outline" className={pill}>
