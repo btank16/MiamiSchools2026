@@ -14,7 +14,7 @@ const backend = defineBackend({
   schoolsApi,
 });
 
-// REST API in front of the schools-api Lambda, which proxies GreatSchools and Google Places.
+// REST API in front of the schools-api Lambda, which proxies GreatSchools, Google Places and Miami-Dade County GIS.
 const apiStack = backend.createStack('schools-api-stack');
 
 const restApi = new RestApi(apiStack, 'SchoolsRestApi', {
@@ -43,6 +43,7 @@ restApi.root.addResource('usage').addMethod('GET', integration);
 const places = restApi.root.addResource('places');
 places.addResource('autocomplete').addMethod('GET', integration);
 places.addResource('{placeId}').addMethod('GET', integration);
+restApi.root.addResource('address').addResource('report').addMethod('GET', integration);
 
 // Exposed to the frontend via amplify_outputs.json -> custom.API
 backend.addOutput({

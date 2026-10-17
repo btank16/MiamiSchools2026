@@ -1,6 +1,7 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { GooglePlacesClient, GooglePlacesError } from './googleplaces';
 import { GreatSchoolsClient, GreatSchoolsError, type FilterParams, type LevelCode, type SchoolType } from './greatschools';
+import { MiamiDadeGisClient, MiamiDadeGisError } from './miamidade';
 
 // Routes (all GET):
 //   /schools/nearby?lat=&lon=[&distance=]   schools nearest a coordinate
@@ -9,6 +10,8 @@ import { GreatSchoolsClient, GreatSchoolsError, type FilterParams, type LevelCod
 //   /usage                                  GreatSchools quota for the current key
 //   /places/autocomplete?input=[&session=]  address suggestions (Google Places)
 //   /places/{placeId}[?session=]            address + coordinates for a suggestion
+//   /address/report?lat=&lon=[&radius=&limit=]  Miami-Dade County data for a point: zoned schools,
+//                                           School Board district, nearby schools/daycares/clinics
 // Shared school list filters: type=public,charter,private  level=e,m,h  limit=1-50  page=0+
 
 const SCHOOL_TYPES: SchoolType[] = ['public', 'charter', 'private'];
@@ -55,6 +58,15 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
     if (path === '/usage') return respond(200, await greatSchools().getUsage());
 
+    if (path === '/address/report') {
+      return respond(200, await miamiDade.getAddressReport({
+        lat: parseNumber(query, 'lat', { required: true, min: -90, max: 90 })!,
+        lon: parseNumber(query, 'lon', { required: true, min: -180, max: 180 })!,
+        radiusMiles: parseNumber(query, 'radius', { min: 0.25, max: 5 }) ?? 2,
+        limit: parseNumber(query, 'limit', { min: 1, max: 50, integer: true }) ?? 10,
+      }));
+    }
+
     // Google Places results may not be cached under Google's terms, so these skip Cache-Control.
     if (path === '/places/autocomplete') {
       const input = query.input?.trim() ?? '';
@@ -91,10 +103,17 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       if (err.status === 401 || err.status === 403) return respond(502, { error: 'Google Places rejected the API key' });
       return respond(502, { error: 'Google Places request failed' });
     }
+    if (err instanceof MiamiDadeGisError) {
+      console.error(err.message);
+      return respond(502, { error: 'Miami-Dade County GIS request failed' });
+    }
     console.error(err);
     return respond(500, { error: 'Internal server error' });
   }
 };
+
+// Module scope so warm Lambda containers reuse its cached school directory.
+const miamiDade = new MiamiDadeGisClient();
 
 function greatSchools(): GreatSchoolsClient {
   const apiKey = process.env.GREATSCHOOLS_API_KEY;

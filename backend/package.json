@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "private": true,
-  "description": "Miami Schools API: proxies the GreatSchools NearbySchools API",
+  "description": "Miami Schools API: proxies GreatSchools, Google Places and Miami-Dade County GIS",
   "type": "commonjs",
   "scripts": {
     "dev": "node --env-file-if-exists=.env --watch --import tsx scripts/dev-server.ts",
