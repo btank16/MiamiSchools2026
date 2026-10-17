@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Map, { Layer, Marker, NavigationControl, Source, type MapLayerMouseEvent, type MapRef } from 'react-map-gl/maplibre'
-import { setWorkerUrl, type GeoJSONSource } from 'maplibre-gl'
+import { setWorkerUrl, type ExpressionSpecification, type GeoJSONSource } from 'maplibre-gl'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { Check, Home, MapPin } from 'lucide-react'
+import { Check, Group, Home, MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Origin, Place } from './data'
 import { PlacePopup } from './PlacePopup'
@@ -26,8 +26,8 @@ const INK = '#0A0F1C'
 const DOT = '#2256BB'
 const CLUSTER = '#08354A'
 
-// One small dot per place, drawn by the map itself. Dots that are close together merge into a numbered
-// circle that splits as you zoom in, so thousands of places stay readable.
+// One small dot per place, drawn by the map itself. By default every place shows on its own; the
+// "Group nearby" switch merges close dots into a numbered circle that splits as you zoom in.
 const CLUSTER_MAX_ZOOM = 13
 
 export function MapPanel({
@@ -48,6 +48,7 @@ export function MapPanel({
   const [refresh, setRefresh] = useState(true)
   const [selected, setSelected] = useState<Place | null>(null)
   const [hovering, setHovering] = useState(false)
+  const [grouped, setGrouped] = useState(false)
 
   // react-map-gl's default export shadows the global Map
   const byId = useMemo(() => new globalThis.Map(places.map((p) => [p.id, p] as const)), [places])
@@ -76,6 +77,8 @@ export function MapPanel({
     map.current?.fitBounds([[w, s], [e, n]], { padding: 40, duration: 900 })
   }, [loaded, ring])
 
+  const sel: ExpressionSpecification = ['==', ['get', 'id'], shownSelected?.id ?? '']
+
   const onClick = (e: MapLayerMouseEvent) => {
     const feature = e.features?.[0]
     if (feature?.properties?.cluster) {
@@ -98,7 +101,7 @@ export function MapPanel({
         mapStyle={STYLE}
         style={{ width: '100%', height: '100%' }}
         attributionControl={false}
-        interactiveLayerIds={loaded ? ['place-clusters', 'place-dots', 'place-zoned'] : []}
+        interactiveLayerIds={loaded ? (grouped ? ['place-clusters', 'place-dots', 'place-zoned'] : ['place-single', 'place-zoned']) : []}
         cursor={hovering ? 'pointer' : undefined}
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
@@ -129,10 +132,12 @@ export function MapPanel({
         )}
         {loaded && (
           <>
+            {/* clustering is fixed when a source is created, so each mode has its own source and the switch shows one */}
             <Source id="places" type="geojson" data={points} cluster clusterRadius={44} clusterMaxZoom={CLUSTER_MAX_ZOOM}>
               <Layer
                 id="place-clusters"
                 type="circle"
+                layout={{ visibility: grouped ? 'visible' : 'none' }}
                 filter={['has', 'point_count']}
                 paint={{
                   'circle-color': CLUSTER,
@@ -146,6 +151,7 @@ export function MapPanel({
                 type="symbol"
                 filter={['has', 'point_count']}
                 layout={{
+                  visibility: grouped ? 'visible' : 'none',
                   'text-field': ['get', 'point_count_abbreviated'],
                   'text-font': ['Noto Sans Bold'],
                   'text-size': 12,
@@ -156,10 +162,25 @@ export function MapPanel({
               <Layer
                 id="place-dots"
                 type="circle"
+                layout={{ visibility: grouped ? 'visible' : 'none' }}
                 filter={['!', ['has', 'point_count']]}
                 paint={{
-                  'circle-color': ['case', ['==', ['get', 'id'], shownSelected?.id ?? ''], INK, DOT],
-                  'circle-radius': ['case', ['==', ['get', 'id'], shownSelected?.id ?? ''], 8, 5],
+                  'circle-color': ['case', sel, INK, DOT],
+                  'circle-radius': ['case', sel, 8, 5],
+                  'circle-stroke-color': '#ffffff',
+                  'circle-stroke-width': 1.5,
+                }}
+              />
+            </Source>
+            <Source id="places-single" type="geojson" data={points}>
+              <Layer
+                id="place-single"
+                type="circle"
+                layout={{ visibility: grouped ? 'none' : 'visible' }}
+                paint={{
+                  'circle-color': ['case', sel, INK, DOT],
+                  // dots start small when zoomed out so thousands of them overlap less
+                  'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, ['case', sel, 5, 2.5], 12, ['case', sel, 7, 4], 15, ['case', sel, 9, 6]],
                   'circle-stroke-color': '#ffffff',
                   'circle-stroke-width': 1.5,
                 }}
@@ -198,6 +219,18 @@ export function MapPanel({
 
       <button className="absolute left-5 top-5 flex h-10 items-center gap-2 rounded-md border border-line bg-white px-3 text-sm font-medium shadow-sm">
         <MapPin className="size-4 text-brand" /> Points of interest
+      </button>
+
+      <button
+        aria-pressed={grouped}
+        onClick={() => setGrouped(!grouped)}
+        title="Merge nearby schools into numbered circles"
+        className={cn(
+          'absolute bottom-[104px] right-2.5 flex h-9 items-center gap-2 rounded-md border bg-white px-3 text-sm font-medium shadow-md',
+          grouped ? 'border-brand bg-brand/10 text-brand' : 'border-line text-ink hover:bg-muted',
+        )}
+      >
+        <Group className="size-4" /> Group nearby
       </button>
 
       <label className="absolute bottom-8 left-5 flex cursor-pointer items-center gap-3 rounded-md border border-line bg-white px-4 py-3 text-base font-medium shadow-md">
