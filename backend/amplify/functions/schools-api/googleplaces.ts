@@ -14,6 +14,10 @@ const AUTOCOMPLETE_FIELDS = [
 ].join(',');
 const DETAILS_FIELDS = 'id,formattedAddress,addressComponents,location,types';
 
+// Roughly the middle of the county's built-up area; 50 km is the largest bias circle Google accepts.
+const MIAMI_DADE_CENTER = { latitude: 25.68, longitude: -80.35 };
+const MAX_BIAS_RADIUS_METERS = 50000;
+
 export interface PlaceSuggestion {
   placeId: string;
   text: string;
@@ -55,6 +59,8 @@ export class GooglePlacesClient {
         sessionToken,
         // GreatSchools only covers US schools.
         includedRegionCodes: ['us'],
+        // Rank Miami-Dade addresses first without ruling out the rest of the US.
+        locationBias: { circle: { center: MIAMI_DADE_CENTER, radius: MAX_BIAS_RADIUS_METERS } },
         languageCode: 'en',
         regionCode: 'us',
       }),

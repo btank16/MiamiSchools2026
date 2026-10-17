@@ -1,4 +1,5 @@
-import { Award, Bell, ChevronDown, MapPin, SlidersHorizontal } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import { ArrowUpDown, Award, Bell, ChevronDown, MapPin, SlidersHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -11,21 +12,61 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import { DISTANCES, LEVELS, TYPES, gradeOptions, levelOfGrade, type Filters } from './filters'
+import { DISTANCES, LEVELS, SORTS, TYPES, gradeOptions, levelOfGrade, type Filters, type Sort } from './filters'
 
 export type View = 'list' | 'split' | 'map'
 
 // placeholders until their data exists
-const pills = ['Programs', 'Cost']
+const pills = ['Programs']
 
 const pill = 'h-10 rounded-md px-3 text-[15px] font-medium text-ink'
 
-function DistanceDropdown({ value, onChange }: { value: number | null; onChange: (v: number | null) => void }) {
+function SortDropdown({ value, hasOrigin, onChange }: { value: Sort; hasOrigin: boolean; onChange: (s: Sort) => void }) {
+  const current = SORTS.find((s) => s.id === value)
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={<Button variant="outline" className={cn(pill, value !== 'default' && 'border-primary bg-primary/10 text-primary')} />}
+      >
+        <ArrowUpDown />
+        {value === 'default' ? 'Sort by' : `Sort: ${current?.label}`}
+        <ChevronDown className="size-3.5!" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-56">
+        <DropdownMenuRadioGroup value={value} onValueChange={(v) => onChange(v as Sort)}>
+          {SORTS.map((s) => (
+            <DropdownMenuRadioItem key={s.id} value={s.id} disabled={s.id === 'distance' && !hasOrigin}>
+              {s.label}
+              {s.id === 'distance' && !hasOrigin && <span className="ml-2 whitespace-nowrap text-xs text-muted-foreground">search an address</span>}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+function DistanceDropdown({
+  value,
+  disabled,
+  onChange,
+}: {
+  value: number | null
+  disabled: boolean
+  onChange: (v: number | null) => void
+}) {
   const active = value != null
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<Button variant="outline" className={cn(pill, active && 'border-primary bg-primary/10 text-primary')} />}
+        render={
+          <Button
+            variant="outline"
+            disabled={disabled}
+            title={disabled ? 'Search an address first' : undefined}
+            className={cn(pill, active && 'border-primary bg-primary/10 text-primary')}
+          />
+        }
       >
         <MapPin className="text-brand" />
         {active ? `Within ${value} mi` : 'Distance'}
@@ -106,15 +147,37 @@ export function FilterBar({
   onView,
   filters,
   onFilters,
+  sort,
+  onSort,
+  hasOrigin,
 }: {
   view: View
   onView: (v: View) => void
   filters: Filters
   onFilters: (f: Filters) => void
+  sort: Sort
+  onSort: (s: Sort) => void
+  hasOrigin: boolean // distance needs a searched address to measure from
 }) {
+  const bar = useRef<HTMLDivElement>(null)
+  // the bar grows when it wraps, so publish the header height for the content below it to offset by
+  useEffect(() => {
+    const el = bar.current
+    if (!el) return
+    const publish = () => document.documentElement.style.setProperty('--header-h', `${70 + el.offsetHeight}px`)
+    publish()
+    const watcher = new ResizeObserver(publish)
+    watcher.observe(el)
+    return () => watcher.disconnect()
+  }, [])
   return (
-    <div className="fixed inset-x-0 top-[70px] z-30 flex h-[63px] items-center justify-between gap-4 border-b border-line bg-white px-6">
-      <div className="flex min-w-0 items-center gap-2 overflow-x-auto [scrollbar-width:none]">
+    <div
+      ref={bar}
+      className="fixed inset-x-0 top-[70px] z-30 flex min-h-[63px] flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-line bg-white px-6 py-2"
+    >
+      {/* buttons wrap onto a second row when space runs out, so none is ever cut off */}
+      <div className="flex min-w-0 flex-wrap items-center gap-2">
+      <div className="contents">
         <FilterDropdown
           label="Level"
           options={LEVELS.map((l) => ({ id: l.id, label: l.label }))}
@@ -144,7 +207,7 @@ export function FilterBar({
             onFilters({ ...filters, levels, grades: toggle(filters.grades, id) })
           }}
         />
-        <DistanceDropdown value={filters.distance} onChange={(distance) => onFilters({ ...filters, distance })} />
+        <DistanceDropdown value={filters.distance} disabled={!hasOrigin} onChange={(distance) => onFilters({ ...filters, distance })} />
         {pills.map((p) => (
           <Button key={p} variant="outline" className={pill}>
             {p}
@@ -155,16 +218,17 @@ export function FilterBar({
           <Award />
           Highest rated
         </Button>
-        <Button variant="ghost" className={pill}>
+      </div>
+        <Button variant="outline" className={cn(pill, 'shrink-0')}>
           <SlidersHorizontal />
           More
         </Button>
       </div>
 
       <div className="flex shrink-0 items-center gap-2">
-        <Button variant="outline" className={cn(pill, 'max-md:hidden')}>
+        <SortDropdown value={sort} hasOrigin={hasOrigin} onChange={onSort} />
+        <Button variant="outline" aria-label="Save search" title="Save search" className={cn(pill, 'w-10 px-0 max-md:hidden')}>
           <Bell />
-          Save search
         </Button>
         <div role="group" aria-label="View" className="flex overflow-hidden rounded-md border border-border">
           {(['list', 'split', 'map'] as const).map((v) => (
