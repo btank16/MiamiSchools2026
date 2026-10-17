@@ -9,18 +9,18 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-bar">
+    <footer className="bg-surface-dark text-on-dark">
       <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
-        <div className="flex items-start gap-2 text-xl font-bold text-deep">
-          <School className="size-7 text-brand" /> School Navigator
+        <div className="flex items-start gap-2 text-xl font-semibold">
+          <School className="size-7" aria-hidden="true" /> School Navigator
         </div>
         {columns.map((c) => (
           <div key={c.title}>
-            <h4 className="mb-3 text-sm font-bold uppercase tracking-wide">{c.title}</h4>
-            <ul className="space-y-2 text-sm text-neutral-600">
+            <h4 className="mb-3 text-sm font-semibold">{c.title}</h4>
+            <ul className="space-y-2 text-sm text-on-dark-muted">
               {c.links.map((l) => (
                 <li key={l}>
-                  <a href="#" className="hover:text-ink hover:underline">
+                  <a href="#" className="hover:text-on-dark hover:underline">
                     {l}
                   </a>
                 </li>
@@ -29,7 +29,7 @@ export function Footer() {
           </div>
         ))}
       </div>
-      <div className="border-t border-line py-4 text-center text-xs text-neutral-500">
+      <div className="border-t border-white/15 py-4 text-center text-xs text-on-dark-muted">
         © 2026 School Navigator. Data from Miami-Dade County, Florida DCF and Florida DOE.
       </div>
     </footer>
