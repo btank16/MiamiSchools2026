@@ -64,9 +64,9 @@ const HEAD_START_PROGRAM: Record<string, string> = {
   'delegate-agency': 'Head Start, run by a delegate agency',
 }
 
-function facts(place: Place, origin: Origin) {
+function facts(place: Place, origin: Origin | null) {
   const list: { icon: typeof MapPin; title: string; text: string }[] = []
-  if (place.zoned.length) {
+  if (place.zoned.length && origin) {
     list.push({ icon: MapPin, title: zonedLabel(place.zoned), text: `${origin.formattedAddress} is in this school's attendance zone.` })
   }
   const enrollment = enrollmentText(place)
@@ -189,7 +189,7 @@ function SourceTable({ title, subtitle, record }: { title: string; subtitle: str
   )
 }
 
-export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Origin; onBack: () => void }) {
+export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Origin | null; onBack: () => void }) {
   const [liked, setLiked] = useState(false)
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -227,7 +227,7 @@ export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Or
             {city && ` in ${city}, Florida`}
           </h2>
           <p className="mt-1 text-neutral-600">
-            {[place.grades, enrollment, miles(place.distanceMiles)].filter(Boolean).join(' · ')}
+            {[place.grades, enrollment, place.distanceMiles != null && miles(place.distanceMiles)].filter(Boolean).join(' · ')}
           </p>
           {(place.zoned.length > 0 || place.ratingBand) && (
             <p className="mt-3 flex flex-wrap items-center gap-2">
@@ -258,27 +258,34 @@ export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Or
           <Divider />
           <h2 className="mb-1 text-[22px] font-semibold">Where it is</h2>
           <p className="mb-5 text-neutral-600">
-            {place.address} · {miles(place.distanceMiles)} from {origin.street ?? origin.formattedAddress}
+            {place.address}
+            {origin && place.distanceMiles != null && <> · {miles(place.distanceMiles)} from {origin.street ?? origin.formattedAddress}</>}
           </p>
           <div className="h-[380px] overflow-hidden rounded-xl border border-line">
             <Map
-              initialViewState={{
-                bounds: [
-                  [Math.min(place.lngLat[0], origin.lon), Math.min(place.lngLat[1], origin.lat)],
-                  [Math.max(place.lngLat[0], origin.lon), Math.max(place.lngLat[1], origin.lat)],
-                ],
-                fitBoundsOptions: { padding: 70, maxZoom: 15 },
-              }}
+              initialViewState={
+                origin
+                  ? {
+                      bounds: [
+                        [Math.min(place.lngLat[0], origin.lon), Math.min(place.lngLat[1], origin.lat)],
+                        [Math.max(place.lngLat[0], origin.lon), Math.max(place.lngLat[1], origin.lat)],
+                      ],
+                      fitBoundsOptions: { padding: 70, maxZoom: 15 },
+                    }
+                  : { longitude: place.lngLat[0], latitude: place.lngLat[1], zoom: 14 }
+              }
               mapStyle={STYLE}
               style={{ width: '100%', height: '100%' }}
               attributionControl={false}
               scrollZoom={false}
             >
-              <Marker longitude={origin.lon} latitude={origin.lat}>
-                <span className="grid size-8 place-items-center rounded-full border-2 border-white bg-ink text-white shadow">
-                  <Home className="size-4" />
-                </span>
-              </Marker>
+              {origin && (
+                <Marker longitude={origin.lon} latitude={origin.lat}>
+                  <span className="grid size-8 place-items-center rounded-full border-2 border-white bg-ink text-white shadow">
+                    <Home className="size-4" />
+                  </span>
+                </Marker>
+              )}
               <Marker longitude={place.lngLat[0]} latitude={place.lngLat[1]}>
                 <span className="grid size-12 place-items-center rounded-full bg-brand/20">
                   <span className="grid size-8 place-items-center rounded-full bg-brand text-white shadow">

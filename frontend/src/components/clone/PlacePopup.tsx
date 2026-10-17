@@ -42,8 +42,7 @@ export function PlacePopup({ place, onClose, onOpen }: { place: Place; onClose: 
           <p className="text-sm">
             {place.kind}
             {place.grades && <><span className="mx-1 text-neutral-300">|</span>{place.grades}</>}
-            <span className="mx-1 text-neutral-300">|</span>
-            {miles(place.distanceMiles)}
+            {place.distanceMiles != null && <><span className="mx-1 text-neutral-300">|</span>{miles(place.distanceMiles)}</>}
           </p>
           <div className="flex items-center justify-between gap-3 pt-2">
             {place.ratingBand ? <RatingChip band={place.ratingBand} /> : <span />}

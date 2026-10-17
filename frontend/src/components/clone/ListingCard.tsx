@@ -161,7 +161,7 @@ export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Pla
       <div className="space-y-2 px-4 pb-5 pt-3">
         <p className="text-sm">{place.address}</p>
         <p className="flex flex-wrap items-center gap-2 pt-1 text-sm font-bold">
-          {miles(place.distanceMiles)}
+          {place.distanceMiles != null && miles(place.distanceMiles)}
           <Chip dark>{place.kind}</Chip>
           {place.grades && <Chip dark>{place.grades}</Chip>}
           {place.ratingBand && <RatingChip band={place.ratingBand} />}
@@ -191,9 +191,11 @@ export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place
     <article className="cursor-pointer overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
       <Photo place={place} className="h-[160px]">
         <Save name={place.name} />
-        <span className="absolute bottom-3 right-3 z-10 rounded-full bg-ink/70 px-2 py-0.5 text-xs text-white">
-          {miles(place.distanceMiles)}
-        </span>
+        {place.distanceMiles != null && (
+          <span className="absolute bottom-3 right-3 z-10 rounded-full bg-ink/70 px-2 py-0.5 text-xs text-white">
+            {miles(place.distanceMiles)}
+          </span>
+        )}
       </Photo>
       <div className="space-y-1.5 px-4 pb-4 pt-3">
         {place.ratingBand && (

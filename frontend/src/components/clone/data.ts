@@ -1,4 +1,5 @@
 import type { Address, AddressReport, NearbySchools, School } from '@/lib/api'
+import raw from '@/data/places.json'
 import { milesBetween, type PlaceType } from './filters'
 
 export type ZoneLevel = 'elementary' | 'middle' | 'high'
@@ -16,7 +17,7 @@ export type Place = {
   kind: PlaceType
   grades: string | null // "PK–5", "K–12", "Infant–PK"
   lngLat: [number, number]
-  distanceMiles: number // from the searched address
+  distanceMiles: number | null // from the searched address; null when no address was searched
   zoned: ZoneLevel[] // attendance zones this school serves for the searched address
   ratingBand: string | null // GreatSchools: "Above average", "Average", "Below average"
   summary: string | null
@@ -89,7 +90,7 @@ export function buildPlaces(origin: Origin, gs: NearbySchools | null, report: Ad
     }
   }
   places.push(...county.filter((p) => !merged.has(p)))
-  return places.sort((a, b) => a.distanceMiles - b.distanceMiles)
+  return places.sort((a, b) => (a.distanceMiles ?? 0) - (b.distanceMiles ?? 0))
 }
 
 export function coverageOf(gs: NearbySchools | null, report: AddressReport | null): Coverage {
@@ -275,3 +276,28 @@ function hueOf(id: string): number {
   for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 360
   return h
 }
+
+type DirectoryRecord = { id: string; name: string; address: string; kind: string; grades: string; lngLat: [number, number]; hue: number; phone?: string; website?: string }
+
+// Every place we know about, shown before any address is searched (data/build_frontend_data.py builds the file).
+// There is no distance, zoned school or rating until an address is searched.
+export const directory: Place[] = (raw as DirectoryRecord[]).map((r) => ({
+  id: r.id,
+  name: r.name,
+  address: r.address,
+  kind: r.kind as PlaceType,
+  grades: normalizeGrades(r.grades),
+  lngLat: r.lngLat,
+  distanceMiles: null,
+  zoned: [],
+  ratingBand: null,
+  summary: null,
+  phone: r.phone ?? null,
+  email: null,
+  website: r.website ?? null,
+  greatSchoolsUrl: null,
+  enrollment: null,
+  capacity: null,
+  hue: r.hue,
+  sources: {},
+}))

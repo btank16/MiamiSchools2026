@@ -76,8 +76,31 @@ export function matches(p: Place, f: Filters): boolean {
     const [lo, hi] = gradeRange(p.grades)
     if (!f.grades.some((g) => rank(g) >= lo && rank(g) <= hi)) return false
   }
-  if (f.distance != null && p.distanceMiles > f.distance) return false
+  if (f.distance != null && (p.distanceMiles == null || p.distanceMiles > f.distance)) return false
   return true
 }
 
 export const isFiltering = (f: Filters) => f.types.length + f.levels.length + f.grades.length > 0 || f.distance != null
+
+export const SORTS = [
+  { id: 'default', label: 'Default' },
+  { id: 'distance', label: 'Distance' },
+  { id: 'rating', label: 'Rating' },
+  { id: 'name', label: 'Name (A–Z)' },
+] as const
+export type Sort = (typeof SORTS)[number]['id']
+
+const BAND_RANK: Record<string, number> = { 'Above average': 0, Average: 1, 'Below average': 2 }
+
+// reorders a copy; "default" keeps the order the data came in (nearest first once an address is searched)
+export function sortPlaces(places: Place[], sort: Sort): Place[] {
+  if (sort === 'default') return places
+  const byName = (a: Place, b: Place) => a.name.localeCompare(b.name)
+  const key: Record<Exclude<Sort, 'default'>, (a: Place, b: Place) => number> = {
+    distance: (a, b) => (a.distanceMiles ?? Infinity) - (b.distanceMiles ?? Infinity) || byName(a, b),
+    // places GreatSchools has not rated go last
+    rating: (a, b) => (BAND_RANK[a.ratingBand ?? ''] ?? 3) - (BAND_RANK[b.ratingBand ?? ''] ?? 3) || byName(a, b),
+    name: byName,
+  }
+  return [...places].sort(key[sort])
+}
