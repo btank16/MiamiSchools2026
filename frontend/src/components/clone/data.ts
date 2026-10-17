@@ -1,5 +1,6 @@
 import type { Address, AddressReport, NearbySchools, School } from '@/lib/api'
 import raw from '@/data/places.json'
+import { isRetired, tuitionFor, type Tuition } from '@/lib/tuition'
 import { milesBetween, type PlaceType } from './filters'
 
 export type ZoneLevel = 'elementary' | 'middle' | 'high'
@@ -27,6 +28,7 @@ export type Place = {
   greatSchoolsUrl: string | null
   enrollment: number | null
   capacity: number | null
+  tuition: Tuition | null // annual; free for public, charter and Head Start; null when unknown
   hue: number // drives the placeholder photo gradient
   sources: Sources
 }
@@ -71,7 +73,9 @@ export function buildPlaces(origin: Origin, gs: NearbySchools | null, report: Ad
     for (const s of report.nearby.charterSchools.items) {
       addCounty(fromCounty(origin, s, 'Charter', 'Charter schools', s.grades), `charter:${s.id}`)
     }
-    for (const s of report.nearby.privateSchools.items) addCounty(fromCounty(origin, s, 'Private', 'Private schools', s.grades))
+    for (const s of report.nearby.privateSchools.items) {
+      if (!isRetired(s.id, s.name)) addCounty(fromCounty(origin, s, 'Private', 'Private schools', s.grades))
+    }
     // the county has no ages for these; both serve children under five
     for (const s of report.nearby.daycares.items) addCounty(fromCounty(origin, s, 'Childcare', 'Licensed daycares', 'Infant–PK'))
     for (const s of report.nearby.headStarts.items) addCounty(fromCounty(origin, s, 'Head Start', 'Head Start centers', 'Infant–PK'))
@@ -81,6 +85,7 @@ export function buildPlaces(origin: Origin, gs: NearbySchools | null, report: Ad
   const places: Place[] = []
   for (const school of gs?.schools ?? []) {
     if (school.lat == null || school.lon == null) continue
+    if (school.type === 'private' && isRetired(null, school.name)) continue
     const match = sameByStateId(school, byCountyId) ?? sameByName(school, county, merged)
     if (match && !merged.has(match)) {
       merged.add(match)
@@ -173,7 +178,8 @@ type CountyRecord = Located & {
 }
 
 function fromCounty(origin: Origin, r: CountyRecord, kind: PlaceType, dataset: string, grades: string | null): Place {
-  const id = 'id' in r && r.id ? `county:${kind}:${r.id}` : `county:${kind}:${r.name}:${r.lat},${r.lon}`
+  const countyId = 'id' in r && r.id ? String(r.id) : null
+  const id = countyId ? `county:${kind}:${countyId}` : `county:${kind}:${r.name}:${r.lat},${r.lon}`
   return {
     id,
     name: r.name,
@@ -192,6 +198,7 @@ function fromCounty(origin: Origin, r: CountyRecord, kind: PlaceType, dataset: s
     // county layers use 0 for "not reported"
     enrollment: r.enrollment || null,
     capacity: r.capacity ?? null,
+    tuition: tuitionFor(kind, countyId, r.name),
     hue: hueOf(id),
     sources: { county: { dataset, record: r } },
   }
@@ -201,11 +208,12 @@ const KIND_OF: Record<School['type'], PlaceType> = { public: 'Public', charter: 
 
 function fromGreatSchools(origin: Origin, s: School & Located): Place {
   const id = `gs:${s.universalId}`
+  const kind = KIND_OF[s.type] ?? 'Public'
   return {
     id,
     name: s.name,
     address: [s.street, s.city, [s.state, s.zip].filter(Boolean).join(' ')].filter(Boolean).join(', '),
-    kind: KIND_OF[s.type] ?? 'Public',
+    kind,
     grades: gradesFromList(s.grades),
     lngLat: [s.lon, s.lat],
     distanceMiles: milesBetween(origin.lngLat, [s.lon, s.lat]),
@@ -218,6 +226,8 @@ function fromGreatSchools(origin: Origin, s: School & Located): Place {
     greatSchoolsUrl: s.greatSchoolsUrl,
     enrollment: null,
     capacity: null,
+    // no county id here, so private schools are matched to the tuition data by name
+    tuition: tuitionFor(kind, null, s.name),
     hue: hueOf(id),
     sources: { greatSchools: s },
   }
@@ -279,25 +289,31 @@ function hueOf(id: string): number {
 
 type DirectoryRecord = { id: string; name: string; address: string; kind: string; grades: string; lngLat: [number, number]; hue: number; phone?: string; website?: string }
 
+// the county private-school id inside a directory id ("prv-123" -> "123")
+const privateId = (id: string) => (id.startsWith('prv-') ? id.slice(4) : null)
+
 // Every place we know about, shown before any address is searched (data/build_frontend_data.py builds the file).
 // There is no distance, zoned school or rating until an address is searched.
-export const directory: Place[] = (raw as DirectoryRecord[]).map((r) => ({
-  id: r.id,
-  name: r.name,
-  address: r.address,
-  kind: r.kind as PlaceType,
-  grades: normalizeGrades(r.grades),
-  lngLat: r.lngLat,
-  distanceMiles: null,
-  zoned: [],
-  ratingBand: null,
-  summary: null,
-  phone: r.phone ?? null,
-  email: null,
-  website: r.website ?? null,
-  greatSchoolsUrl: null,
-  enrollment: null,
-  capacity: null,
-  hue: r.hue,
-  sources: {},
-}))
+export const directory: Place[] = (raw as DirectoryRecord[])
+  .filter((r) => !(privateId(r.id) && isRetired(privateId(r.id), r.name)))
+  .map((r) => ({
+    id: r.id,
+    name: r.name,
+    address: r.address,
+    kind: r.kind as PlaceType,
+    grades: normalizeGrades(r.grades),
+    lngLat: r.lngLat,
+    distanceMiles: null,
+    zoned: [],
+    ratingBand: null,
+    summary: null,
+    phone: r.phone ?? null,
+    email: null,
+    website: r.website ?? null,
+    greatSchoolsUrl: null,
+    enrollment: null,
+    capacity: null,
+    tuition: tuitionFor(r.kind as PlaceType, privateId(r.id), r.name),
+    hue: r.hue,
+    sources: {},
+  }))
