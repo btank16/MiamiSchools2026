@@ -1,5 +1,11 @@
 # School data
 
+## After-school programs
+
+Search filters use this snapshot for listed after-school programs, care, clubs, paid/free status, and care until 5 or 6 p.m. Selected grades apply to the program's published scope as well as the school's grade span. All selected conditions must match the same program; unknown price/time does not establish a match. The school tuition filter is separate. The current snapshot has no explicitly free program records, so a free-program filter can correctly return zero recorded matches without claiming no free programs exist. Check filter combinations with `node school-data/check_program_filters.mjs`.
+
+`frontend/src/data/after-school.json` is a sourced snapshot of 164 program records matched to 112 school campuses. Rebuild with `python3 school-data/build_after_school_json.py`; the input package is `../docs/research/after-school-data-2026-10-17/` relative to this repository. Run `node school-data/check_after_school.mjs` to check campus joins, billing units and unknown values. The app matches catalog IDs plus street addresses, or strict name/address pairs for live results; nearby programs are not assigned to a school. The initial snapshot has eight detailed paid records, with unknown prices and schedules retained elsewhere. No listing means no verified information, not no programs. Sources, retrieval dates, eligibility, term dates and extra fees are available inside each program's detail view.
+
 Raw CSV exports kept as-is. Nothing else in the repo reads these files yet.
 
 ## `schools.csv`

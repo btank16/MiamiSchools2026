@@ -12,7 +12,7 @@ export function Footer() {
     <footer className="border-t border-line bg-bar">
       <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
         <div className="flex items-start gap-2 text-xl font-bold text-deep">
-          <School className="size-7 text-brand" /> School Navigator
+          <School className="size-7 text-brand" /> TheBridge
         </div>
         {columns.map((c) => (
           <div key={c.title}>
@@ -30,7 +30,7 @@ export function Footer() {
         ))}
       </div>
       <div className="border-t border-line py-4 text-center text-xs text-neutral-500">
-        © 2026 School Navigator. Data from Miami-Dade County, Florida DCF and Florida DOE.
+        © 2026 TheBridge. Data from Miami-Dade County, Florida DCF and Florida DOE.
       </div>
     </footer>
   )

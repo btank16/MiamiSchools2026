@@ -14,6 +14,7 @@ export function ResultsPanel({
   places,
   total,
   filtering,
+  academicFirst = false,
   onClear,
   onOpen,
   className,
@@ -22,12 +23,13 @@ export function ResultsPanel({
   places: Place[]
   total: number
   filtering: boolean
+  academicFirst?: boolean
   onClear: () => void
   onOpen: (p: Place) => void
   className?: string
 }) {
   return (
-    <section className={cn('px-6 pb-12 pt-8', className)}>
+    <section className={cn('px-6 pb-12 pt-5', className)}>
       {search.status === 'loading' && (
         <Notice icon={Loader2} spin>
           Looking up {search.label} in GreatSchools and Miami-Dade County data.
@@ -41,7 +43,7 @@ export function ResultsPanel({
       {search.status === 'done' ? (
         <Results key={search.origin.placeId} result={search} places={places} filtering={filtering} onClear={onClear} onOpen={onOpen} />
       ) : (
-        <Directory places={places} total={total} filtering={filtering} onClear={onClear} onOpen={onOpen} />
+        <Directory places={places} total={total} filtering={filtering} academicFirst={academicFirst} onClear={onClear} onOpen={onOpen} />
       )}
     </section>
   )
@@ -62,12 +64,14 @@ function Directory({
   places,
   total,
   filtering,
+  academicFirst,
   onClear,
   onOpen,
 }: {
   places: Place[]
   total: number
   filtering: boolean
+  academicFirst: boolean
   onClear: () => void
   onOpen: (p: Place) => void
 }) {
@@ -76,14 +80,13 @@ function Directory({
   useEffect(() => setCount(PAGE), [places])
   return (
     <>
-      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink">Schools and childcare in</p>
-      <h1 className="mt-2 text-[44px] font-bold leading-none tracking-tight">Miami, FL</h1>
-      <p className="mt-4 font-semibold">
+      <h1 className="text-[28px] font-bold leading-tight tracking-tight">Miami, FL</h1>
+      <p className="mt-1 text-sm font-semibold">
         {filtering ? `${places.length.toLocaleString()} of ${total.toLocaleString()} places match` : `${total.toLocaleString()} places available`}
       </p>
-      <p className="mt-1 text-sm text-neutral-600">Search an address to see distance and your zoned schools.</p>
+      <p className="mb-3 mt-1 text-xs text-neutral-600">{academicFirst ? 'State results first · Search an address for zoned schools.' : 'Search an address to see distance and your zoned schools.'}</p>
 
-      <h2 className="mb-6 mt-8 text-2xl font-bold">All places</h2>
+      <h2 className="sr-only">Schools and childcare</h2>
       {places.length === 0 && <NoMatches filtering={filtering} onClear={onClear} />}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {places.slice(0, count).map((p) => (

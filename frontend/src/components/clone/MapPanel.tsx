@@ -217,6 +217,7 @@ export function MapPanel({
         )}
       </Map>
 
+      {!shownSelected && <>
       <button className="absolute left-5 top-5 flex h-10 items-center gap-2 rounded-md border border-line bg-white px-3 text-sm font-medium shadow-sm">
         <MapPin className="size-4 text-brand" /> Points of interest
       </button>
@@ -245,6 +246,7 @@ export function MapPanel({
         <input type="checkbox" className="sr-only" checked={refresh} onChange={(e) => setRefresh(e.target.checked)} />
         Refresh as I move map
       </label>
+      </>}
     </div>
   )
 }

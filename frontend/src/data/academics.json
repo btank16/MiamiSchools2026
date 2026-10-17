@@ -1,0 +1,6237 @@
+{
+  "source": {
+    "year": "2025–26",
+    "districtNumber": "13",
+    "title": "2025-26 School Grades as of September 1, 2026",
+    "url": "https://www.fldoe.org/file/18534/SchoolGrades26.xlsx",
+    "methodUrl": "https://www.fldoe.org/file/18534/SchoolGradesCalcGuide26.pdf",
+    "worksheet": "School Grades 2026",
+    "sha256": "12bbe3ef9c87b00df8d7560732179a65c93df412f6270097f32c30092d403588",
+    "headers": {
+      "A": "District Number",
+      "C": "School Number",
+      "E": "School Name",
+      "G": "English Language Arts Achievement",
+      "J": "Mathematics Achievement",
+      "V": "Grade 2026"
+    },
+    "schoolCount": 473,
+    "nullMeaning": "Missing, suppressed or not reported; never imputed as zero."
+  },
+  "schools": {
+    "0026": {
+      "schoolNumber": "0026",
+      "name": "BRIDGE PREP ACADEMY OF MIAMI GARDENS",
+      "schoolGrade": "C",
+      "math": 39,
+      "english": 47
+    },
+    "0041": {
+      "schoolNumber": "0041",
+      "name": "AIR BASE K-8 CENTER FOR INTERNATIONAL EDUCATION",
+      "schoolGrade": "A",
+      "math": 84,
+      "english": 86
+    },
+    "0070": {
+      "schoolNumber": "0070",
+      "name": "CORAL REEF MONTESSORI ACADEMY CHARTER SCHOOL",
+      "schoolGrade": "B",
+      "math": 61,
+      "english": 71
+    },
+    "0071": {
+      "schoolNumber": "0071",
+      "name": "EUGENIA B. THOMAS K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 69
+    },
+    "0072": {
+      "schoolNumber": "0072",
+      "name": "SUMMERVILLE ADVANTAGE ACADEMY",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 71
+    },
+    "0073": {
+      "schoolNumber": "0073",
+      "name": "MANDARIN LAKES K-8 ACADEMY",
+      "schoolGrade": "B",
+      "math": 58,
+      "english": 48
+    },
+    "0081": {
+      "schoolNumber": "0081",
+      "name": "LENORA BRAYNON SMITH ELEMENTARY",
+      "schoolGrade": "B",
+      "math": 51,
+      "english": 44
+    },
+    "0091": {
+      "schoolNumber": "0091",
+      "name": "BOB GRAHAM EDUCATION CENTER",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 75
+    },
+    "0092": {
+      "schoolNumber": "0092",
+      "name": "NORMAN S. EDELCUP/SUNNY ISLES BEACH K-8",
+      "schoolGrade": "A",
+      "math": 80,
+      "english": 75
+    },
+    "0100": {
+      "schoolNumber": "0100",
+      "name": "MATER ACADEMY",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 72
+    },
+    "0101": {
+      "schoolNumber": "0101",
+      "name": "ARCOLA LAKE ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 66,
+      "english": 49
+    },
+    "0102": {
+      "schoolNumber": "0102",
+      "name": "MIAMI COMMUNITY CHARTER SCHOOL",
+      "schoolGrade": "C",
+      "math": 46,
+      "english": 50
+    },
+    "0111": {
+      "schoolNumber": "0111",
+      "name": "MAYA ANGELOU ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 58,
+      "english": 39
+    },
+    "0121": {
+      "schoolNumber": "0121",
+      "name": "AUBURNDALE ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 66,
+      "english": 55
+    },
+    "0122": {
+      "schoolNumber": "0122",
+      "name": "DR. ROLANDO ESPINOSA K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 67,
+      "english": 63
+    },
+    "0125": {
+      "schoolNumber": "0125",
+      "name": "NORMA BUTLER BOSSARD ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 88,
+      "english": 74
+    },
+    "0161": {
+      "schoolNumber": "0161",
+      "name": "AVOCADO ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 70
+    },
+    "0201": {
+      "schoolNumber": "0201",
+      "name": "BANYAN ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 66
+    },
+    "0211": {
+      "schoolNumber": "0211",
+      "name": "DR. MANUEL C. BARREIRO ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 93,
+      "english": 85
+    },
+    "0231": {
+      "schoolNumber": "0231",
+      "name": "AVENTURA WATERWAYS K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 72,
+      "english": 72
+    },
+    "0241": {
+      "schoolNumber": "0241",
+      "name": "RUTH K. BROAD BAY HARBOR K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 86,
+      "english": 82
+    },
+    "0251": {
+      "schoolNumber": "0251",
+      "name": "ETHEL KOGER BECKHAM K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 88,
+      "english": 87
+    },
+    "0261": {
+      "schoolNumber": "0261",
+      "name": "BEL-AIRE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 72,
+      "english": 64
+    },
+    "0271": {
+      "schoolNumber": "0271",
+      "name": "BENT TREE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 84,
+      "english": 66
+    },
+    "0311": {
+      "schoolNumber": "0311",
+      "name": "GOULDS ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 52,
+      "english": 54
+    },
+    "0312": {
+      "schoolNumber": "0312",
+      "name": "MATER GARDENS ACADEMY",
+      "schoolGrade": "A",
+      "math": 83,
+      "english": 79
+    },
+    "0321": {
+      "schoolNumber": "0321",
+      "name": "BISCAYNE BEACH ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 64
+    },
+    "0332": {
+      "schoolNumber": "0332",
+      "name": "SOMERSET ACADEMY SILVER PALMS",
+      "schoolGrade": "A",
+      "math": 87,
+      "english": 82
+    },
+    "0339": {
+      "schoolNumber": "0339",
+      "name": "SOMERSET ACADEMY CHARTER ELEMENTARY SCHOOL (SOUTH HOMESTEAD)",
+      "schoolGrade": "A",
+      "math": 79,
+      "english": 72
+    },
+    "0341": {
+      "schoolNumber": "0341",
+      "name": "ARCHCREEK ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 61,
+      "english": 54
+    },
+    "0342": {
+      "schoolNumber": "0342",
+      "name": "PINECREST ACADEMY (SOUTH CAMPUS)",
+      "schoolGrade": "A",
+      "math": 85,
+      "english": 88
+    },
+    "0400": {
+      "schoolNumber": "0400",
+      "name": "RENAISSANCE ELEMENTARY CHARTER SCHOOL",
+      "schoolGrade": "A",
+      "math": 87,
+      "english": 81
+    },
+    "0401": {
+      "schoolNumber": "0401",
+      "name": "VAN E. BLANTON ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 64,
+      "english": 57
+    },
+    "0402": {
+      "schoolNumber": "0402",
+      "name": "SOMERSET ACADEMY CONTINENTAL",
+      "schoolGrade": "A",
+      "math": 83,
+      "english": 83
+    },
+    "0410": {
+      "schoolNumber": "0410",
+      "name": "ACADEMIR CHARTER SCHOOL WEST",
+      "schoolGrade": "A",
+      "math": 87,
+      "english": 87
+    },
+    "0412": {
+      "schoolNumber": "0412",
+      "name": "ACADEMIR CHARTER SCHOOL EAST AT DORAL",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 72
+    },
+    "0422": {
+      "schoolNumber": "0422",
+      "name": "ACADEMIR CHARTER SCHOOL EAST MIDDLE",
+      "schoolGrade": "A",
+      "math": 69,
+      "english": 64
+    },
+    "0441": {
+      "schoolNumber": "0441",
+      "name": "BLUE LAKES ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 78,
+      "english": 71
+    },
+    "0451": {
+      "schoolNumber": "0451",
+      "name": "BOWMAN ASHE/DOOLIN K-8 ACADEMY",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 71
+    },
+    "0461": {
+      "schoolNumber": "0461",
+      "name": "BRENTWOOD ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 68,
+      "english": 56
+    },
+    "0481": {
+      "schoolNumber": "0481",
+      "name": "JAMES H. BRIGHT ELEMENTARY/J.W. JOHNSON ELEMENTARY",
+      "schoolGrade": "B",
+      "math": 62,
+      "english": 44
+    },
+    "0510": {
+      "schoolNumber": "0510",
+      "name": "ARCHIMEDEAN ACADEMY",
+      "schoolGrade": "A",
+      "math": 91,
+      "english": 83
+    },
+    "0520": {
+      "schoolNumber": "0520",
+      "name": "SOMERSET ACADEMY",
+      "schoolGrade": "A",
+      "math": 90,
+      "english": 76
+    },
+    "0521": {
+      "schoolNumber": "0521",
+      "name": "BROADMOOR ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 54,
+      "english": 45
+    },
+    "0561": {
+      "schoolNumber": "0561",
+      "name": "W. J. BRYAN ELEMENTARY",
+      "schoolGrade": "B",
+      "math": 54,
+      "english": 55
+    },
+    "0600": {
+      "schoolNumber": "0600",
+      "name": "PINECREST PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 92,
+      "english": 85
+    },
+    "0641": {
+      "schoolNumber": "0641",
+      "name": "BUNCHE PARK ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 63,
+      "english": 68
+    },
+    "0651": {
+      "schoolNumber": "0651",
+      "name": "CAMPBELL DRIVE K-8 CENTER",
+      "schoolGrade": "B",
+      "math": 58,
+      "english": 47
+    },
+    "0661": {
+      "schoolNumber": "0661",
+      "name": "CARIBBEAN K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 66,
+      "english": 57
+    },
+    "0671": {
+      "schoolNumber": "0671",
+      "name": "CALUSA ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 90,
+      "english": 87
+    },
+    "0681": {
+      "schoolNumber": "0681",
+      "name": "CAROL CITY ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 51,
+      "english": 39
+    },
+    "0721": {
+      "schoolNumber": "0721",
+      "name": "GEORGE W. CARVER ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 96,
+      "english": 91
+    },
+    "0754": {
+      "schoolNumber": "0754",
+      "name": "SOMERSET PREPARATORY ACADEMY (HOMESTEAD)",
+      "schoolGrade": "B",
+      "math": 71,
+      "english": 64
+    },
+    "0761": {
+      "schoolNumber": "0761",
+      "name": "MIAMI BEACH FEINBERG/FISHER K-8",
+      "schoolGrade": "C",
+      "math": 55,
+      "english": 42
+    },
+    "0771": {
+      "schoolNumber": "0771",
+      "name": "DR. WILLIAM A. CHAPMAN ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 70,
+      "english": 57
+    },
+    "0801": {
+      "schoolNumber": "0801",
+      "name": "CITRUS GROVE K-8 CENTER",
+      "schoolGrade": "C",
+      "math": 39,
+      "english": 30
+    },
+    "0831": {
+      "schoolNumber": "0831",
+      "name": "CLAUDE PEPPER ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 68
+    },
+    "0841": {
+      "schoolNumber": "0841",
+      "name": "COCONUT GROVE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 88,
+      "english": 87
+    },
+    "0861": {
+      "schoolNumber": "0861",
+      "name": "JOHNNIE M PARRIS COLONIAL DRIVE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 73
+    },
+    "0881": {
+      "schoolNumber": "0881",
+      "name": "COMSTOCK ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 55,
+      "english": 32
+    },
+    "0950": {
+      "schoolNumber": "0950",
+      "name": "AVENTURA CITY OF EXCELLENCE SCHOOL",
+      "schoolGrade": "A",
+      "math": 94,
+      "english": 84
+    },
+    "0961": {
+      "schoolNumber": "0961",
+      "name": "CORAL GABLES PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 82,
+      "english": 84
+    },
+    "1000": {
+      "schoolNumber": "1000",
+      "name": "TRUE NORTH CLASSICAL ACADEMY",
+      "schoolGrade": "A",
+      "math": 91,
+      "english": 93
+    },
+    "1001": {
+      "schoolNumber": "1001",
+      "name": "CORAL PARK ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 76
+    },
+    "1010": {
+      "schoolNumber": "1010",
+      "name": "THE CHARTER SCHOOL AT WATERSTONE",
+      "schoolGrade": "A",
+      "math": 72,
+      "english": 71
+    },
+    "1014": {
+      "schoolNumber": "1014",
+      "name": "HIVE PREPARATORY SCHOOL",
+      "schoolGrade": "A",
+      "math": 89,
+      "english": 88
+    },
+    "1015": {
+      "schoolNumber": "1015",
+      "name": "ACADEMIR CHARTER SCHOOL PREPARATORY",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 71
+    },
+    "1017": {
+      "schoolNumber": "1017",
+      "name": "MATER ACADEMY OF INTERNATIONAL STUDIES",
+      "schoolGrade": "B",
+      "math": 68,
+      "english": 56
+    },
+    "1019": {
+      "schoolNumber": "1019",
+      "name": "TRUE NORTH CLASSICAL ACADEMY AT PINECREST",
+      "schoolGrade": "A",
+      "math": 93,
+      "english": 93
+    },
+    "1020": {
+      "schoolNumber": "1020",
+      "name": "YOUTH CO-OP CHARTER SCHOOL",
+      "schoolGrade": "B",
+      "math": 67,
+      "english": 65
+    },
+    "1024": {
+      "schoolNumber": "1024",
+      "name": "TRUE NORTH CLASSICAL ACADEMY AT GATEWAY",
+      "schoolGrade": "A",
+      "math": 92,
+      "english": 96
+    },
+    "1041": {
+      "schoolNumber": "1041",
+      "name": "CORAL REEF ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 82,
+      "english": 82
+    },
+    "1081": {
+      "schoolNumber": "1081",
+      "name": "CORAL TERRACE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 72,
+      "english": 61
+    },
+    "1121": {
+      "schoolNumber": "1121",
+      "name": "CORAL WAY K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 70,
+      "english": 71
+    },
+    "1161": {
+      "schoolNumber": "1161",
+      "name": "CRESTVIEW ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 66,
+      "english": 68
+    },
+    "1241": {
+      "schoolNumber": "1241",
+      "name": "CUTLER RIDGE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 63
+    },
+    "1281": {
+      "schoolNumber": "1281",
+      "name": "CYPRESS K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 68,
+      "english": 72
+    },
+    "1331": {
+      "schoolNumber": "1331",
+      "name": "DEVON AIRE K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 78,
+      "english": 76
+    },
+    "1361": {
+      "schoolNumber": "1361",
+      "name": "FREDERICK R. DOUGLASS ELEMENTARY",
+      "schoolGrade": "B",
+      "math": 65,
+      "english": 52
+    },
+    "1371": {
+      "schoolNumber": "1371",
+      "name": "MARJORY STONEMAN DOUGLAS ELEM",
+      "schoolGrade": "A",
+      "math": 79,
+      "english": 77
+    },
+    "1401": {
+      "schoolNumber": "1401",
+      "name": "DR. CHARLES R DREW K-8 CENTER",
+      "schoolGrade": "B",
+      "math": 52,
+      "english": 51
+    },
+    "1441": {
+      "schoolNumber": "1441",
+      "name": "PAUL LAURENCE DUNBAR K-8 CENTER",
+      "schoolGrade": "B",
+      "math": 59,
+      "english": 41
+    },
+    "1481": {
+      "schoolNumber": "1481",
+      "name": "JOHN G. DUPUIS ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 68
+    },
+    "1521": {
+      "schoolNumber": "1521",
+      "name": "AMELIA EARHART ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 68,
+      "english": 64
+    },
+    "1561": {
+      "schoolNumber": "1561",
+      "name": "EARLINGTON HEIGHTS ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 53,
+      "english": 54
+    },
+    "1601": {
+      "schoolNumber": "1601",
+      "name": "EDISON PARK K-8 CENTER",
+      "schoolGrade": "C",
+      "math": 63,
+      "english": 50
+    },
+    "1641": {
+      "schoolNumber": "1641",
+      "name": "EMERSON ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 87,
+      "english": 78
+    },
+    "1681": {
+      "schoolNumber": "1681",
+      "name": "LILLIE C. EVANS K-8 CENTER",
+      "schoolGrade": "B",
+      "math": 61,
+      "english": 44
+    },
+    "1691": {
+      "schoolNumber": "1691",
+      "name": "CHRISTINA M. EVE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 78,
+      "english": 80
+    },
+    "1721": {
+      "schoolNumber": "1721",
+      "name": "EVERGLADES K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 73,
+      "english": 64
+    },
+    "1761": {
+      "schoolNumber": "1761",
+      "name": "DAVID FAIRCHILD ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 81,
+      "english": 80
+    },
+    "1801": {
+      "schoolNumber": "1801",
+      "name": "FAIRLAWN ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 64,
+      "english": 64
+    },
+    "1811": {
+      "schoolNumber": "1811",
+      "name": "DANTE B. FASCELL ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 80,
+      "english": 80
+    },
+    "1841": {
+      "schoolNumber": "1841",
+      "name": "FLAGAMI ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 76,
+      "english": 63
+    },
+    "1881": {
+      "schoolNumber": "1881",
+      "name": "HENRY M. FLAGLER ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 61,
+      "english": 55
+    },
+    "1921": {
+      "schoolNumber": "1921",
+      "name": "FLAMINGO ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 66,
+      "english": 53
+    },
+    "2001": {
+      "schoolNumber": "2001",
+      "name": "FLORIDA CITY ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 53,
+      "english": 53
+    },
+    "2002": {
+      "schoolNumber": "2002",
+      "name": "ACADEMIR PREPARATORY ACADEMY",
+      "schoolGrade": "B",
+      "math": 72,
+      "english": 65
+    },
+    "2003": {
+      "schoolNumber": "2003",
+      "name": "BRIDGEPREP ACADEMY SOUTH",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 69
+    },
+    "2004": {
+      "schoolNumber": "2004",
+      "name": "INTEGRATED SCIENCE AND ASIAN CULTURE (ISAAC) ACADEMY",
+      "schoolGrade": "A",
+      "math": 93,
+      "english": 94
+    },
+    "2007": {
+      "schoolNumber": "2007",
+      "name": "SOMERSET ACADEMY ELEMENTARY SCHOOL (SOUTH MIAMI CAMPUS)",
+      "schoolGrade": "A",
+      "math": 96,
+      "english": 93
+    },
+    "2012": {
+      "schoolNumber": "2012",
+      "name": "SOMERSET ARTS ACADEMY",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 63
+    },
+    "2013": {
+      "schoolNumber": "2013",
+      "name": "BRIDGEPREP ACADEMY OF GREATER MIAMI",
+      "schoolGrade": "B",
+      "math": 59,
+      "english": 58
+    },
+    "2021": {
+      "schoolNumber": "2021",
+      "name": "GLORIA FLOYD ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 69,
+      "english": 68
+    },
+    "2022": {
+      "schoolNumber": "2022",
+      "name": "MATER BISCAYNE ACADEMY NORTH MIAMI ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 80,
+      "english": 77
+    },
+    "2031": {
+      "schoolNumber": "2031",
+      "name": "PINECREST GLADES ACADEMY",
+      "schoolGrade": "A",
+      "math": 87,
+      "english": 81
+    },
+    "2032": {
+      "schoolNumber": "2032",
+      "name": "ACADEMIR MIDDLE SCHOOL OF MATH AND SCIENCE",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 62
+    },
+    "2041": {
+      "schoolNumber": "2041",
+      "name": "BENJAMIN FRANKLIN K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 61,
+      "english": 61
+    },
+    "2060": {
+      "schoolNumber": "2060",
+      "name": "THEODORE R. AND THELMA A. GIBSON CHARTER SCHOOL",
+      "schoolGrade": "B",
+      "math": 47,
+      "english": 43
+    },
+    "2081": {
+      "schoolNumber": "2081",
+      "name": "FULFORD ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 61,
+      "english": 55
+    },
+    "2111": {
+      "schoolNumber": "2111",
+      "name": "HIALEAH GARDENS ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 68
+    },
+    "2151": {
+      "schoolNumber": "2151",
+      "name": "JACK DAVID GORDON ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 80,
+      "english": 77
+    },
+    "2161": {
+      "schoolNumber": "2161",
+      "name": "GOLDEN GLADES ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 65,
+      "english": 58
+    },
+    "2181": {
+      "schoolNumber": "2181",
+      "name": "JOELLA C. GOOD ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 84,
+      "english": 78
+    },
+    "2191": {
+      "schoolNumber": "2191",
+      "name": "SPANISH LAKE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 63
+    },
+    "2241": {
+      "schoolNumber": "2241",
+      "name": "GRATIGNY ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 69
+    },
+    "2261": {
+      "schoolNumber": "2261",
+      "name": "GREENGLADE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 71
+    },
+    "2281": {
+      "schoolNumber": "2281",
+      "name": "GREYNOLDS PARK ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 60,
+      "english": 64
+    },
+    "2321": {
+      "schoolNumber": "2321",
+      "name": "GULFSTREAM ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 67,
+      "english": 57
+    },
+    "2331": {
+      "schoolNumber": "2331",
+      "name": "CHARLES R HADLEY ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 72,
+      "english": 60
+    },
+    "2332": {
+      "schoolNumber": "2332",
+      "name": "KIPP MIAMI-LIBERTY CITY",
+      "schoolGrade": "C",
+      "math": 55,
+      "english": 49
+    },
+    "2341": {
+      "schoolNumber": "2341",
+      "name": "JOE HALL ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 73,
+      "english": 66
+    },
+    "2351": {
+      "schoolNumber": "2351",
+      "name": "ENEIDA M. HARTNER ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 58,
+      "english": 51
+    },
+    "2361": {
+      "schoolNumber": "2361",
+      "name": "HIALEAH ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 51,
+      "english": 57
+    },
+    "2371": {
+      "schoolNumber": "2371",
+      "name": "WEST HIALEAH GARDENS ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 68
+    },
+    "2401": {
+      "schoolNumber": "2401",
+      "name": "HIBISCUS ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 50,
+      "english": 60
+    },
+    "2441": {
+      "schoolNumber": "2441",
+      "name": "VIRGINIA A BOONE-HIGHLAND OAKS SCHOOL",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 72
+    },
+    "2501": {
+      "schoolNumber": "2501",
+      "name": "HOLMES ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 67,
+      "english": 46
+    },
+    "2511": {
+      "schoolNumber": "2511",
+      "name": "ZORA NEALE HURSTON ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 84,
+      "english": 78
+    },
+    "2521": {
+      "schoolNumber": "2521",
+      "name": "OLIVER HOOVER ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 84,
+      "english": 78
+    },
+    "2541": {
+      "schoolNumber": "2541",
+      "name": "HOWARD DRIVE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 81,
+      "english": 81
+    },
+    "2581": {
+      "schoolNumber": "2581",
+      "name": "MADIE IVES K-8 PREPARATORY ACADEMY",
+      "schoolGrade": "B",
+      "math": 59,
+      "english": 67
+    },
+    "2641": {
+      "schoolNumber": "2641",
+      "name": "KENDALE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 91,
+      "english": 85
+    },
+    "2651": {
+      "schoolNumber": "2651",
+      "name": "KENDALE LAKES ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 85,
+      "english": 80
+    },
+    "2661": {
+      "schoolNumber": "2661",
+      "name": "KENSINGTON PARK ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 55,
+      "english": 44
+    },
+    "2701": {
+      "schoolNumber": "2701",
+      "name": "KENWOOD K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 71
+    },
+    "2741": {
+      "schoolNumber": "2741",
+      "name": "KEY BISCAYNE K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 83,
+      "english": 82
+    },
+    "2781": {
+      "schoolNumber": "2781",
+      "name": "KINLOCH PARK ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 54,
+      "english": 57
+    },
+    "2801": {
+      "schoolNumber": "2801",
+      "name": "LAKE STEVENS ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 79,
+      "english": 65
+    },
+    "2821": {
+      "schoolNumber": "2821",
+      "name": "LAKEVIEW ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 73,
+      "english": 59
+    },
+    "2881": {
+      "schoolNumber": "2881",
+      "name": "LEEWOOD K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 82,
+      "english": 83
+    },
+    "2891": {
+      "schoolNumber": "2891",
+      "name": "WILLIAM H. LEHMAN ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 84,
+      "english": 77
+    },
+    "2901": {
+      "schoolNumber": "2901",
+      "name": "LEISURE CITY K-8 CENTER",
+      "schoolGrade": "C",
+      "math": 52,
+      "english": 49
+    },
+    "2911": {
+      "schoolNumber": "2911",
+      "name": "LINDA LENTIN K-8 CENTER",
+      "schoolGrade": "B",
+      "math": 57,
+      "english": 59
+    },
+    "2941": {
+      "schoolNumber": "2941",
+      "name": "LAURA C. SAUNDERS ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 61,
+      "english": 32
+    },
+    "2981": {
+      "schoolNumber": "2981",
+      "name": "LIBERTY CITY ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 64
+    },
+    "3000": {
+      "schoolNumber": "3000",
+      "name": "MATER INTERNATIONAL ACADEMY",
+      "schoolGrade": "C",
+      "math": 46,
+      "english": 52
+    },
+    "3001": {
+      "schoolNumber": "3001",
+      "name": "WEST LAKES PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 69,
+      "english": 65
+    },
+    "3002": {
+      "schoolNumber": "3002",
+      "name": "DOWNTOWN DORAL CHARTER ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 88,
+      "english": 86
+    },
+    "3003": {
+      "schoolNumber": "3003",
+      "name": "MATER PREPARATORY ACADEMY",
+      "schoolGrade": "C",
+      "math": 61,
+      "english": 43
+    },
+    "3021": {
+      "schoolNumber": "3021",
+      "name": "JESSE J. MCCRARY, JR. ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 69,
+      "english": 51
+    },
+    "3026": {
+      "schoolNumber": "3026",
+      "name": "DORAL INTERNATIONAL ACADEMY OF MATH AND SCIENCE",
+      "schoolGrade": "B",
+      "math": 60,
+      "english": 69
+    },
+    "3029": {
+      "schoolNumber": "3029",
+      "name": "DORAL ACADEMY OF TECHNOLOGY",
+      "schoolGrade": "A",
+      "math": 100,
+      "english": 99
+    },
+    "3030": {
+      "schoolNumber": "3030",
+      "name": "DORAL ACADEMY",
+      "schoolGrade": "A",
+      "math": 89,
+      "english": 87
+    },
+    "3031": {
+      "schoolNumber": "3031",
+      "name": "KENDALL SQUARE K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 80
+    },
+    "3032": {
+      "schoolNumber": "3032",
+      "name": "PALM GLADES PREPARATORY ACADEMY",
+      "schoolGrade": "B",
+      "math": 67,
+      "english": 63
+    },
+    "3033": {
+      "schoolNumber": "3033",
+      "name": "SOMERSET OAKS LEADERSHIP AND INNOVATION",
+      "schoolGrade": "B",
+      "math": 67,
+      "english": 62
+    },
+    "3034": {
+      "schoolNumber": "3034",
+      "name": "BRIDGEPREP ACADEMY OF VILLAGE GREEN",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 75
+    },
+    "3036": {
+      "schoolNumber": "3036",
+      "name": "BRIDGEPREP ACADEMY OF VILLAGE GREEN MIDDLE HIGH SCHOOL",
+      "schoolGrade": "C",
+      "math": 50,
+      "english": 52
+    },
+    "3041": {
+      "schoolNumber": "3041",
+      "name": "LORAH PARK ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 50,
+      "english": 56
+    },
+    "3051": {
+      "schoolNumber": "3051",
+      "name": "TOUSSAINT L'OUVERTURE ELEMENTARY",
+      "schoolGrade": "A",
+      "math": 61,
+      "english": 61
+    },
+    "3061": {
+      "schoolNumber": "3061",
+      "name": "LUDLAM ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 70,
+      "english": 65
+    },
+    "3100": {
+      "schoolNumber": "3100",
+      "name": "MATER ACADEMY EAST CHARTER SCHOOL",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 73
+    },
+    "3101": {
+      "schoolNumber": "3101",
+      "name": "FRANK CRAWFORD MARTIN K-8 CENTER",
+      "schoolGrade": "B",
+      "math": 63,
+      "english": 70
+    },
+    "3111": {
+      "schoolNumber": "3111",
+      "name": "WESLEY MATTHEWS ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 86,
+      "english": 77
+    },
+    "3141": {
+      "schoolNumber": "3141",
+      "name": "MEADOWLANE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 79,
+      "english": 64
+    },
+    "3181": {
+      "schoolNumber": "3181",
+      "name": "MELROSE ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 69,
+      "english": 44
+    },
+    "3191": {
+      "schoolNumber": "3191",
+      "name": "ADA MERRITT K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 94,
+      "english": 91
+    },
+    "3241": {
+      "schoolNumber": "3241",
+      "name": "MIAMI GARDENS ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 81,
+      "english": 60
+    },
+    "3261": {
+      "schoolNumber": "3261",
+      "name": "MIAMI HEIGHTS ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 53,
+      "english": 58
+    },
+    "3281": {
+      "schoolNumber": "3281",
+      "name": "MIAMI LAKES K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 72
+    },
+    "3341": {
+      "schoolNumber": "3341",
+      "name": "MIAMI SHORES ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 76
+    },
+    "3381": {
+      "schoolNumber": "3381",
+      "name": "MIAMI SPRINGS ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 65
+    },
+    "3421": {
+      "schoolNumber": "3421",
+      "name": "MARCUS A. MILAM K-8 CENTER",
+      "schoolGrade": "C",
+      "math": 60,
+      "english": 53
+    },
+    "3431": {
+      "schoolNumber": "3431",
+      "name": "PHYLLIS R. MILLER ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 62
+    },
+    "3501": {
+      "schoolNumber": "3501",
+      "name": "MORNINGSIDE K-8 ACADEMY",
+      "schoolGrade": "A",
+      "math": 72,
+      "english": 70
+    },
+    "3541": {
+      "schoolNumber": "3541",
+      "name": "ROBERT RUSSA MOTON ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 62,
+      "english": 53
+    },
+    "3581": {
+      "schoolNumber": "3581",
+      "name": "MYRTLE GROVE ELEMENTARY",
+      "schoolGrade": "B",
+      "math": 63,
+      "english": 53
+    },
+    "3600": {
+      "schoolNumber": "3600",
+      "name": "DOWNTOWN MIAMI CHARTER SCHOOL",
+      "schoolGrade": "B",
+      "math": 51,
+      "english": 51
+    },
+    "3610": {
+      "schoolNumber": "3610",
+      "name": "KEYS GATE CHARTER SCHOOL",
+      "schoolGrade": "B",
+      "math": 52,
+      "english": 53
+    },
+    "3621": {
+      "schoolNumber": "3621",
+      "name": "COCONUT PALM K-8 ACADEMY",
+      "schoolGrade": "C",
+      "math": 45,
+      "english": 44
+    },
+    "3661": {
+      "schoolNumber": "3661",
+      "name": "NATURAL BRIDGE ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 67,
+      "english": 57
+    },
+    "3701": {
+      "schoolNumber": "3701",
+      "name": "NORLAND ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 67,
+      "english": 65
+    },
+    "3741": {
+      "schoolNumber": "3741",
+      "name": "NORTH BEACH ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 82,
+      "english": 79
+    },
+    "3781": {
+      "schoolNumber": "3781",
+      "name": "BARBARA HAWKINS ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 59,
+      "english": 55
+    },
+    "3821": {
+      "schoolNumber": "3821",
+      "name": "NORTH COUNTY K-8 CENTER",
+      "schoolGrade": "B",
+      "math": 58,
+      "english": 48
+    },
+    "3861": {
+      "schoolNumber": "3861",
+      "name": "NORTH GLADE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 64,
+      "english": 61
+    },
+    "3881": {
+      "schoolNumber": "3881",
+      "name": "ANDREA CASTILLO PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 69
+    },
+    "3901": {
+      "schoolNumber": "3901",
+      "name": "NORTH HIALEAH ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 71,
+      "english": 53
+    },
+    "3941": {
+      "schoolNumber": "3941",
+      "name": "NORTH MIAMI ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 61
+    },
+    "3981": {
+      "schoolNumber": "3981",
+      "name": "NORTH TWIN LAKES ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 69,
+      "english": 70
+    },
+    "4000": {
+      "schoolNumber": "4000",
+      "name": "MIAMI CHILDREN'S MUSEUM CHARTER SCHOOL",
+      "schoolGrade": "A",
+      "math": 86,
+      "english": 90
+    },
+    "4001": {
+      "schoolNumber": "4001",
+      "name": "NORWOOD ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 60,
+      "english": 52
+    },
+    "4010": {
+      "schoolNumber": "4010",
+      "name": "MATER ACADEMY BAY ELEMENTARY",
+      "schoolGrade": "A",
+      "math": 86,
+      "english": 82
+    },
+    "4011": {
+      "schoolNumber": "4011",
+      "name": "DR. TONI BILBAO PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 64,
+      "english": 66
+    },
+    "4012": {
+      "schoolNumber": "4012",
+      "name": "SOMERSET ACADEMY SILVER PALMS AT PRINCETON",
+      "schoolGrade": "A",
+      "math": 87,
+      "english": 83
+    },
+    "4021": {
+      "schoolNumber": "4021",
+      "name": "OAK GROVE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 58,
+      "english": 54
+    },
+    "4031": {
+      "schoolNumber": "4031",
+      "name": "GATEWAY ENVIRONMENTAL K-8 LEARNING CENTER",
+      "schoolGrade": "C",
+      "math": 48,
+      "english": 44
+    },
+    "4037": {
+      "schoolNumber": "4037",
+      "name": "SOMERSET ACADEMY KENDALL",
+      "schoolGrade": "A",
+      "math": 99,
+      "english": 91
+    },
+    "4050": {
+      "schoolNumber": "4050",
+      "name": "BRIDGEPREP ACADEMY OF NORTH MIAMI BEACH",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 74
+    },
+    "4061": {
+      "schoolNumber": "4061",
+      "name": "OJUS ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 69,
+      "english": 62
+    },
+    "4071": {
+      "schoolNumber": "4071",
+      "name": "AGENORIA S PASCHAL/OLINDA ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 60,
+      "english": 59
+    },
+    "4091": {
+      "schoolNumber": "4091",
+      "name": "OLYMPIA HEIGHTS ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 76,
+      "english": 60
+    },
+    "4121": {
+      "schoolNumber": "4121",
+      "name": "DR. ROBERT B. INGRAM ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 72,
+      "english": 62
+    },
+    "4171": {
+      "schoolNumber": "4171",
+      "name": "ORCHARD VILLA ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 64,
+      "english": 54
+    },
+    "4221": {
+      "schoolNumber": "4221",
+      "name": "PALMETTO ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 98,
+      "english": 93
+    },
+    "4241": {
+      "schoolNumber": "4241",
+      "name": "PALM LAKES ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 62,
+      "english": 59
+    },
+    "4242": {
+      "schoolNumber": "4242",
+      "name": "ACADEMIR CHARTER SCHOOL OF MATH AND SCIENCE",
+      "schoolGrade": "C",
+      "math": 62,
+      "english": 52
+    },
+    "4261": {
+      "schoolNumber": "4261",
+      "name": "PALM SPRINGS ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 65,
+      "english": 57
+    },
+    "4281": {
+      "schoolNumber": "4281",
+      "name": "PALM SPRINGS NORTH K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 67
+    },
+    "4328": {
+      "schoolNumber": "4328",
+      "name": "ACADEMIR CHARTER SCHOOL ELEMENTARY SOUTH",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 65
+    },
+    "4341": {
+      "schoolNumber": "4341",
+      "name": "PARKWAY ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 51,
+      "english": 52
+    },
+    "4381": {
+      "schoolNumber": "4381",
+      "name": "DR. HENRY E. PERRINE ACADEMY OF THE ARTS",
+      "schoolGrade": "A",
+      "math": 69,
+      "english": 66
+    },
+    "4391": {
+      "schoolNumber": "4391",
+      "name": "IRVING & BEATRICE PESKOE K-8 CENTER",
+      "schoolGrade": "B",
+      "math": 59,
+      "english": 57
+    },
+    "4401": {
+      "schoolNumber": "4401",
+      "name": "KELSEY L. PHARR ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 82,
+      "english": 60
+    },
+    "4421": {
+      "schoolNumber": "4421",
+      "name": "PINECREST ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 91,
+      "english": 90
+    },
+    "4441": {
+      "schoolNumber": "4441",
+      "name": "PINE LAKE ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 55,
+      "english": 47
+    },
+    "4461": {
+      "schoolNumber": "4461",
+      "name": "PINE VILLA ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 59,
+      "english": 51
+    },
+    "4491": {
+      "schoolNumber": "4491",
+      "name": "HENRY E.S. REEVES K-8 CENTER",
+      "schoolGrade": "C",
+      "math": 55,
+      "english": 55
+    },
+    "4511": {
+      "schoolNumber": "4511",
+      "name": "DR. GILBERT L. PORTER ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 70,
+      "english": 64
+    },
+    "4541": {
+      "schoolNumber": "4541",
+      "name": "RAINBOW PARK ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 52,
+      "english": 43
+    },
+    "4581": {
+      "schoolNumber": "4581",
+      "name": "REDLAND ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 62
+    },
+    "4611": {
+      "schoolNumber": "4611",
+      "name": "REDONDO ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 57,
+      "english": 55
+    },
+    "4681": {
+      "schoolNumber": "4681",
+      "name": "RIVERSIDE ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 54,
+      "english": 33
+    },
+    "4691": {
+      "schoolNumber": "4691",
+      "name": "JANE S. ROBERTS K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 80
+    },
+    "4721": {
+      "schoolNumber": "4721",
+      "name": "ROCKWAY ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 63
+    },
+    "4741": {
+      "schoolNumber": "4741",
+      "name": "ROYAL GREEN ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 79
+    },
+    "4761": {
+      "schoolNumber": "4761",
+      "name": "ROYAL PALM ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 89,
+      "english": 78
+    },
+    "4801": {
+      "schoolNumber": "4801",
+      "name": "GERTRUDE K. EDELMAN/SABAL PALM",
+      "schoolGrade": "B",
+      "math": 57,
+      "english": 59
+    },
+    "4841": {
+      "schoolNumber": "4841",
+      "name": "SANTA CLARA ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 54,
+      "english": 38
+    },
+    "4881": {
+      "schoolNumber": "4881",
+      "name": "SCOTT LAKE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 69,
+      "english": 66
+    },
+    "4921": {
+      "schoolNumber": "4921",
+      "name": "SEMINOLE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 88,
+      "english": 75
+    },
+    "5001": {
+      "schoolNumber": "5001",
+      "name": "SHENANDOAH ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 73,
+      "english": 59
+    },
+    "5002": {
+      "schoolNumber": "5002",
+      "name": "SOMERSET PREPARATORY ACADEMY SUNSET",
+      "schoolGrade": "A",
+      "math": 86,
+      "english": 89
+    },
+    "5003": {
+      "schoolNumber": "5003",
+      "name": "SOUTH DADE MIDDLE SCHOOL",
+      "schoolGrade": "C",
+      "math": 60,
+      "english": 47
+    },
+    "5004": {
+      "schoolNumber": "5004",
+      "name": "PINECREST NORTH PREPARATORY (FONTAINEBLEAU CAMPUS)",
+      "schoolGrade": "A",
+      "math": 91,
+      "english": 86
+    },
+    "5005": {
+      "schoolNumber": "5005",
+      "name": "DAVID LAWRENCE JR. K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 72,
+      "english": 60
+    },
+    "5006": {
+      "schoolNumber": "5006",
+      "name": "EVERGLADES PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 72
+    },
+    "5007": {
+      "schoolNumber": "5007",
+      "name": "LINCOLN-MARTI CHARTER SCHOOL (HIALEAH CAMPUS)",
+      "schoolGrade": "A",
+      "math": 85,
+      "english": 60
+    },
+    "5008": {
+      "schoolNumber": "5008",
+      "name": "SOMERSET GABLES ACADEMY",
+      "schoolGrade": "A",
+      "math": 84,
+      "english": 87
+    },
+    "5015": {
+      "schoolNumber": "5015",
+      "name": "SOMERSET PALMS ACADEMY",
+      "schoolGrade": "A",
+      "math": 84,
+      "english": 85
+    },
+    "5020": {
+      "schoolNumber": "5020",
+      "name": "BRIDGEPREP ACADEMY INTERAMERICAN CAMPUS",
+      "schoolGrade": "C",
+      "math": 33,
+      "english": 46
+    },
+    "5021": {
+      "schoolNumber": "5021",
+      "name": "BEN SHEPPARD ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 74,
+      "english": 61
+    },
+    "5022": {
+      "schoolNumber": "5022",
+      "name": "BEN GAMLA CHARTER SCHOOL",
+      "schoolGrade": "A",
+      "math": 84,
+      "english": 89
+    },
+    "5025": {
+      "schoolNumber": "5025",
+      "name": "LINCOLN-MARTI CHARTER SCHOOL (LITTLE HAVANA CAMPUS)",
+      "schoolGrade": "A",
+      "math": 92,
+      "english": 63
+    },
+    "5028": {
+      "schoolNumber": "5028",
+      "name": "BRIDGEPREP ACADEMY OF DORAL ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 84,
+      "english": 70
+    },
+    "5029": {
+      "schoolNumber": "5029",
+      "name": "EXCELSIOR PREP CHARTER SCHOOL OF HIALEAH",
+      "schoolGrade": "B",
+      "math": 65,
+      "english": 42
+    },
+    "5032": {
+      "schoolNumber": "5032",
+      "name": "EXCELSIOR PREP CHARTER SCHOOL OF MIAMI GARDENS",
+      "schoolGrade": "C",
+      "math": 52,
+      "english": 52
+    },
+    "5038": {
+      "schoolNumber": "5038",
+      "name": "BRIDGEPREP ACADEMY OF DORAL MIDDLE-HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 66,
+      "english": 64
+    },
+    "5041": {
+      "schoolNumber": "5041",
+      "name": "SILVER BLUFF ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 63
+    },
+    "5043": {
+      "schoolNumber": "5043",
+      "name": "LINCOLN-MARTI CHARTER SCHOOLS INTERNATIONAL CAMPUS",
+      "schoolGrade": "A",
+      "math": 90,
+      "english": 76
+    },
+    "5045": {
+      "schoolNumber": "5045",
+      "name": "MATER GROVE ACADEMY",
+      "schoolGrade": "A",
+      "math": 81,
+      "english": 82
+    },
+    "5047": {
+      "schoolNumber": "5047",
+      "name": "MATER ACADEMY (MIAMI BEACH)",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 70
+    },
+    "5048": {
+      "schoolNumber": "5048",
+      "name": "PINECREST ACADEMY (NORTH CAMPUS)",
+      "schoolGrade": "A",
+      "math": 96,
+      "english": 93
+    },
+    "5049": {
+      "schoolNumber": "5049",
+      "name": "PINECREST COVE ACADEMY",
+      "schoolGrade": "A",
+      "math": 85,
+      "english": 85
+    },
+    "5051": {
+      "schoolNumber": "5051",
+      "name": "ERNEST R. GRAHAM K-8 ACADEMY",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 67
+    },
+    "5052": {
+      "schoolNumber": "5052",
+      "name": "MATER LAKES COLLEGIATE ACADEMY HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 52,
+      "english": 76
+    },
+    "5057": {
+      "schoolNumber": "5057",
+      "name": "MATER LAKES COLLEGIATE ACADEMY MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 72
+    },
+    "5061": {
+      "schoolNumber": "5061",
+      "name": "DR. CARLOS J. FINLAY ELEMENTARY",
+      "schoolGrade": "A",
+      "math": 79,
+      "english": 71
+    },
+    "5062": {
+      "schoolNumber": "5062",
+      "name": "SOMERSET ACADEMY BAY",
+      "schoolGrade": "A",
+      "math": 93,
+      "english": 88
+    },
+    "5081": {
+      "schoolNumber": "5081",
+      "name": "DR. FREDERICA S. WILSON/SKYWAY ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 81,
+      "english": 73
+    },
+    "5091": {
+      "schoolNumber": "5091",
+      "name": "MIAMI BEACH SOUTH POINTE ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 72
+    },
+    "5101": {
+      "schoolNumber": "5101",
+      "name": "JOHN I. SMITH K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 70,
+      "english": 70
+    },
+    "5119": {
+      "schoolNumber": "5119",
+      "name": "MY CA.SA CHARTER SCHOOL",
+      "schoolGrade": "A",
+      "math": 86,
+      "english": 69
+    },
+    "5121": {
+      "schoolNumber": "5121",
+      "name": "SNAPPER CREEK ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 91,
+      "english": 81
+    },
+    "5131": {
+      "schoolNumber": "5131",
+      "name": "NORTH DADE CENTER FOR MODERN LANGUAGES",
+      "schoolGrade": "A",
+      "math": 93,
+      "english": 91
+    },
+    "5141": {
+      "schoolNumber": "5141",
+      "name": "HUBERT O. SIBLEY K-8 ACADEMY",
+      "schoolGrade": "B",
+      "math": 56,
+      "english": 64
+    },
+    "5201": {
+      "schoolNumber": "5201",
+      "name": "SOUTH HIALEAH ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 83,
+      "english": 66
+    },
+    "5219": {
+      "schoolNumber": "5219",
+      "name": "DORAL ACADEMY NORTH CHARTER ELEMENTARY",
+      "schoolGrade": "A",
+      "math": 96,
+      "english": 96
+    },
+    "5241": {
+      "schoolNumber": "5241",
+      "name": "SOUTH MIAMI K-8 CENTER",
+      "schoolGrade": "B",
+      "math": 64,
+      "english": 63
+    },
+    "5281": {
+      "schoolNumber": "5281",
+      "name": "SOUTH MIAMI HEIGHTS ELEMENTARY",
+      "schoolGrade": "B",
+      "math": 63,
+      "english": 58
+    },
+    "5321": {
+      "schoolNumber": "5321",
+      "name": "SOUTHSIDE PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 72,
+      "english": 70
+    },
+    "5361": {
+      "schoolNumber": "5361",
+      "name": "SPRINGVIEW ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 85,
+      "english": 74
+    },
+    "5381": {
+      "schoolNumber": "5381",
+      "name": "E.W.F. STIRRUP ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 78,
+      "english": 70
+    },
+    "5384": {
+      "schoolNumber": "5384",
+      "name": "IMATER ACADEMY",
+      "schoolGrade": "B",
+      "math": 63,
+      "english": 61
+    },
+    "5401": {
+      "schoolNumber": "5401",
+      "name": "SUNSET ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 96,
+      "english": 97
+    },
+    "5410": {
+      "schoolNumber": "5410",
+      "name": "ALPHA CHARTER OF EXCELLENCE",
+      "schoolGrade": "C",
+      "math": 45,
+      "english": 38
+    },
+    "5412": {
+      "schoolNumber": "5412",
+      "name": "MATER BRICKELL ACADEMY MIDDLE",
+      "schoolGrade": "A",
+      "math": 87,
+      "english": 79
+    },
+    "5416": {
+      "schoolNumber": "5416",
+      "name": "MATER ACADEMY KIWANIS",
+      "schoolGrade": "A",
+      "math": 73,
+      "english": 68
+    },
+    "5417": {
+      "schoolNumber": "5417",
+      "name": "MIAMI TECH AT MATER INNOVATION ACADEMY",
+      "schoolGrade": "A",
+      "math": 83,
+      "english": 91
+    },
+    "5421": {
+      "schoolNumber": "5421",
+      "name": "SUNSET PARK ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 78,
+      "english": 75
+    },
+    "5422": {
+      "schoolNumber": "5422",
+      "name": "MATER BRICKELL ACADEMY HIGH",
+      "schoolGrade": "A",
+      "math": 86,
+      "english": 79
+    },
+    "5431": {
+      "schoolNumber": "5431",
+      "name": "SWEETWATER ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 73,
+      "english": 60
+    },
+    "5441": {
+      "schoolNumber": "5441",
+      "name": "SYLVANIA HEIGHTS ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 64,
+      "english": 61
+    },
+    "5481": {
+      "schoolNumber": "5481",
+      "name": "TREASURE ISLAND ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 63,
+      "english": 57
+    },
+    "5521": {
+      "schoolNumber": "5521",
+      "name": "TROPICAL ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 78,
+      "english": 64
+    },
+    "5555": {
+      "schoolNumber": "5555",
+      "name": "MATER BISCAYNE ACADEMY NORTH MIAMI MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 90,
+      "english": 82
+    },
+    "5556": {
+      "schoolNumber": "5556",
+      "name": "MATER BISCAYNE ACADEMY NORTH MIAMI HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 73,
+      "english": 77
+    },
+    "5561": {
+      "schoolNumber": "5561",
+      "name": "FRANCES S. TUCKER K-8 CENTER",
+      "schoolGrade": "C",
+      "math": 46,
+      "english": 50
+    },
+    "5601": {
+      "schoolNumber": "5601",
+      "name": "TWIN LAKES ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 69,
+      "english": 60
+    },
+    "5641": {
+      "schoolNumber": "5641",
+      "name": "VILLAGE GREEN ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 83,
+      "english": 72
+    },
+    "5671": {
+      "schoolNumber": "5671",
+      "name": "VINELAND K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 81,
+      "english": 84
+    },
+    "5711": {
+      "schoolNumber": "5711",
+      "name": "MAE M. WALTERS ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 65
+    },
+    "5791": {
+      "schoolNumber": "5791",
+      "name": "WEST HOMESTEAD K-8 CENTER",
+      "schoolGrade": "C",
+      "math": 61,
+      "english": 35
+    },
+    "5831": {
+      "schoolNumber": "5831",
+      "name": "HENRY S. WEST LABORATORY SCHOOL",
+      "schoolGrade": "A",
+      "math": 97,
+      "english": 96
+    },
+    "5836": {
+      "schoolNumber": "5836",
+      "name": "SOUTH PREP SCHOLARS ACADEMY",
+      "schoolGrade": "C",
+      "math": 68,
+      "english": 56
+    },
+    "5841": {
+      "schoolNumber": "5841",
+      "name": "SOUTH PREP SCHOLARS ACADEMY MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 67,
+      "english": 83
+    },
+    "5861": {
+      "schoolNumber": "5861",
+      "name": "DR. HENRY W. MACK/WEST LITTLE RIVER K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 62,
+      "english": 48
+    },
+    "5901": {
+      "schoolNumber": "5901",
+      "name": "CARRIE P. MEEK/WESTVIEW K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 60,
+      "english": 55
+    },
+    "5931": {
+      "schoolNumber": "5931",
+      "name": "PHYLLIS WHEATLEY ELEMENTARY SCHOOL",
+      "schoolGrade": "C",
+      "math": 44,
+      "english": 44
+    },
+    "5951": {
+      "schoolNumber": "5951",
+      "name": "WHISPERING PINES ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 80,
+      "english": 76
+    },
+    "5961": {
+      "schoolNumber": "5961",
+      "name": "WINSTON PARK K-8 CENTER",
+      "schoolGrade": "A",
+      "math": 81,
+      "english": 74
+    },
+    "5971": {
+      "schoolNumber": "5971",
+      "name": "NATHAN B. YOUNG ELEMENTARY SCHOOL",
+      "schoolGrade": "A",
+      "math": 58,
+      "english": 61
+    },
+    "5981": {
+      "schoolNumber": "5981",
+      "name": "DR. EDWARD L. WHIGHAM ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 63,
+      "english": 67
+    },
+    "5991": {
+      "schoolNumber": "5991",
+      "name": "CHARLES DAVID WYCHE, JR ELEMENTARY SCHOOL",
+      "schoolGrade": "B",
+      "math": 65,
+      "english": 47
+    },
+    "6001": {
+      "schoolNumber": "6001",
+      "name": "HERBERT A. AMMONS MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 93,
+      "english": 94
+    },
+    "6004": {
+      "schoolNumber": "6004",
+      "name": "SOMERSET ACADEMY CHARTER MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 72,
+      "english": 74
+    },
+    "6006": {
+      "schoolNumber": "6006",
+      "name": "ARCHIMEDEAN MIDDLE CONSERVATORY",
+      "schoolGrade": "A",
+      "math": 95,
+      "english": 95
+    },
+    "6011": {
+      "schoolNumber": "6011",
+      "name": "GEORGIA JONES AYERS MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 47,
+      "english": 43
+    },
+    "6012": {
+      "schoolNumber": "6012",
+      "name": "MATER ACADEMY CHARTER MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 86,
+      "english": 72
+    },
+    "6013": {
+      "schoolNumber": "6013",
+      "name": "SOMERSET ACADEMY CHARTER MIDDLE SCHOOL (SOUTH HOMESTEAD)",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 65
+    },
+    "6014": {
+      "schoolNumber": "6014",
+      "name": "IMATER ACADEMY MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 66,
+      "english": 65
+    },
+    "6015": {
+      "schoolNumber": "6015",
+      "name": "SPORTS LEADERSHIP AND MANAGEMENT CHARTER SCHOOL MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 59,
+      "english": 51
+    },
+    "6016": {
+      "schoolNumber": "6016",
+      "name": "COLEGIATE PREPARATORY ACADEMY",
+      "schoolGrade": "D",
+      "math": 30,
+      "english": 50
+    },
+    "6017": {
+      "schoolNumber": "6017",
+      "name": "INTERNATIONAL STUDIES VIRTUAL ACADEMY",
+      "schoolGrade": "A",
+      "math": null,
+      "english": null
+    },
+    "6021": {
+      "schoolNumber": "6021",
+      "name": "ARVIDA MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 86,
+      "english": 78
+    },
+    "6022": {
+      "schoolNumber": "6022",
+      "name": "PINECREST ACADEMY CHARTER MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 91,
+      "english": 83
+    },
+    "6023": {
+      "schoolNumber": "6023",
+      "name": "ANDOVER MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 56,
+      "english": 57
+    },
+    "6024": {
+      "schoolNumber": "6024",
+      "name": "SPORTS LEADERSHIP AND MANAGEMENT (SLAM) MIDDLE SCHOOL - NORTH CAMPUS",
+      "schoolGrade": "C",
+      "math": 48,
+      "english": 52
+    },
+    "6028": {
+      "schoolNumber": "6028",
+      "name": "RENAISSANCE MIDDLE CHARTER SCHOOL",
+      "schoolGrade": "A",
+      "math": 70,
+      "english": 66
+    },
+    "6030": {
+      "schoolNumber": "6030",
+      "name": "DORAL ACADEMY CHARTER MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 94,
+      "english": 89
+    },
+    "6031": {
+      "schoolNumber": "6031",
+      "name": "BROWNSVILLE MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 46,
+      "english": 37
+    },
+    "6032": {
+      "schoolNumber": "6032",
+      "name": "MATER ACADEMY BAY MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 93,
+      "english": 87
+    },
+    "6033": {
+      "schoolNumber": "6033",
+      "name": "MATER ACADEMY LAKES MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 78,
+      "english": 79
+    },
+    "6034": {
+      "schoolNumber": "6034",
+      "name": "BEACON COLLEGE PREP K-8",
+      "schoolGrade": "A",
+      "math": 62,
+      "english": 59
+    },
+    "6040": {
+      "schoolNumber": "6040",
+      "name": "DOCTORS CHARTER SCHOOL OF MIAMI SHORES",
+      "schoolGrade": "A",
+      "math": 58,
+      "english": 73
+    },
+    "6041": {
+      "schoolNumber": "6041",
+      "name": "PAUL W. BELL MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 66,
+      "english": 60
+    },
+    "6045": {
+      "schoolNumber": "6045",
+      "name": "INTERNATIONAL STUDIES CHARTER MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 92,
+      "english": 83
+    },
+    "6046": {
+      "schoolNumber": "6046",
+      "name": "SOMERSET PREPARATORY ACADEMY MIDDLE SCHOOL (HOMESTEAD)",
+      "schoolGrade": "B",
+      "math": 59,
+      "english": 69
+    },
+    "6047": {
+      "schoolNumber": "6047",
+      "name": "MATER INTERNATIONAL PREPARATORY",
+      "schoolGrade": "A",
+      "math": 82,
+      "english": 69
+    },
+    "6048": {
+      "schoolNumber": "6048",
+      "name": "MIAMI COMMUNITY CHARTER MIDDLE SCHOOL",
+      "schoolGrade": "C",
+      "math": 46,
+      "english": 40
+    },
+    "6051": {
+      "schoolNumber": "6051",
+      "name": "CAROL CITY MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 58,
+      "english": 48
+    },
+    "6052": {
+      "schoolNumber": "6052",
+      "name": "MIAMI ARTS STUDIO 6-12 AT ZELDA GLAZER",
+      "schoolGrade": "A",
+      "math": 92,
+      "english": 92
+    },
+    "6053": {
+      "schoolNumber": "6053",
+      "name": "SOMERSET ACADEMY CHARTER MIDDLE SCHOOL (SOUTH MIAMI CAMPUS)",
+      "schoolGrade": "A",
+      "math": 97,
+      "english": 95
+    },
+    "6071": {
+      "schoolNumber": "6071",
+      "name": "GEORGE WASHINGTON CARVER MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 96,
+      "english": 94
+    },
+    "6081": {
+      "schoolNumber": "6081",
+      "name": "CUTLER BAY SENIOR HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 86
+    },
+    "6082": {
+      "schoolNumber": "6082",
+      "name": "ACADEMIR CHARTER SCHOOL MIDDLE",
+      "schoolGrade": "A",
+      "math": 88,
+      "english": 75
+    },
+    "6083": {
+      "schoolNumber": "6083",
+      "name": "JUST ARTS AND MANAGEMENT CHARTER MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 98,
+      "english": 93
+    },
+    "6093": {
+      "schoolNumber": "6093",
+      "name": "ACADEMY FOR INNOVATIVE EDUCATION",
+      "schoolGrade": "A",
+      "math": 82,
+      "english": 80
+    },
+    "6111": {
+      "schoolNumber": "6111",
+      "name": "CUTLER BAY MIDDLE",
+      "schoolGrade": "A",
+      "math": 65,
+      "english": 55
+    },
+    "6121": {
+      "schoolNumber": "6121",
+      "name": "RUBEN DARIO MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 65,
+      "english": 57
+    },
+    "6128": {
+      "schoolNumber": "6128",
+      "name": "SOMERSET ACADEMY BAY MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 95,
+      "english": 90
+    },
+    "6161": {
+      "schoolNumber": "6161",
+      "name": "LAWTON CHILES MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 58,
+      "english": 56
+    },
+    "6171": {
+      "schoolNumber": "6171",
+      "name": "HENRY H. FILER MIDDLE SCHOOL",
+      "schoolGrade": "C",
+      "math": 48,
+      "english": 47
+    },
+    "6211": {
+      "schoolNumber": "6211",
+      "name": "GLADES MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 68
+    },
+    "6221": {
+      "schoolNumber": "6221",
+      "name": "HAMMOCKS MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 63,
+      "english": 62
+    },
+    "6231": {
+      "schoolNumber": "6231",
+      "name": "HIALEAH MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 52,
+      "english": 56
+    },
+    "6241": {
+      "schoolNumber": "6241",
+      "name": "HIGHLAND OAKS MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 56,
+      "english": 68
+    },
+    "6251": {
+      "schoolNumber": "6251",
+      "name": "HOMESTEAD MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 55,
+      "english": 52
+    },
+    "6281": {
+      "schoolNumber": "6281",
+      "name": "THOMAS JEFFERSON BISCAYNE GARDENS K-8 ACADEMY",
+      "schoolGrade": "C",
+      "math": 54,
+      "english": 52
+    },
+    "6301": {
+      "schoolNumber": "6301",
+      "name": "JOHN F. KENNEDY MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 57,
+      "english": 66
+    },
+    "6331": {
+      "schoolNumber": "6331",
+      "name": "KINLOCH PARK MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 53,
+      "english": 40
+    },
+    "6351": {
+      "schoolNumber": "6351",
+      "name": "LAKE STEVENS MIDDLE SCHOOL",
+      "schoolGrade": "C",
+      "math": 52,
+      "english": 45
+    },
+    "6361": {
+      "schoolNumber": "6361",
+      "name": "JOSE DE DIEGO MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 46,
+      "english": 42
+    },
+    "6391": {
+      "schoolNumber": "6391",
+      "name": "MADISON MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 56,
+      "english": 46
+    },
+    "6411": {
+      "schoolNumber": "6411",
+      "name": "HORACE MANN MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 50,
+      "english": 43
+    },
+    "6441": {
+      "schoolNumber": "6441",
+      "name": "HOWARD D. MCMILLAN MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 68
+    },
+    "6501": {
+      "schoolNumber": "6501",
+      "name": "MIAMI LAKES MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 78,
+      "english": 74
+    },
+    "6521": {
+      "schoolNumber": "6521",
+      "name": "MIAMI SPRINGS MIDDLE SCHOOL",
+      "schoolGrade": "C",
+      "math": 49,
+      "english": 37
+    },
+    "6541": {
+      "schoolNumber": "6541",
+      "name": "MIAMI BEACH NAUTILUS MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 63,
+      "english": 69
+    },
+    "6571": {
+      "schoolNumber": "6571",
+      "name": "NORLAND MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 55,
+      "english": 52
+    },
+    "6591": {
+      "schoolNumber": "6591",
+      "name": "NORTH DADE MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 54,
+      "english": 49
+    },
+    "6631": {
+      "schoolNumber": "6631",
+      "name": "NORTH MIAMI MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 55,
+      "english": 53
+    },
+    "6681": {
+      "schoolNumber": "6681",
+      "name": "PALM SPRINGS MIDDLE SCHOOL",
+      "schoolGrade": "C",
+      "math": 48,
+      "english": 45
+    },
+    "6701": {
+      "schoolNumber": "6701",
+      "name": "PALMETTO MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 73,
+      "english": 77
+    },
+    "6741": {
+      "schoolNumber": "6741",
+      "name": "PONCE DE LEON MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 64,
+      "english": 63
+    },
+    "6751": {
+      "schoolNumber": "6751",
+      "name": "HIALEAH GARDENS MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 78,
+      "english": 71
+    },
+    "6761": {
+      "schoolNumber": "6761",
+      "name": "REDLAND MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 47,
+      "english": 52
+    },
+    "6771": {
+      "schoolNumber": "6771",
+      "name": "JORGE MAS CANOSA MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 66
+    },
+    "6781": {
+      "schoolNumber": "6781",
+      "name": "RICHMOND HEIGHTS MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 69,
+      "english": 57
+    },
+    "6801": {
+      "schoolNumber": "6801",
+      "name": "RIVIERA MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 64,
+      "english": 66
+    },
+    "6821": {
+      "schoolNumber": "6821",
+      "name": "ROCKWAY MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 63,
+      "english": 66
+    },
+    "6841": {
+      "schoolNumber": "6841",
+      "name": "SHENANDOAH MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 57,
+      "english": 59
+    },
+    "6861": {
+      "schoolNumber": "6861",
+      "name": "SOUTHWOOD MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 81,
+      "english": 82
+    },
+    "6881": {
+      "schoolNumber": "6881",
+      "name": "SOUTH MIAMI MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 73,
+      "english": 75
+    },
+    "6901": {
+      "schoolNumber": "6901",
+      "name": "W. R. THOMAS MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 60,
+      "english": 56
+    },
+    "6921": {
+      "schoolNumber": "6921",
+      "name": "LAMAR LOUISE CURRY MIDDLE SCHOOL",
+      "schoolGrade": "A",
+      "math": 68,
+      "english": 70
+    },
+    "6961": {
+      "schoolNumber": "6961",
+      "name": "WEST MIAMI MIDDLE SCHOOL",
+      "schoolGrade": "B",
+      "math": 55,
+      "english": 49
+    },
+    "6997": {
+      "schoolNumber": "6997",
+      "name": "MATER ACADEMY VIRTUAL CHARTER SCHOOL",
+      "schoolGrade": "C",
+      "math": 45,
+      "english": 58
+    },
+    "7001": {
+      "schoolNumber": "7001",
+      "name": "K12 FLORIDA, LLC – GRADES KG-12",
+      "schoolGrade": "A",
+      "math": 56,
+      "english": 80
+    },
+    "7004": {
+      "schoolNumber": "7004",
+      "name": "MIAMI-DADE VIRTUAL HIGH SCHOOL FRANCHISE",
+      "schoolGrade": "C",
+      "math": 33,
+      "english": 57
+    },
+    "7005": {
+      "schoolNumber": "7005",
+      "name": "ITECH@THOMAS A EDISON EDUCATIONAL CENTER",
+      "schoolGrade": "A",
+      "math": 85,
+      "english": 91
+    },
+    "7007": {
+      "schoolNumber": "7007",
+      "name": "INTERNATIONAL STUDIES CHARTER HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 80,
+      "english": 86
+    },
+    "7008": {
+      "schoolNumber": "7008",
+      "name": "BIOTECH@RICHMOND HEIGHTS 9-12 HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 61,
+      "english": 81
+    },
+    "7009": {
+      "schoolNumber": "7009",
+      "name": "DORAL PERFORMING ARTS & ENTERTAINMENT ACADEMY",
+      "schoolGrade": "A",
+      "math": 94,
+      "english": 95
+    },
+    "7011": {
+      "schoolNumber": "7011",
+      "name": "AMERICAN SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 42,
+      "english": 51
+    },
+    "7014": {
+      "schoolNumber": "7014",
+      "name": "MATER PERFORMING ARTS & ENTERTAINMENT ACADEMY",
+      "schoolGrade": "A",
+      "math": 91,
+      "english": 95
+    },
+    "7016": {
+      "schoolNumber": "7016",
+      "name": "SPORTS LEADERSHIP ARTS MANAGEMENT CHARTER HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 43,
+      "english": 54
+    },
+    "7018": {
+      "schoolNumber": "7018",
+      "name": "MATER ACADEMY LAKES HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 47,
+      "english": 73
+    },
+    "7020": {
+      "schoolNumber": "7020",
+      "name": "DORAL ACADEMY CHARTER HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 90,
+      "english": 93
+    },
+    "7021": {
+      "schoolNumber": "7021",
+      "name": "CENTER FOR INTERNATIONAL EDUCATION A CAMBRIDGE ASSOCIATE SCHOOL",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 93
+    },
+    "7026": {
+      "schoolNumber": "7026",
+      "name": "DON SOFFER AVENTURA CHARTER HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 87,
+      "english": 83
+    },
+    "7027": {
+      "schoolNumber": "7027",
+      "name": "PINECREST GLADES PREPARATORY ACADEMY MIDDLE HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 83,
+      "english": 78
+    },
+    "7029": {
+      "schoolNumber": "7029",
+      "name": "TERRA ENVIRONMENTAL RESEARCH INSTITUTE",
+      "schoolGrade": "A",
+      "math": 95,
+      "english": 95
+    },
+    "7031": {
+      "schoolNumber": "7031",
+      "name": "MAST@FIU",
+      "schoolGrade": "A",
+      "math": 96,
+      "english": 97
+    },
+    "7032": {
+      "schoolNumber": "7032",
+      "name": "PALM GLADES PREPARATORY HIGH SCHOOL",
+      "schoolGrade": "C",
+      "math": 43,
+      "english": 53
+    },
+    "7033": {
+      "schoolNumber": "7033",
+      "name": "LAW ENFORCEMENT OFFICERS MEMORIAL HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 37,
+      "english": 64
+    },
+    "7034": {
+      "schoolNumber": "7034",
+      "name": "SOMERSET ACADEMY CHARTER HIGH SCHOOL (SOUTH HOMESTEAD)",
+      "schoolGrade": "B",
+      "math": 54,
+      "english": 57
+    },
+    "7041": {
+      "schoolNumber": "7041",
+      "name": "SCHOOL FOR ADVANCED STUDIES-WOLFSON",
+      "schoolGrade": "A",
+      "math": null,
+      "english": null
+    },
+    "7042": {
+      "schoolNumber": "7042",
+      "name": "SOMERSET ACADEMY CHARTER HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 85
+    },
+    "7044": {
+      "schoolNumber": "7044",
+      "name": "DOWNTOWN DORAL CHARTER UPPER SCHOOL",
+      "schoolGrade": "A",
+      "math": 88,
+      "english": 88
+    },
+    "7048": {
+      "schoolNumber": "7048",
+      "name": "ALONZO & TRACY MOURNING SENIOR HIGH BISCAYNE BAY CAMPUS",
+      "schoolGrade": "C",
+      "math": 37,
+      "english": 55
+    },
+    "7049": {
+      "schoolNumber": "7049",
+      "name": "WESTLAND HIALEAH SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 62,
+      "english": 44
+    },
+    "7050": {
+      "schoolNumber": "7050",
+      "name": "KEYS GATE CHARTER HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 47,
+      "english": 62
+    },
+    "7051": {
+      "schoolNumber": "7051",
+      "name": "G. HOLMES BRADDOCK SENIOR HIGH",
+      "schoolGrade": "B",
+      "math": 39,
+      "english": 54
+    },
+    "7053": {
+      "schoolNumber": "7053",
+      "name": "PINECREST PREPARATORY ACADEMY CHARTER HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 80
+    },
+    "7055": {
+      "schoolNumber": "7055",
+      "name": "YOUNG WOMENS PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 85,
+      "english": 82
+    },
+    "7056": {
+      "schoolNumber": "7056",
+      "name": "YOUNG MEN'S PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 66,
+      "english": 66
+    },
+    "7058": {
+      "schoolNumber": "7058",
+      "name": "MIAMI COMMUNITY CHARTER HIGH SCHOOL",
+      "schoolGrade": "C",
+      "math": 39,
+      "english": 36
+    },
+    "7059": {
+      "schoolNumber": "7059",
+      "name": "MIAMI ARTS CHARTER SCHOOL",
+      "schoolGrade": "A",
+      "math": 76,
+      "english": 78
+    },
+    "7060": {
+      "schoolNumber": "7060",
+      "name": "EVERGLADES PREPARATORY ACADEMY HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 57,
+      "english": 64
+    },
+    "7061": {
+      "schoolNumber": "7061",
+      "name": "SCHOOL FOR ADVANCED STUDIES NORTH",
+      "schoolGrade": "A",
+      "math": null,
+      "english": null
+    },
+    "7070": {
+      "schoolNumber": "7070",
+      "name": "YOUTH CO-OP PREPARATORY HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 65,
+      "english": 58
+    },
+    "7071": {
+      "schoolNumber": "7071",
+      "name": "CORAL GABLES SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 43,
+      "english": 60
+    },
+    "7073": {
+      "schoolNumber": "7073",
+      "name": "ACADEMY FOR ADVANCED ACADEMICS",
+      "schoolGrade": "A",
+      "math": null,
+      "english": null
+    },
+    "7078": {
+      "schoolNumber": "7078",
+      "name": "SOMERSET COLLEGE PREPARATORY ACADEMY SOUTH HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 47,
+      "english": 59
+    },
+    "7079": {
+      "schoolNumber": "7079",
+      "name": "PINECREST NORTH PREPARATORY HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 75,
+      "english": 83
+    },
+    "7080": {
+      "schoolNumber": "7080",
+      "name": "CHARTER HIGH SCHOOL OF THE AMERICAS",
+      "schoolGrade": "A",
+      "math": 82,
+      "english": 62
+    },
+    "7081": {
+      "schoolNumber": "7081",
+      "name": "DESIGN & ARCHITECTURE SENIOR HIGH",
+      "schoolGrade": "A",
+      "math": 57,
+      "english": 85
+    },
+    "7090": {
+      "schoolNumber": "7090",
+      "name": "IMATER PREPARATORY ACADEMY HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 46,
+      "english": 63
+    },
+    "7091": {
+      "schoolNumber": "7091",
+      "name": "SCHOOL FOR ADVANCED STUDIES - SOUTH",
+      "schoolGrade": "A",
+      "math": null,
+      "english": null
+    },
+    "7101": {
+      "schoolNumber": "7101",
+      "name": "CORAL REEF SENIOR HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 77,
+      "english": 87
+    },
+    "7108": {
+      "schoolNumber": "7108",
+      "name": "SPORTS LEADERSHIP ARTS MANAGEMENT CHARTER HIGH SCHOOL (NORTH CAMPUS)",
+      "schoolGrade": "C",
+      "math": 33,
+      "english": 51
+    },
+    "7111": {
+      "schoolNumber": "7111",
+      "name": "HIALEAH SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 38,
+      "english": 45
+    },
+    "7120": {
+      "schoolNumber": "7120",
+      "name": "MATER ACADEMY BAY HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 85,
+      "english": 82
+    },
+    "7121": {
+      "schoolNumber": "7121",
+      "name": "JOHN A. FERGUSON SENIOR HIGH",
+      "schoolGrade": "A",
+      "math": 58,
+      "english": 74
+    },
+    "7131": {
+      "schoolNumber": "7131",
+      "name": "HIALEAH-MIAMI LAKES SENIOR HIGH",
+      "schoolGrade": "C",
+      "math": 34,
+      "english": 46
+    },
+    "7141": {
+      "schoolNumber": "7141",
+      "name": "DR. MICHAEL M. KROP SENIOR HIGH",
+      "schoolGrade": "C",
+      "math": 34,
+      "english": 57
+    },
+    "7144": {
+      "schoolNumber": "7144",
+      "name": "CHARTER HIGH SCHOOL OF THE AMERICAS (FLORIDA CITY CAMPUS)",
+      "schoolGrade": "A",
+      "math": 91,
+      "english": 71
+    },
+    "7151": {
+      "schoolNumber": "7151",
+      "name": "HOMESTEAD SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 42,
+      "english": 49
+    },
+    "7160": {
+      "schoolNumber": "7160",
+      "name": "MATER ACADEMY CHARTER HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 67
+    },
+    "7161": {
+      "schoolNumber": "7161",
+      "name": "MAST ACADEMY",
+      "schoolGrade": "A",
+      "math": 94,
+      "english": 93
+    },
+    "7171": {
+      "schoolNumber": "7171",
+      "name": "MEDICAL ACADEMY FOR SCIENCE AND TECHNOLOGY (M.A.S.T.) @ HOMESTEAD",
+      "schoolGrade": "A",
+      "math": 78,
+      "english": 86
+    },
+    "7191": {
+      "schoolNumber": "7191",
+      "name": "HIALEAH GARDENS SENIOR HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 55,
+      "english": 71
+    },
+    "7201": {
+      "schoolNumber": "7201",
+      "name": "MIAMI BEACH SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 39,
+      "english": 59
+    },
+    "7231": {
+      "schoolNumber": "7231",
+      "name": "MIAMI CAROL CITY SENIOR HIGH",
+      "schoolGrade": "A",
+      "math": 56,
+      "english": 51
+    },
+    "7241": {
+      "schoolNumber": "7241",
+      "name": "RONALD W. REAGAN/DORAL SENIOR HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 55,
+      "english": 71
+    },
+    "7242": {
+      "schoolNumber": "7242",
+      "name": "SOMERSET PREPARATORY ACADEMY HIGH SCHOOL HOMESTEAD",
+      "schoolGrade": "C",
+      "math": 27,
+      "english": 63
+    },
+    "7251": {
+      "schoolNumber": "7251",
+      "name": "MIAMI CENTRAL SENIOR HIGH SCHOOL",
+      "schoolGrade": "C",
+      "math": 34,
+      "english": 42
+    },
+    "7261": {
+      "schoolNumber": "7261",
+      "name": "SCHOOL FOR ADVANCED STUDIES",
+      "schoolGrade": "A",
+      "math": null,
+      "english": null
+    },
+    "7262": {
+      "schoolNumber": "7262",
+      "name": "CITY OF HIALEAH EDUCATIONAL ACADEMY",
+      "schoolGrade": "A",
+      "math": 63,
+      "english": 73
+    },
+    "7265": {
+      "schoolNumber": "7265",
+      "name": "ARCHIMEDEAN UPPER CONSERVATORY",
+      "schoolGrade": "A",
+      "math": 92,
+      "english": 93
+    },
+    "7271": {
+      "schoolNumber": "7271",
+      "name": "MIAMI CORAL PARK SENIOR HIGH",
+      "schoolGrade": "B",
+      "math": 50,
+      "english": 56
+    },
+    "7291": {
+      "schoolNumber": "7291",
+      "name": "JOSE MARTI MAST 6-12 ACADEMY",
+      "schoolGrade": "A",
+      "math": 95,
+      "english": 94
+    },
+    "7301": {
+      "schoolNumber": "7301",
+      "name": "MIAMI EDISON SENIOR HIGH SCHOOL",
+      "schoolGrade": "C",
+      "math": 38,
+      "english": 42
+    },
+    "7341": {
+      "schoolNumber": "7341",
+      "name": "MIAMI JACKSON SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 43,
+      "english": 38
+    },
+    "7351": {
+      "schoolNumber": "7351",
+      "name": "ARTHUR AND POLLY MAYS CONSERVATORY OF THE ARTS",
+      "schoolGrade": "A",
+      "math": 55,
+      "english": 70
+    },
+    "7361": {
+      "schoolNumber": "7361",
+      "name": "MIAMI KILLIAN SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 44,
+      "english": 53
+    },
+    "7371": {
+      "schoolNumber": "7371",
+      "name": "ROBERT MORGAN SENIOR HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 59,
+      "english": 68
+    },
+    "7381": {
+      "schoolNumber": "7381",
+      "name": "MIAMI NORLAND SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 43,
+      "english": 52
+    },
+    "7391": {
+      "schoolNumber": "7391",
+      "name": "MIAMI LAKES EDUCATIONAL CENTER",
+      "schoolGrade": "A",
+      "math": 74,
+      "english": 87
+    },
+    "7411": {
+      "schoolNumber": "7411",
+      "name": "MIAMI NORTHWESTERN SENIOR HIGH",
+      "schoolGrade": "A",
+      "math": 50,
+      "english": 50
+    },
+    "7431": {
+      "schoolNumber": "7431",
+      "name": "MIAMI PALMETTO SENIOR HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 58,
+      "english": 72
+    },
+    "7459": {
+      "schoolNumber": "7459",
+      "name": "IPREP  ACADEMY NORTH",
+      "schoolGrade": "A",
+      "math": 93,
+      "english": 92
+    },
+    "7461": {
+      "schoolNumber": "7461",
+      "name": "MIAMI SENIOR HIGH SCHOOL",
+      "schoolGrade": "A",
+      "math": 53,
+      "english": 58
+    },
+    "7511": {
+      "schoolNumber": "7511",
+      "name": "MIAMI SPRINGS SENIOR HIGH SCHOOL",
+      "schoolGrade": "C",
+      "math": 38,
+      "english": 45
+    },
+    "7531": {
+      "schoolNumber": "7531",
+      "name": "MIAMI SUNSET SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 57,
+      "english": 53
+    },
+    "7541": {
+      "schoolNumber": "7541",
+      "name": "NORTH MIAMI BEACH SENIOR HIGH",
+      "schoolGrade": "A",
+      "math": 52,
+      "english": 54
+    },
+    "7551": {
+      "schoolNumber": "7551",
+      "name": "SCHOOL FOR ADVANCED STUDIES HOMESTEAD",
+      "schoolGrade": "A",
+      "math": null,
+      "english": null
+    },
+    "7571": {
+      "schoolNumber": "7571",
+      "name": "INTERNATIONAL STUDIES PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 86,
+      "english": 89
+    },
+    "7581": {
+      "schoolNumber": "7581",
+      "name": "I PREPARATORY ACADEMY",
+      "schoolGrade": "A",
+      "math": 93,
+      "english": 94
+    },
+    "7591": {
+      "schoolNumber": "7591",
+      "name": "NORTH MIAMI SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 45,
+      "english": 51
+    },
+    "7601": {
+      "schoolNumber": "7601",
+      "name": "WILLIAM H TURNER TECHNICAL ARTS HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 52,
+      "english": 72
+    },
+    "7641": {
+      "schoolNumber": "7641",
+      "name": "J.C. BERMUDEZ DORAL SENIOR HIGH",
+      "schoolGrade": "A",
+      "math": 69,
+      "english": 54
+    },
+    "7672": {
+      "schoolNumber": "7672",
+      "name": "ACADEMIR PREPARATORY HIGH SCHOOL",
+      "schoolGrade": "C",
+      "math": 40,
+      "english": 56
+    },
+    "7701": {
+      "schoolNumber": "7701",
+      "name": "SOUTH DADE SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 41,
+      "english": 56
+    },
+    "7721": {
+      "schoolNumber": "7721",
+      "name": "SOUTH MIAMI SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 42,
+      "english": 52
+    },
+    "7731": {
+      "schoolNumber": "7731",
+      "name": "MIAMI SOUTHRIDGE SENIOR HIGH",
+      "schoolGrade": "B",
+      "math": 48,
+      "english": 51
+    },
+    "7741": {
+      "schoolNumber": "7741",
+      "name": "SOUTHWEST MIAMI SENIOR HIGH",
+      "schoolGrade": "A",
+      "math": 56,
+      "english": 65
+    },
+    "7751": {
+      "schoolNumber": "7751",
+      "name": "BARBARA GOLEMAN SENIOR HIGH",
+      "schoolGrade": "A",
+      "math": 61,
+      "english": 69
+    },
+    "7781": {
+      "schoolNumber": "7781",
+      "name": "FELIX VARELA SENIOR HIGH SCHOOL",
+      "schoolGrade": "B",
+      "math": 48,
+      "english": 54
+    },
+    "7791": {
+      "schoolNumber": "7791",
+      "name": "BOOKER T. WASHINGTON SENIOR HIGH",
+      "schoolGrade": "B",
+      "math": 50,
+      "english": 36
+    },
+    "7901": {
+      "schoolNumber": "7901",
+      "name": "NEW WORLD SCHOOL OF THE ARTS",
+      "schoolGrade": "A",
+      "math": 71,
+      "english": 93
+    }
+  },
+  "sourceRows": {
+    "0026": {
+      "row": 652,
+      "englishRaw": "47",
+      "mathRaw": "39",
+      "schoolGradeRaw": "C"
+    },
+    "0041": {
+      "row": 653,
+      "englishRaw": "86",
+      "mathRaw": "84",
+      "schoolGradeRaw": "A"
+    },
+    "0070": {
+      "row": 654,
+      "englishRaw": "71",
+      "mathRaw": "61",
+      "schoolGradeRaw": "B"
+    },
+    "0071": {
+      "row": 655,
+      "englishRaw": "69",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "0072": {
+      "row": 656,
+      "englishRaw": "71",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "0073": {
+      "row": 657,
+      "englishRaw": "48",
+      "mathRaw": "58",
+      "schoolGradeRaw": "B"
+    },
+    "0081": {
+      "row": 658,
+      "englishRaw": "44",
+      "mathRaw": "51",
+      "schoolGradeRaw": "B"
+    },
+    "0091": {
+      "row": 659,
+      "englishRaw": "75",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "0092": {
+      "row": 660,
+      "englishRaw": "75",
+      "mathRaw": "80",
+      "schoolGradeRaw": "A"
+    },
+    "0100": {
+      "row": 661,
+      "englishRaw": "72",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "0101": {
+      "row": 662,
+      "englishRaw": "49",
+      "mathRaw": "66",
+      "schoolGradeRaw": "B"
+    },
+    "0102": {
+      "row": 663,
+      "englishRaw": "50",
+      "mathRaw": "46",
+      "schoolGradeRaw": "C"
+    },
+    "0111": {
+      "row": 664,
+      "englishRaw": "39",
+      "mathRaw": "58",
+      "schoolGradeRaw": "C"
+    },
+    "0121": {
+      "row": 665,
+      "englishRaw": "55",
+      "mathRaw": "66",
+      "schoolGradeRaw": "B"
+    },
+    "0122": {
+      "row": 666,
+      "englishRaw": "63",
+      "mathRaw": "67",
+      "schoolGradeRaw": "A"
+    },
+    "0125": {
+      "row": 667,
+      "englishRaw": "74",
+      "mathRaw": "88",
+      "schoolGradeRaw": "A"
+    },
+    "0161": {
+      "row": 668,
+      "englishRaw": "70",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "0201": {
+      "row": 669,
+      "englishRaw": "66",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "0211": {
+      "row": 670,
+      "englishRaw": "85",
+      "mathRaw": "93",
+      "schoolGradeRaw": "A"
+    },
+    "0231": {
+      "row": 671,
+      "englishRaw": "72",
+      "mathRaw": "72",
+      "schoolGradeRaw": "A"
+    },
+    "0241": {
+      "row": 672,
+      "englishRaw": "82",
+      "mathRaw": "86",
+      "schoolGradeRaw": "A"
+    },
+    "0251": {
+      "row": 673,
+      "englishRaw": "87",
+      "mathRaw": "88",
+      "schoolGradeRaw": "A"
+    },
+    "0261": {
+      "row": 674,
+      "englishRaw": "64",
+      "mathRaw": "72",
+      "schoolGradeRaw": "A"
+    },
+    "0271": {
+      "row": 675,
+      "englishRaw": "66",
+      "mathRaw": "84",
+      "schoolGradeRaw": "A"
+    },
+    "0311": {
+      "row": 676,
+      "englishRaw": "54",
+      "mathRaw": "52",
+      "schoolGradeRaw": "B"
+    },
+    "0312": {
+      "row": 677,
+      "englishRaw": "79",
+      "mathRaw": "83",
+      "schoolGradeRaw": "A"
+    },
+    "0321": {
+      "row": 678,
+      "englishRaw": "64",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "0332": {
+      "row": 679,
+      "englishRaw": "82",
+      "mathRaw": "87",
+      "schoolGradeRaw": "A"
+    },
+    "0339": {
+      "row": 680,
+      "englishRaw": "72",
+      "mathRaw": "79",
+      "schoolGradeRaw": "A"
+    },
+    "0341": {
+      "row": 681,
+      "englishRaw": "54",
+      "mathRaw": "61",
+      "schoolGradeRaw": "B"
+    },
+    "0342": {
+      "row": 682,
+      "englishRaw": "88",
+      "mathRaw": "85",
+      "schoolGradeRaw": "A"
+    },
+    "0400": {
+      "row": 683,
+      "englishRaw": "81",
+      "mathRaw": "87",
+      "schoolGradeRaw": "A"
+    },
+    "0401": {
+      "row": 684,
+      "englishRaw": "57",
+      "mathRaw": "64",
+      "schoolGradeRaw": "A"
+    },
+    "0402": {
+      "row": 685,
+      "englishRaw": "83",
+      "mathRaw": "83",
+      "schoolGradeRaw": "A"
+    },
+    "0410": {
+      "row": 686,
+      "englishRaw": "87",
+      "mathRaw": "87",
+      "schoolGradeRaw": "A"
+    },
+    "0412": {
+      "row": 687,
+      "englishRaw": "72",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "0422": {
+      "row": 688,
+      "englishRaw": "64",
+      "mathRaw": "69",
+      "schoolGradeRaw": "A"
+    },
+    "0441": {
+      "row": 689,
+      "englishRaw": "71",
+      "mathRaw": "78",
+      "schoolGradeRaw": "A"
+    },
+    "0451": {
+      "row": 690,
+      "englishRaw": "71",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "0461": {
+      "row": 691,
+      "englishRaw": "56",
+      "mathRaw": "68",
+      "schoolGradeRaw": "B"
+    },
+    "0481": {
+      "row": 692,
+      "englishRaw": "44",
+      "mathRaw": "62",
+      "schoolGradeRaw": "B"
+    },
+    "0510": {
+      "row": 693,
+      "englishRaw": "83",
+      "mathRaw": "91",
+      "schoolGradeRaw": "A"
+    },
+    "0520": {
+      "row": 694,
+      "englishRaw": "76",
+      "mathRaw": "90",
+      "schoolGradeRaw": "A"
+    },
+    "0521": {
+      "row": 695,
+      "englishRaw": "45",
+      "mathRaw": "54",
+      "schoolGradeRaw": "B"
+    },
+    "0561": {
+      "row": 696,
+      "englishRaw": "55",
+      "mathRaw": "54",
+      "schoolGradeRaw": "B"
+    },
+    "0600": {
+      "row": 697,
+      "englishRaw": "85",
+      "mathRaw": "92",
+      "schoolGradeRaw": "A"
+    },
+    "0641": {
+      "row": 698,
+      "englishRaw": "68",
+      "mathRaw": "63",
+      "schoolGradeRaw": "A"
+    },
+    "0651": {
+      "row": 699,
+      "englishRaw": "47",
+      "mathRaw": "58",
+      "schoolGradeRaw": "B"
+    },
+    "0661": {
+      "row": 700,
+      "englishRaw": "57",
+      "mathRaw": "66",
+      "schoolGradeRaw": "A"
+    },
+    "0671": {
+      "row": 701,
+      "englishRaw": "87",
+      "mathRaw": "90",
+      "schoolGradeRaw": "A"
+    },
+    "0681": {
+      "row": 702,
+      "englishRaw": "39",
+      "mathRaw": "51",
+      "schoolGradeRaw": "C"
+    },
+    "0721": {
+      "row": 703,
+      "englishRaw": "91",
+      "mathRaw": "96",
+      "schoolGradeRaw": "A"
+    },
+    "0754": {
+      "row": 704,
+      "englishRaw": "64",
+      "mathRaw": "71",
+      "schoolGradeRaw": "B"
+    },
+    "0761": {
+      "row": 705,
+      "englishRaw": "42",
+      "mathRaw": "55",
+      "schoolGradeRaw": "C"
+    },
+    "0771": {
+      "row": 706,
+      "englishRaw": "57",
+      "mathRaw": "70",
+      "schoolGradeRaw": "A"
+    },
+    "0801": {
+      "row": 707,
+      "englishRaw": "30",
+      "mathRaw": "39",
+      "schoolGradeRaw": "C"
+    },
+    "0831": {
+      "row": 708,
+      "englishRaw": "68",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "0841": {
+      "row": 709,
+      "englishRaw": "87",
+      "mathRaw": "88",
+      "schoolGradeRaw": "A"
+    },
+    "0861": {
+      "row": 710,
+      "englishRaw": "73",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "0881": {
+      "row": 711,
+      "englishRaw": "32",
+      "mathRaw": "55",
+      "schoolGradeRaw": "C"
+    },
+    "0950": {
+      "row": 712,
+      "englishRaw": "84",
+      "mathRaw": "94",
+      "schoolGradeRaw": "A"
+    },
+    "0961": {
+      "row": 713,
+      "englishRaw": "84",
+      "mathRaw": "82",
+      "schoolGradeRaw": "A"
+    },
+    "1000": {
+      "row": 714,
+      "englishRaw": "93",
+      "mathRaw": "91",
+      "schoolGradeRaw": "A"
+    },
+    "1001": {
+      "row": 715,
+      "englishRaw": "76",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "1010": {
+      "row": 716,
+      "englishRaw": "71",
+      "mathRaw": "72",
+      "schoolGradeRaw": "A"
+    },
+    "1014": {
+      "row": 717,
+      "englishRaw": "88",
+      "mathRaw": "89",
+      "schoolGradeRaw": "A"
+    },
+    "1015": {
+      "row": 718,
+      "englishRaw": "71",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "1017": {
+      "row": 719,
+      "englishRaw": "56",
+      "mathRaw": "68",
+      "schoolGradeRaw": "B"
+    },
+    "1019": {
+      "row": 720,
+      "englishRaw": "93",
+      "mathRaw": "93",
+      "schoolGradeRaw": "A"
+    },
+    "1020": {
+      "row": 721,
+      "englishRaw": "65",
+      "mathRaw": "67",
+      "schoolGradeRaw": "B"
+    },
+    "1024": {
+      "row": 722,
+      "englishRaw": "96",
+      "mathRaw": "92",
+      "schoolGradeRaw": "A"
+    },
+    "1041": {
+      "row": 723,
+      "englishRaw": "82",
+      "mathRaw": "82",
+      "schoolGradeRaw": "A"
+    },
+    "1081": {
+      "row": 724,
+      "englishRaw": "61",
+      "mathRaw": "72",
+      "schoolGradeRaw": "A"
+    },
+    "1121": {
+      "row": 725,
+      "englishRaw": "71",
+      "mathRaw": "70",
+      "schoolGradeRaw": "A"
+    },
+    "1161": {
+      "row": 726,
+      "englishRaw": "68",
+      "mathRaw": "66",
+      "schoolGradeRaw": "A"
+    },
+    "1241": {
+      "row": 727,
+      "englishRaw": "63",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "1281": {
+      "row": 728,
+      "englishRaw": "72",
+      "mathRaw": "68",
+      "schoolGradeRaw": "A"
+    },
+    "1331": {
+      "row": 729,
+      "englishRaw": "76",
+      "mathRaw": "78",
+      "schoolGradeRaw": "A"
+    },
+    "1361": {
+      "row": 730,
+      "englishRaw": "52",
+      "mathRaw": "65",
+      "schoolGradeRaw": "B"
+    },
+    "1371": {
+      "row": 731,
+      "englishRaw": "77",
+      "mathRaw": "79",
+      "schoolGradeRaw": "A"
+    },
+    "1401": {
+      "row": 732,
+      "englishRaw": "51",
+      "mathRaw": "52",
+      "schoolGradeRaw": "B"
+    },
+    "1441": {
+      "row": 733,
+      "englishRaw": "41",
+      "mathRaw": "59",
+      "schoolGradeRaw": "B"
+    },
+    "1481": {
+      "row": 734,
+      "englishRaw": "68",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "1521": {
+      "row": 735,
+      "englishRaw": "64",
+      "mathRaw": "68",
+      "schoolGradeRaw": "B"
+    },
+    "1561": {
+      "row": 736,
+      "englishRaw": "54",
+      "mathRaw": "53",
+      "schoolGradeRaw": "B"
+    },
+    "1601": {
+      "row": 737,
+      "englishRaw": "50",
+      "mathRaw": "63",
+      "schoolGradeRaw": "C"
+    },
+    "1641": {
+      "row": 738,
+      "englishRaw": "78",
+      "mathRaw": "87",
+      "schoolGradeRaw": "A"
+    },
+    "1681": {
+      "row": 739,
+      "englishRaw": "44",
+      "mathRaw": "61",
+      "schoolGradeRaw": "B"
+    },
+    "1691": {
+      "row": 740,
+      "englishRaw": "80",
+      "mathRaw": "78",
+      "schoolGradeRaw": "A"
+    },
+    "1721": {
+      "row": 741,
+      "englishRaw": "64",
+      "mathRaw": "73",
+      "schoolGradeRaw": "A"
+    },
+    "1761": {
+      "row": 742,
+      "englishRaw": "80",
+      "mathRaw": "81",
+      "schoolGradeRaw": "A"
+    },
+    "1801": {
+      "row": 743,
+      "englishRaw": "64",
+      "mathRaw": "64",
+      "schoolGradeRaw": "A"
+    },
+    "1811": {
+      "row": 744,
+      "englishRaw": "80",
+      "mathRaw": "80",
+      "schoolGradeRaw": "A"
+    },
+    "1841": {
+      "row": 745,
+      "englishRaw": "63",
+      "mathRaw": "76",
+      "schoolGradeRaw": "B"
+    },
+    "1881": {
+      "row": 746,
+      "englishRaw": "55",
+      "mathRaw": "61",
+      "schoolGradeRaw": "B"
+    },
+    "1921": {
+      "row": 747,
+      "englishRaw": "53",
+      "mathRaw": "66",
+      "schoolGradeRaw": "B"
+    },
+    "2001": {
+      "row": 748,
+      "englishRaw": "53",
+      "mathRaw": "53",
+      "schoolGradeRaw": "B"
+    },
+    "2002": {
+      "row": 749,
+      "englishRaw": "65",
+      "mathRaw": "72",
+      "schoolGradeRaw": "B"
+    },
+    "2003": {
+      "row": 750,
+      "englishRaw": "69",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "2004": {
+      "row": 751,
+      "englishRaw": "94",
+      "mathRaw": "93",
+      "schoolGradeRaw": "A"
+    },
+    "2007": {
+      "row": 752,
+      "englishRaw": "93",
+      "mathRaw": "96",
+      "schoolGradeRaw": "A"
+    },
+    "2012": {
+      "row": 753,
+      "englishRaw": "63",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "2013": {
+      "row": 754,
+      "englishRaw": "58",
+      "mathRaw": "59",
+      "schoolGradeRaw": "B"
+    },
+    "2021": {
+      "row": 755,
+      "englishRaw": "68",
+      "mathRaw": "69",
+      "schoolGradeRaw": "B"
+    },
+    "2022": {
+      "row": 756,
+      "englishRaw": "77",
+      "mathRaw": "80",
+      "schoolGradeRaw": "A"
+    },
+    "2031": {
+      "row": 757,
+      "englishRaw": "81",
+      "mathRaw": "87",
+      "schoolGradeRaw": "A"
+    },
+    "2032": {
+      "row": 758,
+      "englishRaw": "62",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "2041": {
+      "row": 759,
+      "englishRaw": "61",
+      "mathRaw": "61",
+      "schoolGradeRaw": "A"
+    },
+    "2060": {
+      "row": 760,
+      "englishRaw": "43",
+      "mathRaw": "47",
+      "schoolGradeRaw": "B"
+    },
+    "2081": {
+      "row": 761,
+      "englishRaw": "55",
+      "mathRaw": "61",
+      "schoolGradeRaw": "C"
+    },
+    "2111": {
+      "row": 762,
+      "englishRaw": "68",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "2151": {
+      "row": 763,
+      "englishRaw": "77",
+      "mathRaw": "80",
+      "schoolGradeRaw": "A"
+    },
+    "2161": {
+      "row": 764,
+      "englishRaw": "58",
+      "mathRaw": "65",
+      "schoolGradeRaw": "B"
+    },
+    "2181": {
+      "row": 765,
+      "englishRaw": "78",
+      "mathRaw": "84",
+      "schoolGradeRaw": "A"
+    },
+    "2191": {
+      "row": 766,
+      "englishRaw": "63",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "2241": {
+      "row": 767,
+      "englishRaw": "69",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "2261": {
+      "row": 768,
+      "englishRaw": "71",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "2281": {
+      "row": 769,
+      "englishRaw": "64",
+      "mathRaw": "60",
+      "schoolGradeRaw": "B"
+    },
+    "2321": {
+      "row": 770,
+      "englishRaw": "57",
+      "mathRaw": "67",
+      "schoolGradeRaw": "B"
+    },
+    "2331": {
+      "row": 771,
+      "englishRaw": "60",
+      "mathRaw": "72",
+      "schoolGradeRaw": "B"
+    },
+    "2332": {
+      "row": 772,
+      "englishRaw": "49",
+      "mathRaw": "55",
+      "schoolGradeRaw": "C"
+    },
+    "2341": {
+      "row": 773,
+      "englishRaw": "66",
+      "mathRaw": "73",
+      "schoolGradeRaw": "A"
+    },
+    "2351": {
+      "row": 774,
+      "englishRaw": "51",
+      "mathRaw": "58",
+      "schoolGradeRaw": "B"
+    },
+    "2361": {
+      "row": 775,
+      "englishRaw": "57",
+      "mathRaw": "51",
+      "schoolGradeRaw": "B"
+    },
+    "2371": {
+      "row": 776,
+      "englishRaw": "68",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "2401": {
+      "row": 777,
+      "englishRaw": "60",
+      "mathRaw": "50",
+      "schoolGradeRaw": "C"
+    },
+    "2441": {
+      "row": 778,
+      "englishRaw": "72",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "2501": {
+      "row": 779,
+      "englishRaw": "46",
+      "mathRaw": "67",
+      "schoolGradeRaw": "B"
+    },
+    "2511": {
+      "row": 780,
+      "englishRaw": "78",
+      "mathRaw": "84",
+      "schoolGradeRaw": "A"
+    },
+    "2521": {
+      "row": 781,
+      "englishRaw": "78",
+      "mathRaw": "84",
+      "schoolGradeRaw": "A"
+    },
+    "2541": {
+      "row": 782,
+      "englishRaw": "81",
+      "mathRaw": "81",
+      "schoolGradeRaw": "A"
+    },
+    "2581": {
+      "row": 783,
+      "englishRaw": "67",
+      "mathRaw": "59",
+      "schoolGradeRaw": "B"
+    },
+    "2641": {
+      "row": 784,
+      "englishRaw": "85",
+      "mathRaw": "91",
+      "schoolGradeRaw": "A"
+    },
+    "2651": {
+      "row": 785,
+      "englishRaw": "80",
+      "mathRaw": "85",
+      "schoolGradeRaw": "A"
+    },
+    "2661": {
+      "row": 786,
+      "englishRaw": "44",
+      "mathRaw": "55",
+      "schoolGradeRaw": "C"
+    },
+    "2701": {
+      "row": 787,
+      "englishRaw": "71",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "2741": {
+      "row": 788,
+      "englishRaw": "82",
+      "mathRaw": "83",
+      "schoolGradeRaw": "A"
+    },
+    "2781": {
+      "row": 789,
+      "englishRaw": "57",
+      "mathRaw": "54",
+      "schoolGradeRaw": "B"
+    },
+    "2801": {
+      "row": 790,
+      "englishRaw": "65",
+      "mathRaw": "79",
+      "schoolGradeRaw": "A"
+    },
+    "2821": {
+      "row": 791,
+      "englishRaw": "59",
+      "mathRaw": "73",
+      "schoolGradeRaw": "A"
+    },
+    "2881": {
+      "row": 792,
+      "englishRaw": "83",
+      "mathRaw": "82",
+      "schoolGradeRaw": "A"
+    },
+    "2891": {
+      "row": 793,
+      "englishRaw": "77",
+      "mathRaw": "84",
+      "schoolGradeRaw": "A"
+    },
+    "2901": {
+      "row": 794,
+      "englishRaw": "49",
+      "mathRaw": "52",
+      "schoolGradeRaw": "C"
+    },
+    "2911": {
+      "row": 795,
+      "englishRaw": "59",
+      "mathRaw": "57",
+      "schoolGradeRaw": "B"
+    },
+    "2941": {
+      "row": 796,
+      "englishRaw": "32",
+      "mathRaw": "61",
+      "schoolGradeRaw": "C"
+    },
+    "2981": {
+      "row": 797,
+      "englishRaw": "64",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "3000": {
+      "row": 798,
+      "englishRaw": "52",
+      "mathRaw": "46",
+      "schoolGradeRaw": "C"
+    },
+    "3001": {
+      "row": 799,
+      "englishRaw": "65",
+      "mathRaw": "69",
+      "schoolGradeRaw": "A"
+    },
+    "3002": {
+      "row": 800,
+      "englishRaw": "86",
+      "mathRaw": "88",
+      "schoolGradeRaw": "A"
+    },
+    "3003": {
+      "row": 801,
+      "englishRaw": "43",
+      "mathRaw": "61",
+      "schoolGradeRaw": "C"
+    },
+    "3021": {
+      "row": 802,
+      "englishRaw": "51",
+      "mathRaw": "69",
+      "schoolGradeRaw": "A"
+    },
+    "3026": {
+      "row": 803,
+      "englishRaw": "69",
+      "mathRaw": "60",
+      "schoolGradeRaw": "B"
+    },
+    "3029": {
+      "row": 804,
+      "englishRaw": "99",
+      "mathRaw": "100",
+      "schoolGradeRaw": "A"
+    },
+    "3030": {
+      "row": 805,
+      "englishRaw": "87",
+      "mathRaw": "89",
+      "schoolGradeRaw": "A"
+    },
+    "3031": {
+      "row": 806,
+      "englishRaw": "80",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "3032": {
+      "row": 807,
+      "englishRaw": "63",
+      "mathRaw": "67",
+      "schoolGradeRaw": "B"
+    },
+    "3033": {
+      "row": 808,
+      "englishRaw": "62",
+      "mathRaw": "67",
+      "schoolGradeRaw": "B"
+    },
+    "3034": {
+      "row": 809,
+      "englishRaw": "75",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "3036": {
+      "row": 810,
+      "englishRaw": "52",
+      "mathRaw": "50",
+      "schoolGradeRaw": "C"
+    },
+    "3041": {
+      "row": 811,
+      "englishRaw": "56",
+      "mathRaw": "50",
+      "schoolGradeRaw": "A"
+    },
+    "3051": {
+      "row": 812,
+      "englishRaw": "61",
+      "mathRaw": "61",
+      "schoolGradeRaw": "A"
+    },
+    "3061": {
+      "row": 813,
+      "englishRaw": "65",
+      "mathRaw": "70",
+      "schoolGradeRaw": "A"
+    },
+    "3100": {
+      "row": 814,
+      "englishRaw": "73",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "3101": {
+      "row": 815,
+      "englishRaw": "70",
+      "mathRaw": "63",
+      "schoolGradeRaw": "B"
+    },
+    "3111": {
+      "row": 816,
+      "englishRaw": "77",
+      "mathRaw": "86",
+      "schoolGradeRaw": "A"
+    },
+    "3141": {
+      "row": 817,
+      "englishRaw": "64",
+      "mathRaw": "79",
+      "schoolGradeRaw": "A"
+    },
+    "3181": {
+      "row": 818,
+      "englishRaw": "44",
+      "mathRaw": "69",
+      "schoolGradeRaw": "B"
+    },
+    "3191": {
+      "row": 819,
+      "englishRaw": "91",
+      "mathRaw": "94",
+      "schoolGradeRaw": "A"
+    },
+    "3241": {
+      "row": 820,
+      "englishRaw": "60",
+      "mathRaw": "81",
+      "schoolGradeRaw": "A"
+    },
+    "3261": {
+      "row": 821,
+      "englishRaw": "58",
+      "mathRaw": "53",
+      "schoolGradeRaw": "C"
+    },
+    "3281": {
+      "row": 822,
+      "englishRaw": "72",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "3341": {
+      "row": 823,
+      "englishRaw": "76",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "3381": {
+      "row": 824,
+      "englishRaw": "65",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "3421": {
+      "row": 825,
+      "englishRaw": "53",
+      "mathRaw": "60",
+      "schoolGradeRaw": "C"
+    },
+    "3431": {
+      "row": 826,
+      "englishRaw": "62",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "3501": {
+      "row": 827,
+      "englishRaw": "70",
+      "mathRaw": "72",
+      "schoolGradeRaw": "A"
+    },
+    "3541": {
+      "row": 828,
+      "englishRaw": "53",
+      "mathRaw": "62",
+      "schoolGradeRaw": "B"
+    },
+    "3581": {
+      "row": 829,
+      "englishRaw": "53",
+      "mathRaw": "63",
+      "schoolGradeRaw": "B"
+    },
+    "3600": {
+      "row": 830,
+      "englishRaw": "51",
+      "mathRaw": "51",
+      "schoolGradeRaw": "B"
+    },
+    "3610": {
+      "row": 831,
+      "englishRaw": "53",
+      "mathRaw": "52",
+      "schoolGradeRaw": "B"
+    },
+    "3621": {
+      "row": 832,
+      "englishRaw": "44",
+      "mathRaw": "45",
+      "schoolGradeRaw": "C"
+    },
+    "3661": {
+      "row": 833,
+      "englishRaw": "57",
+      "mathRaw": "67",
+      "schoolGradeRaw": "B"
+    },
+    "3701": {
+      "row": 834,
+      "englishRaw": "65",
+      "mathRaw": "67",
+      "schoolGradeRaw": "B"
+    },
+    "3741": {
+      "row": 835,
+      "englishRaw": "79",
+      "mathRaw": "82",
+      "schoolGradeRaw": "A"
+    },
+    "3781": {
+      "row": 836,
+      "englishRaw": "55",
+      "mathRaw": "59",
+      "schoolGradeRaw": "B"
+    },
+    "3821": {
+      "row": 837,
+      "englishRaw": "48",
+      "mathRaw": "58",
+      "schoolGradeRaw": "B"
+    },
+    "3861": {
+      "row": 838,
+      "englishRaw": "61",
+      "mathRaw": "64",
+      "schoolGradeRaw": "A"
+    },
+    "3881": {
+      "row": 839,
+      "englishRaw": "69",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "3901": {
+      "row": 840,
+      "englishRaw": "53",
+      "mathRaw": "71",
+      "schoolGradeRaw": "B"
+    },
+    "3941": {
+      "row": 841,
+      "englishRaw": "61",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "3981": {
+      "row": 842,
+      "englishRaw": "70",
+      "mathRaw": "69",
+      "schoolGradeRaw": "A"
+    },
+    "4000": {
+      "row": 843,
+      "englishRaw": "90",
+      "mathRaw": "86",
+      "schoolGradeRaw": "A"
+    },
+    "4001": {
+      "row": 844,
+      "englishRaw": "52",
+      "mathRaw": "60",
+      "schoolGradeRaw": "C"
+    },
+    "4010": {
+      "row": 845,
+      "englishRaw": "82",
+      "mathRaw": "86",
+      "schoolGradeRaw": "A"
+    },
+    "4011": {
+      "row": 846,
+      "englishRaw": "66",
+      "mathRaw": "64",
+      "schoolGradeRaw": "A"
+    },
+    "4012": {
+      "row": 847,
+      "englishRaw": "83",
+      "mathRaw": "87",
+      "schoolGradeRaw": "A"
+    },
+    "4021": {
+      "row": 848,
+      "englishRaw": "54",
+      "mathRaw": "58",
+      "schoolGradeRaw": "A"
+    },
+    "4031": {
+      "row": 849,
+      "englishRaw": "44",
+      "mathRaw": "48",
+      "schoolGradeRaw": "C"
+    },
+    "4037": {
+      "row": 850,
+      "englishRaw": "91",
+      "mathRaw": "99",
+      "schoolGradeRaw": "A"
+    },
+    "4050": {
+      "row": 851,
+      "englishRaw": "74",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "4061": {
+      "row": 852,
+      "englishRaw": "62",
+      "mathRaw": "69",
+      "schoolGradeRaw": "A"
+    },
+    "4071": {
+      "row": 853,
+      "englishRaw": "59",
+      "mathRaw": "60",
+      "schoolGradeRaw": "A"
+    },
+    "4091": {
+      "row": 854,
+      "englishRaw": "60",
+      "mathRaw": "76",
+      "schoolGradeRaw": "B"
+    },
+    "4121": {
+      "row": 855,
+      "englishRaw": "62",
+      "mathRaw": "72",
+      "schoolGradeRaw": "A"
+    },
+    "4171": {
+      "row": 856,
+      "englishRaw": "54",
+      "mathRaw": "64",
+      "schoolGradeRaw": "A"
+    },
+    "4221": {
+      "row": 857,
+      "englishRaw": "93",
+      "mathRaw": "98",
+      "schoolGradeRaw": "A"
+    },
+    "4241": {
+      "row": 858,
+      "englishRaw": "59",
+      "mathRaw": "62",
+      "schoolGradeRaw": "B"
+    },
+    "4242": {
+      "row": 859,
+      "englishRaw": "52",
+      "mathRaw": "62",
+      "schoolGradeRaw": "C"
+    },
+    "4261": {
+      "row": 860,
+      "englishRaw": "57",
+      "mathRaw": "65",
+      "schoolGradeRaw": "B"
+    },
+    "4281": {
+      "row": 861,
+      "englishRaw": "67",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "4328": {
+      "row": 862,
+      "englishRaw": "65",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "4341": {
+      "row": 863,
+      "englishRaw": "52",
+      "mathRaw": "51",
+      "schoolGradeRaw": "C"
+    },
+    "4381": {
+      "row": 864,
+      "englishRaw": "66",
+      "mathRaw": "69",
+      "schoolGradeRaw": "A"
+    },
+    "4391": {
+      "row": 865,
+      "englishRaw": "57",
+      "mathRaw": "59",
+      "schoolGradeRaw": "B"
+    },
+    "4401": {
+      "row": 866,
+      "englishRaw": "60",
+      "mathRaw": "82",
+      "schoolGradeRaw": "A"
+    },
+    "4421": {
+      "row": 867,
+      "englishRaw": "90",
+      "mathRaw": "91",
+      "schoolGradeRaw": "A"
+    },
+    "4441": {
+      "row": 868,
+      "englishRaw": "47",
+      "mathRaw": "55",
+      "schoolGradeRaw": "B"
+    },
+    "4461": {
+      "row": 869,
+      "englishRaw": "51",
+      "mathRaw": "59",
+      "schoolGradeRaw": "C"
+    },
+    "4491": {
+      "row": 870,
+      "englishRaw": "55",
+      "mathRaw": "55",
+      "schoolGradeRaw": "C"
+    },
+    "4511": {
+      "row": 871,
+      "englishRaw": "64",
+      "mathRaw": "70",
+      "schoolGradeRaw": "A"
+    },
+    "4541": {
+      "row": 872,
+      "englishRaw": "43",
+      "mathRaw": "52",
+      "schoolGradeRaw": "C"
+    },
+    "4581": {
+      "row": 873,
+      "englishRaw": "62",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "4611": {
+      "row": 874,
+      "englishRaw": "55",
+      "mathRaw": "57",
+      "schoolGradeRaw": "B"
+    },
+    "4681": {
+      "row": 875,
+      "englishRaw": "33",
+      "mathRaw": "54",
+      "schoolGradeRaw": "C"
+    },
+    "4691": {
+      "row": 876,
+      "englishRaw": "80",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "4721": {
+      "row": 877,
+      "englishRaw": "63",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "4741": {
+      "row": 878,
+      "englishRaw": "79",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "4761": {
+      "row": 879,
+      "englishRaw": "78",
+      "mathRaw": "89",
+      "schoolGradeRaw": "A"
+    },
+    "4801": {
+      "row": 880,
+      "englishRaw": "59",
+      "mathRaw": "57",
+      "schoolGradeRaw": "B"
+    },
+    "4841": {
+      "row": 881,
+      "englishRaw": "38",
+      "mathRaw": "54",
+      "schoolGradeRaw": "C"
+    },
+    "4881": {
+      "row": 882,
+      "englishRaw": "66",
+      "mathRaw": "69",
+      "schoolGradeRaw": "A"
+    },
+    "4921": {
+      "row": 883,
+      "englishRaw": "75",
+      "mathRaw": "88",
+      "schoolGradeRaw": "A"
+    },
+    "5001": {
+      "row": 884,
+      "englishRaw": "59",
+      "mathRaw": "73",
+      "schoolGradeRaw": "A"
+    },
+    "5002": {
+      "row": 885,
+      "englishRaw": "89",
+      "mathRaw": "86",
+      "schoolGradeRaw": "A"
+    },
+    "5003": {
+      "row": 886,
+      "englishRaw": "47",
+      "mathRaw": "60",
+      "schoolGradeRaw": "C"
+    },
+    "5004": {
+      "row": 887,
+      "englishRaw": "86",
+      "mathRaw": "91",
+      "schoolGradeRaw": "A"
+    },
+    "5005": {
+      "row": 888,
+      "englishRaw": "60",
+      "mathRaw": "72",
+      "schoolGradeRaw": "A"
+    },
+    "5006": {
+      "row": 889,
+      "englishRaw": "72",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "5007": {
+      "row": 890,
+      "englishRaw": "60",
+      "mathRaw": "85",
+      "schoolGradeRaw": "A"
+    },
+    "5008": {
+      "row": 891,
+      "englishRaw": "87",
+      "mathRaw": "84",
+      "schoolGradeRaw": "A"
+    },
+    "5015": {
+      "row": 892,
+      "englishRaw": "85",
+      "mathRaw": "84",
+      "schoolGradeRaw": "A"
+    },
+    "5020": {
+      "row": 893,
+      "englishRaw": "46",
+      "mathRaw": "33",
+      "schoolGradeRaw": "C"
+    },
+    "5021": {
+      "row": 894,
+      "englishRaw": "61",
+      "mathRaw": "74",
+      "schoolGradeRaw": "B"
+    },
+    "5022": {
+      "row": 895,
+      "englishRaw": "89",
+      "mathRaw": "84",
+      "schoolGradeRaw": "A"
+    },
+    "5025": {
+      "row": 896,
+      "englishRaw": "63",
+      "mathRaw": "92",
+      "schoolGradeRaw": "A"
+    },
+    "5028": {
+      "row": 897,
+      "englishRaw": "70",
+      "mathRaw": "84",
+      "schoolGradeRaw": "A"
+    },
+    "5029": {
+      "row": 898,
+      "englishRaw": "42",
+      "mathRaw": "65",
+      "schoolGradeRaw": "B"
+    },
+    "5032": {
+      "row": 899,
+      "englishRaw": "52",
+      "mathRaw": "52",
+      "schoolGradeRaw": "C"
+    },
+    "5038": {
+      "row": 900,
+      "englishRaw": "64",
+      "mathRaw": "66",
+      "schoolGradeRaw": "A"
+    },
+    "5041": {
+      "row": 901,
+      "englishRaw": "63",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "5043": {
+      "row": 902,
+      "englishRaw": "76",
+      "mathRaw": "90",
+      "schoolGradeRaw": "A"
+    },
+    "5045": {
+      "row": 903,
+      "englishRaw": "82",
+      "mathRaw": "81",
+      "schoolGradeRaw": "A"
+    },
+    "5047": {
+      "row": 904,
+      "englishRaw": "70",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "5048": {
+      "row": 905,
+      "englishRaw": "93",
+      "mathRaw": "96",
+      "schoolGradeRaw": "A"
+    },
+    "5049": {
+      "row": 906,
+      "englishRaw": "85",
+      "mathRaw": "85",
+      "schoolGradeRaw": "A"
+    },
+    "5051": {
+      "row": 907,
+      "englishRaw": "67",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "5052": {
+      "row": 908,
+      "englishRaw": "76",
+      "mathRaw": "52",
+      "schoolGradeRaw": "A"
+    },
+    "5057": {
+      "row": 909,
+      "englishRaw": "72",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "5061": {
+      "row": 910,
+      "englishRaw": "71",
+      "mathRaw": "79",
+      "schoolGradeRaw": "A"
+    },
+    "5062": {
+      "row": 911,
+      "englishRaw": "88",
+      "mathRaw": "93",
+      "schoolGradeRaw": "A"
+    },
+    "5081": {
+      "row": 912,
+      "englishRaw": "73",
+      "mathRaw": "81",
+      "schoolGradeRaw": "A"
+    },
+    "5091": {
+      "row": 913,
+      "englishRaw": "72",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "5101": {
+      "row": 914,
+      "englishRaw": "70",
+      "mathRaw": "70",
+      "schoolGradeRaw": "A"
+    },
+    "5119": {
+      "row": 915,
+      "englishRaw": "69",
+      "mathRaw": "86",
+      "schoolGradeRaw": "A"
+    },
+    "5121": {
+      "row": 916,
+      "englishRaw": "81",
+      "mathRaw": "91",
+      "schoolGradeRaw": "A"
+    },
+    "5131": {
+      "row": 917,
+      "englishRaw": "91",
+      "mathRaw": "93",
+      "schoolGradeRaw": "A"
+    },
+    "5141": {
+      "row": 918,
+      "englishRaw": "64",
+      "mathRaw": "56",
+      "schoolGradeRaw": "B"
+    },
+    "5201": {
+      "row": 919,
+      "englishRaw": "66",
+      "mathRaw": "83",
+      "schoolGradeRaw": "A"
+    },
+    "5219": {
+      "row": 920,
+      "englishRaw": "96",
+      "mathRaw": "96",
+      "schoolGradeRaw": "A"
+    },
+    "5241": {
+      "row": 921,
+      "englishRaw": "63",
+      "mathRaw": "64",
+      "schoolGradeRaw": "B"
+    },
+    "5281": {
+      "row": 922,
+      "englishRaw": "58",
+      "mathRaw": "63",
+      "schoolGradeRaw": "B"
+    },
+    "5321": {
+      "row": 923,
+      "englishRaw": "70",
+      "mathRaw": "72",
+      "schoolGradeRaw": "A"
+    },
+    "5361": {
+      "row": 924,
+      "englishRaw": "74",
+      "mathRaw": "85",
+      "schoolGradeRaw": "A"
+    },
+    "5381": {
+      "row": 925,
+      "englishRaw": "70",
+      "mathRaw": "78",
+      "schoolGradeRaw": "A"
+    },
+    "5384": {
+      "row": 926,
+      "englishRaw": "61",
+      "mathRaw": "63",
+      "schoolGradeRaw": "B"
+    },
+    "5401": {
+      "row": 927,
+      "englishRaw": "97",
+      "mathRaw": "96",
+      "schoolGradeRaw": "A"
+    },
+    "5410": {
+      "row": 928,
+      "englishRaw": "38",
+      "mathRaw": "45",
+      "schoolGradeRaw": "C"
+    },
+    "5412": {
+      "row": 929,
+      "englishRaw": "79",
+      "mathRaw": "87",
+      "schoolGradeRaw": "A"
+    },
+    "5416": {
+      "row": 930,
+      "englishRaw": "68",
+      "mathRaw": "73",
+      "schoolGradeRaw": "A"
+    },
+    "5417": {
+      "row": 931,
+      "englishRaw": "91",
+      "mathRaw": "83",
+      "schoolGradeRaw": "A"
+    },
+    "5421": {
+      "row": 932,
+      "englishRaw": "75",
+      "mathRaw": "78",
+      "schoolGradeRaw": "A"
+    },
+    "5422": {
+      "row": 933,
+      "englishRaw": "79",
+      "mathRaw": "86",
+      "schoolGradeRaw": "A"
+    },
+    "5431": {
+      "row": 934,
+      "englishRaw": "60",
+      "mathRaw": "73",
+      "schoolGradeRaw": "A"
+    },
+    "5441": {
+      "row": 935,
+      "englishRaw": "61",
+      "mathRaw": "64",
+      "schoolGradeRaw": "B"
+    },
+    "5481": {
+      "row": 936,
+      "englishRaw": "57",
+      "mathRaw": "63",
+      "schoolGradeRaw": "C"
+    },
+    "5521": {
+      "row": 937,
+      "englishRaw": "64",
+      "mathRaw": "78",
+      "schoolGradeRaw": "A"
+    },
+    "5555": {
+      "row": 938,
+      "englishRaw": "82",
+      "mathRaw": "90",
+      "schoolGradeRaw": "A"
+    },
+    "5556": {
+      "row": 939,
+      "englishRaw": "77",
+      "mathRaw": "73",
+      "schoolGradeRaw": "A"
+    },
+    "5561": {
+      "row": 940,
+      "englishRaw": "50",
+      "mathRaw": "46",
+      "schoolGradeRaw": "C"
+    },
+    "5601": {
+      "row": 941,
+      "englishRaw": "60",
+      "mathRaw": "69",
+      "schoolGradeRaw": "B"
+    },
+    "5641": {
+      "row": 942,
+      "englishRaw": "72",
+      "mathRaw": "83",
+      "schoolGradeRaw": "A"
+    },
+    "5671": {
+      "row": 943,
+      "englishRaw": "84",
+      "mathRaw": "81",
+      "schoolGradeRaw": "A"
+    },
+    "5711": {
+      "row": 944,
+      "englishRaw": "65",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "5791": {
+      "row": 945,
+      "englishRaw": "35",
+      "mathRaw": "61",
+      "schoolGradeRaw": "C"
+    },
+    "5831": {
+      "row": 946,
+      "englishRaw": "96",
+      "mathRaw": "97",
+      "schoolGradeRaw": "A"
+    },
+    "5836": {
+      "row": 947,
+      "englishRaw": "56",
+      "mathRaw": "68",
+      "schoolGradeRaw": "C"
+    },
+    "5841": {
+      "row": 948,
+      "englishRaw": "83",
+      "mathRaw": "67",
+      "schoolGradeRaw": "A"
+    },
+    "5861": {
+      "row": 949,
+      "englishRaw": "48",
+      "mathRaw": "62",
+      "schoolGradeRaw": "A"
+    },
+    "5901": {
+      "row": 950,
+      "englishRaw": "55",
+      "mathRaw": "60",
+      "schoolGradeRaw": "A"
+    },
+    "5931": {
+      "row": 951,
+      "englishRaw": "44",
+      "mathRaw": "44",
+      "schoolGradeRaw": "C"
+    },
+    "5951": {
+      "row": 952,
+      "englishRaw": "76",
+      "mathRaw": "80",
+      "schoolGradeRaw": "A"
+    },
+    "5961": {
+      "row": 953,
+      "englishRaw": "74",
+      "mathRaw": "81",
+      "schoolGradeRaw": "A"
+    },
+    "5971": {
+      "row": 954,
+      "englishRaw": "61",
+      "mathRaw": "58",
+      "schoolGradeRaw": "A"
+    },
+    "5981": {
+      "row": 955,
+      "englishRaw": "67",
+      "mathRaw": "63",
+      "schoolGradeRaw": "B"
+    },
+    "5991": {
+      "row": 956,
+      "englishRaw": "47",
+      "mathRaw": "65",
+      "schoolGradeRaw": "B"
+    },
+    "6001": {
+      "row": 957,
+      "englishRaw": "94",
+      "mathRaw": "93",
+      "schoolGradeRaw": "A"
+    },
+    "6004": {
+      "row": 958,
+      "englishRaw": "74",
+      "mathRaw": "72",
+      "schoolGradeRaw": "A"
+    },
+    "6006": {
+      "row": 959,
+      "englishRaw": "95",
+      "mathRaw": "95",
+      "schoolGradeRaw": "A"
+    },
+    "6011": {
+      "row": 960,
+      "englishRaw": "43",
+      "mathRaw": "47",
+      "schoolGradeRaw": "B"
+    },
+    "6012": {
+      "row": 961,
+      "englishRaw": "72",
+      "mathRaw": "86",
+      "schoolGradeRaw": "A"
+    },
+    "6013": {
+      "row": 962,
+      "englishRaw": "65",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "6014": {
+      "row": 963,
+      "englishRaw": "65",
+      "mathRaw": "66",
+      "schoolGradeRaw": "A"
+    },
+    "6015": {
+      "row": 964,
+      "englishRaw": "51",
+      "mathRaw": "59",
+      "schoolGradeRaw": "B"
+    },
+    "6016": {
+      "row": 965,
+      "englishRaw": "50",
+      "mathRaw": "30",
+      "schoolGradeRaw": "D"
+    },
+    "6017": {
+      "row": 966,
+      "englishRaw": null,
+      "mathRaw": null,
+      "schoolGradeRaw": "A"
+    },
+    "6021": {
+      "row": 967,
+      "englishRaw": "78",
+      "mathRaw": "86",
+      "schoolGradeRaw": "A"
+    },
+    "6022": {
+      "row": 968,
+      "englishRaw": "83",
+      "mathRaw": "91",
+      "schoolGradeRaw": "A"
+    },
+    "6023": {
+      "row": 969,
+      "englishRaw": "57",
+      "mathRaw": "56",
+      "schoolGradeRaw": "B"
+    },
+    "6024": {
+      "row": 970,
+      "englishRaw": "52",
+      "mathRaw": "48",
+      "schoolGradeRaw": "C"
+    },
+    "6028": {
+      "row": 971,
+      "englishRaw": "66",
+      "mathRaw": "70",
+      "schoolGradeRaw": "A"
+    },
+    "6030": {
+      "row": 972,
+      "englishRaw": "89",
+      "mathRaw": "94",
+      "schoolGradeRaw": "A"
+    },
+    "6031": {
+      "row": 973,
+      "englishRaw": "37",
+      "mathRaw": "46",
+      "schoolGradeRaw": "B"
+    },
+    "6032": {
+      "row": 974,
+      "englishRaw": "87",
+      "mathRaw": "93",
+      "schoolGradeRaw": "A"
+    },
+    "6033": {
+      "row": 975,
+      "englishRaw": "79",
+      "mathRaw": "78",
+      "schoolGradeRaw": "A"
+    },
+    "6034": {
+      "row": 976,
+      "englishRaw": "59",
+      "mathRaw": "62",
+      "schoolGradeRaw": "A"
+    },
+    "6040": {
+      "row": 977,
+      "englishRaw": "73",
+      "mathRaw": "58",
+      "schoolGradeRaw": "A"
+    },
+    "6041": {
+      "row": 978,
+      "englishRaw": "60",
+      "mathRaw": "66",
+      "schoolGradeRaw": "B"
+    },
+    "6045": {
+      "row": 979,
+      "englishRaw": "83",
+      "mathRaw": "92",
+      "schoolGradeRaw": "A"
+    },
+    "6046": {
+      "row": 980,
+      "englishRaw": "69",
+      "mathRaw": "59",
+      "schoolGradeRaw": "B"
+    },
+    "6047": {
+      "row": 981,
+      "englishRaw": "69",
+      "mathRaw": "82",
+      "schoolGradeRaw": "A"
+    },
+    "6048": {
+      "row": 982,
+      "englishRaw": "40",
+      "mathRaw": "46",
+      "schoolGradeRaw": "C"
+    },
+    "6051": {
+      "row": 983,
+      "englishRaw": "48",
+      "mathRaw": "58",
+      "schoolGradeRaw": "B"
+    },
+    "6052": {
+      "row": 984,
+      "englishRaw": "92",
+      "mathRaw": "92",
+      "schoolGradeRaw": "A"
+    },
+    "6053": {
+      "row": 985,
+      "englishRaw": "95",
+      "mathRaw": "97",
+      "schoolGradeRaw": "A"
+    },
+    "6071": {
+      "row": 986,
+      "englishRaw": "94",
+      "mathRaw": "96",
+      "schoolGradeRaw": "A"
+    },
+    "6081": {
+      "row": 987,
+      "englishRaw": "86",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "6082": {
+      "row": 988,
+      "englishRaw": "75",
+      "mathRaw": "88",
+      "schoolGradeRaw": "A"
+    },
+    "6083": {
+      "row": 989,
+      "englishRaw": "93",
+      "mathRaw": "98",
+      "schoolGradeRaw": "A"
+    },
+    "6093": {
+      "row": 990,
+      "englishRaw": "80",
+      "mathRaw": "82",
+      "schoolGradeRaw": "A"
+    },
+    "6111": {
+      "row": 991,
+      "englishRaw": "55",
+      "mathRaw": "65",
+      "schoolGradeRaw": "A"
+    },
+    "6121": {
+      "row": 992,
+      "englishRaw": "57",
+      "mathRaw": "65",
+      "schoolGradeRaw": "A"
+    },
+    "6128": {
+      "row": 993,
+      "englishRaw": "90",
+      "mathRaw": "95",
+      "schoolGradeRaw": "A"
+    },
+    "6161": {
+      "row": 994,
+      "englishRaw": "56",
+      "mathRaw": "58",
+      "schoolGradeRaw": "B"
+    },
+    "6171": {
+      "row": 995,
+      "englishRaw": "47",
+      "mathRaw": "48",
+      "schoolGradeRaw": "C"
+    },
+    "6211": {
+      "row": 996,
+      "englishRaw": "68",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "6221": {
+      "row": 997,
+      "englishRaw": "62",
+      "mathRaw": "63",
+      "schoolGradeRaw": "B"
+    },
+    "6231": {
+      "row": 998,
+      "englishRaw": "56",
+      "mathRaw": "52",
+      "schoolGradeRaw": "B"
+    },
+    "6241": {
+      "row": 999,
+      "englishRaw": "68",
+      "mathRaw": "56",
+      "schoolGradeRaw": "A"
+    },
+    "6251": {
+      "row": 1000,
+      "englishRaw": "52",
+      "mathRaw": "55",
+      "schoolGradeRaw": "B"
+    },
+    "6281": {
+      "row": 1001,
+      "englishRaw": "52",
+      "mathRaw": "54",
+      "schoolGradeRaw": "C"
+    },
+    "6301": {
+      "row": 1002,
+      "englishRaw": "66",
+      "mathRaw": "57",
+      "schoolGradeRaw": "A"
+    },
+    "6331": {
+      "row": 1003,
+      "englishRaw": "40",
+      "mathRaw": "53",
+      "schoolGradeRaw": "B"
+    },
+    "6351": {
+      "row": 1004,
+      "englishRaw": "45",
+      "mathRaw": "52",
+      "schoolGradeRaw": "C"
+    },
+    "6361": {
+      "row": 1005,
+      "englishRaw": "42",
+      "mathRaw": "46",
+      "schoolGradeRaw": "B"
+    },
+    "6391": {
+      "row": 1006,
+      "englishRaw": "46",
+      "mathRaw": "56",
+      "schoolGradeRaw": "B"
+    },
+    "6411": {
+      "row": 1007,
+      "englishRaw": "43",
+      "mathRaw": "50",
+      "schoolGradeRaw": "B"
+    },
+    "6441": {
+      "row": 1008,
+      "englishRaw": "68",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "6501": {
+      "row": 1009,
+      "englishRaw": "74",
+      "mathRaw": "78",
+      "schoolGradeRaw": "A"
+    },
+    "6521": {
+      "row": 1010,
+      "englishRaw": "37",
+      "mathRaw": "49",
+      "schoolGradeRaw": "C"
+    },
+    "6541": {
+      "row": 1011,
+      "englishRaw": "69",
+      "mathRaw": "63",
+      "schoolGradeRaw": "A"
+    },
+    "6571": {
+      "row": 1012,
+      "englishRaw": "52",
+      "mathRaw": "55",
+      "schoolGradeRaw": "B"
+    },
+    "6591": {
+      "row": 1013,
+      "englishRaw": "49",
+      "mathRaw": "54",
+      "schoolGradeRaw": "A"
+    },
+    "6631": {
+      "row": 1014,
+      "englishRaw": "53",
+      "mathRaw": "55",
+      "schoolGradeRaw": "B"
+    },
+    "6681": {
+      "row": 1015,
+      "englishRaw": "45",
+      "mathRaw": "48",
+      "schoolGradeRaw": "C"
+    },
+    "6701": {
+      "row": 1016,
+      "englishRaw": "77",
+      "mathRaw": "73",
+      "schoolGradeRaw": "A"
+    },
+    "6741": {
+      "row": 1017,
+      "englishRaw": "63",
+      "mathRaw": "64",
+      "schoolGradeRaw": "B"
+    },
+    "6751": {
+      "row": 1018,
+      "englishRaw": "71",
+      "mathRaw": "78",
+      "schoolGradeRaw": "A"
+    },
+    "6761": {
+      "row": 1019,
+      "englishRaw": "52",
+      "mathRaw": "47",
+      "schoolGradeRaw": "B"
+    },
+    "6771": {
+      "row": 1020,
+      "englishRaw": "66",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "6781": {
+      "row": 1021,
+      "englishRaw": "57",
+      "mathRaw": "69",
+      "schoolGradeRaw": "A"
+    },
+    "6801": {
+      "row": 1022,
+      "englishRaw": "66",
+      "mathRaw": "64",
+      "schoolGradeRaw": "A"
+    },
+    "6821": {
+      "row": 1023,
+      "englishRaw": "66",
+      "mathRaw": "63",
+      "schoolGradeRaw": "B"
+    },
+    "6841": {
+      "row": 1024,
+      "englishRaw": "59",
+      "mathRaw": "57",
+      "schoolGradeRaw": "B"
+    },
+    "6861": {
+      "row": 1025,
+      "englishRaw": "82",
+      "mathRaw": "81",
+      "schoolGradeRaw": "A"
+    },
+    "6881": {
+      "row": 1026,
+      "englishRaw": "75",
+      "mathRaw": "73",
+      "schoolGradeRaw": "A"
+    },
+    "6901": {
+      "row": 1027,
+      "englishRaw": "56",
+      "mathRaw": "60",
+      "schoolGradeRaw": "B"
+    },
+    "6921": {
+      "row": 1028,
+      "englishRaw": "70",
+      "mathRaw": "68",
+      "schoolGradeRaw": "A"
+    },
+    "6961": {
+      "row": 1029,
+      "englishRaw": "49",
+      "mathRaw": "55",
+      "schoolGradeRaw": "B"
+    },
+    "6997": {
+      "row": 1030,
+      "englishRaw": "58",
+      "mathRaw": "45",
+      "schoolGradeRaw": "C"
+    },
+    "7001": {
+      "row": 1031,
+      "englishRaw": "80",
+      "mathRaw": "56",
+      "schoolGradeRaw": "A"
+    },
+    "7004": {
+      "row": 1032,
+      "englishRaw": "57",
+      "mathRaw": "33",
+      "schoolGradeRaw": "C"
+    },
+    "7005": {
+      "row": 1033,
+      "englishRaw": "91",
+      "mathRaw": "85",
+      "schoolGradeRaw": "A"
+    },
+    "7007": {
+      "row": 1034,
+      "englishRaw": "86",
+      "mathRaw": "80",
+      "schoolGradeRaw": "A"
+    },
+    "7008": {
+      "row": 1035,
+      "englishRaw": "81",
+      "mathRaw": "61",
+      "schoolGradeRaw": "A"
+    },
+    "7009": {
+      "row": 1036,
+      "englishRaw": "95",
+      "mathRaw": "94",
+      "schoolGradeRaw": "A"
+    },
+    "7011": {
+      "row": 1037,
+      "englishRaw": "51",
+      "mathRaw": "42",
+      "schoolGradeRaw": "B"
+    },
+    "7014": {
+      "row": 1038,
+      "englishRaw": "95",
+      "mathRaw": "91",
+      "schoolGradeRaw": "A"
+    },
+    "7016": {
+      "row": 1039,
+      "englishRaw": "54",
+      "mathRaw": "43",
+      "schoolGradeRaw": "B"
+    },
+    "7018": {
+      "row": 1040,
+      "englishRaw": "73",
+      "mathRaw": "47",
+      "schoolGradeRaw": "A"
+    },
+    "7020": {
+      "row": 1041,
+      "englishRaw": "93",
+      "mathRaw": "90",
+      "schoolGradeRaw": "A"
+    },
+    "7021": {
+      "row": 1042,
+      "englishRaw": "93",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "7026": {
+      "row": 1043,
+      "englishRaw": "83",
+      "mathRaw": "87",
+      "schoolGradeRaw": "A"
+    },
+    "7027": {
+      "row": 1044,
+      "englishRaw": "78",
+      "mathRaw": "83",
+      "schoolGradeRaw": "A"
+    },
+    "7029": {
+      "row": 1045,
+      "englishRaw": "95",
+      "mathRaw": "95",
+      "schoolGradeRaw": "A"
+    },
+    "7031": {
+      "row": 1046,
+      "englishRaw": "97",
+      "mathRaw": "96",
+      "schoolGradeRaw": "A"
+    },
+    "7032": {
+      "row": 1047,
+      "englishRaw": "53",
+      "mathRaw": "43",
+      "schoolGradeRaw": "C"
+    },
+    "7033": {
+      "row": 1048,
+      "englishRaw": "64",
+      "mathRaw": "37",
+      "schoolGradeRaw": "A"
+    },
+    "7034": {
+      "row": 1049,
+      "englishRaw": "57",
+      "mathRaw": "54",
+      "schoolGradeRaw": "B"
+    },
+    "7041": {
+      "row": 1050,
+      "englishRaw": null,
+      "mathRaw": null,
+      "schoolGradeRaw": "A"
+    },
+    "7042": {
+      "row": 1051,
+      "englishRaw": "85",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "7044": {
+      "row": 1052,
+      "englishRaw": "88",
+      "mathRaw": "88",
+      "schoolGradeRaw": "A"
+    },
+    "7048": {
+      "row": 1053,
+      "englishRaw": "55",
+      "mathRaw": "37",
+      "schoolGradeRaw": "C"
+    },
+    "7049": {
+      "row": 1054,
+      "englishRaw": "44",
+      "mathRaw": "62",
+      "schoolGradeRaw": "B"
+    },
+    "7050": {
+      "row": 1055,
+      "englishRaw": "62",
+      "mathRaw": "47",
+      "schoolGradeRaw": "A"
+    },
+    "7051": {
+      "row": 1056,
+      "englishRaw": "54",
+      "mathRaw": "39",
+      "schoolGradeRaw": "B"
+    },
+    "7053": {
+      "row": 1057,
+      "englishRaw": "80",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "7055": {
+      "row": 1058,
+      "englishRaw": "82",
+      "mathRaw": "85",
+      "schoolGradeRaw": "A"
+    },
+    "7056": {
+      "row": 1059,
+      "englishRaw": "66",
+      "mathRaw": "66",
+      "schoolGradeRaw": "A"
+    },
+    "7058": {
+      "row": 1060,
+      "englishRaw": "36",
+      "mathRaw": "39",
+      "schoolGradeRaw": "C"
+    },
+    "7059": {
+      "row": 1061,
+      "englishRaw": "78",
+      "mathRaw": "76",
+      "schoolGradeRaw": "A"
+    },
+    "7060": {
+      "row": 1062,
+      "englishRaw": "64",
+      "mathRaw": "57",
+      "schoolGradeRaw": "A"
+    },
+    "7061": {
+      "row": 1063,
+      "englishRaw": null,
+      "mathRaw": null,
+      "schoolGradeRaw": "A"
+    },
+    "7070": {
+      "row": 1064,
+      "englishRaw": "58",
+      "mathRaw": "65",
+      "schoolGradeRaw": "A"
+    },
+    "7071": {
+      "row": 1065,
+      "englishRaw": "60",
+      "mathRaw": "43",
+      "schoolGradeRaw": "B"
+    },
+    "7073": {
+      "row": 1066,
+      "englishRaw": null,
+      "mathRaw": null,
+      "schoolGradeRaw": "A"
+    },
+    "7078": {
+      "row": 1067,
+      "englishRaw": "59",
+      "mathRaw": "47",
+      "schoolGradeRaw": "B"
+    },
+    "7079": {
+      "row": 1068,
+      "englishRaw": "83",
+      "mathRaw": "75",
+      "schoolGradeRaw": "A"
+    },
+    "7080": {
+      "row": 1069,
+      "englishRaw": "62",
+      "mathRaw": "82",
+      "schoolGradeRaw": "A"
+    },
+    "7081": {
+      "row": 1070,
+      "englishRaw": "85",
+      "mathRaw": "57",
+      "schoolGradeRaw": "A"
+    },
+    "7090": {
+      "row": 1071,
+      "englishRaw": "63",
+      "mathRaw": "46",
+      "schoolGradeRaw": "B"
+    },
+    "7091": {
+      "row": 1072,
+      "englishRaw": null,
+      "mathRaw": null,
+      "schoolGradeRaw": "A"
+    },
+    "7101": {
+      "row": 1073,
+      "englishRaw": "87",
+      "mathRaw": "77",
+      "schoolGradeRaw": "A"
+    },
+    "7108": {
+      "row": 1074,
+      "englishRaw": "51",
+      "mathRaw": "33",
+      "schoolGradeRaw": "C"
+    },
+    "7111": {
+      "row": 1075,
+      "englishRaw": "45",
+      "mathRaw": "38",
+      "schoolGradeRaw": "B"
+    },
+    "7120": {
+      "row": 1076,
+      "englishRaw": "82",
+      "mathRaw": "85",
+      "schoolGradeRaw": "A"
+    },
+    "7121": {
+      "row": 1077,
+      "englishRaw": "74",
+      "mathRaw": "58",
+      "schoolGradeRaw": "A"
+    },
+    "7131": {
+      "row": 1078,
+      "englishRaw": "46",
+      "mathRaw": "34",
+      "schoolGradeRaw": "C"
+    },
+    "7141": {
+      "row": 1079,
+      "englishRaw": "57",
+      "mathRaw": "34",
+      "schoolGradeRaw": "C"
+    },
+    "7144": {
+      "row": 1080,
+      "englishRaw": "71",
+      "mathRaw": "91",
+      "schoolGradeRaw": "A"
+    },
+    "7151": {
+      "row": 1081,
+      "englishRaw": "49",
+      "mathRaw": "42",
+      "schoolGradeRaw": "B"
+    },
+    "7160": {
+      "row": 1082,
+      "englishRaw": "67",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    },
+    "7161": {
+      "row": 1083,
+      "englishRaw": "93",
+      "mathRaw": "94",
+      "schoolGradeRaw": "A"
+    },
+    "7171": {
+      "row": 1084,
+      "englishRaw": "86",
+      "mathRaw": "78",
+      "schoolGradeRaw": "A"
+    },
+    "7191": {
+      "row": 1085,
+      "englishRaw": "71",
+      "mathRaw": "55",
+      "schoolGradeRaw": "A"
+    },
+    "7201": {
+      "row": 1086,
+      "englishRaw": "59",
+      "mathRaw": "39",
+      "schoolGradeRaw": "B"
+    },
+    "7231": {
+      "row": 1087,
+      "englishRaw": "51",
+      "mathRaw": "56",
+      "schoolGradeRaw": "A"
+    },
+    "7241": {
+      "row": 1088,
+      "englishRaw": "71",
+      "mathRaw": "55",
+      "schoolGradeRaw": "A"
+    },
+    "7242": {
+      "row": 1089,
+      "englishRaw": "63",
+      "mathRaw": "27",
+      "schoolGradeRaw": "C"
+    },
+    "7251": {
+      "row": 1090,
+      "englishRaw": "42",
+      "mathRaw": "34",
+      "schoolGradeRaw": "C"
+    },
+    "7261": {
+      "row": 1091,
+      "englishRaw": null,
+      "mathRaw": null,
+      "schoolGradeRaw": "A"
+    },
+    "7262": {
+      "row": 1092,
+      "englishRaw": "73",
+      "mathRaw": "63",
+      "schoolGradeRaw": "A"
+    },
+    "7265": {
+      "row": 1093,
+      "englishRaw": "93",
+      "mathRaw": "92",
+      "schoolGradeRaw": "A"
+    },
+    "7271": {
+      "row": 1094,
+      "englishRaw": "56",
+      "mathRaw": "50",
+      "schoolGradeRaw": "B"
+    },
+    "7291": {
+      "row": 1095,
+      "englishRaw": "94",
+      "mathRaw": "95",
+      "schoolGradeRaw": "A"
+    },
+    "7301": {
+      "row": 1096,
+      "englishRaw": "42",
+      "mathRaw": "38",
+      "schoolGradeRaw": "C"
+    },
+    "7341": {
+      "row": 1097,
+      "englishRaw": "38",
+      "mathRaw": "43",
+      "schoolGradeRaw": "B"
+    },
+    "7351": {
+      "row": 1098,
+      "englishRaw": "70",
+      "mathRaw": "55",
+      "schoolGradeRaw": "A"
+    },
+    "7361": {
+      "row": 1099,
+      "englishRaw": "53",
+      "mathRaw": "44",
+      "schoolGradeRaw": "B"
+    },
+    "7371": {
+      "row": 1100,
+      "englishRaw": "68",
+      "mathRaw": "59",
+      "schoolGradeRaw": "A"
+    },
+    "7381": {
+      "row": 1101,
+      "englishRaw": "52",
+      "mathRaw": "43",
+      "schoolGradeRaw": "B"
+    },
+    "7391": {
+      "row": 1102,
+      "englishRaw": "87",
+      "mathRaw": "74",
+      "schoolGradeRaw": "A"
+    },
+    "7411": {
+      "row": 1103,
+      "englishRaw": "50",
+      "mathRaw": "50",
+      "schoolGradeRaw": "A"
+    },
+    "7431": {
+      "row": 1104,
+      "englishRaw": "72",
+      "mathRaw": "58",
+      "schoolGradeRaw": "A"
+    },
+    "7459": {
+      "row": 1105,
+      "englishRaw": "92",
+      "mathRaw": "93",
+      "schoolGradeRaw": "A"
+    },
+    "7461": {
+      "row": 1106,
+      "englishRaw": "58",
+      "mathRaw": "53",
+      "schoolGradeRaw": "A"
+    },
+    "7511": {
+      "row": 1107,
+      "englishRaw": "45",
+      "mathRaw": "38",
+      "schoolGradeRaw": "C"
+    },
+    "7531": {
+      "row": 1108,
+      "englishRaw": "53",
+      "mathRaw": "57",
+      "schoolGradeRaw": "B"
+    },
+    "7541": {
+      "row": 1109,
+      "englishRaw": "54",
+      "mathRaw": "52",
+      "schoolGradeRaw": "A"
+    },
+    "7551": {
+      "row": 1110,
+      "englishRaw": null,
+      "mathRaw": null,
+      "schoolGradeRaw": "A"
+    },
+    "7571": {
+      "row": 1111,
+      "englishRaw": "89",
+      "mathRaw": "86",
+      "schoolGradeRaw": "A"
+    },
+    "7581": {
+      "row": 1112,
+      "englishRaw": "94",
+      "mathRaw": "93",
+      "schoolGradeRaw": "A"
+    },
+    "7591": {
+      "row": 1113,
+      "englishRaw": "51",
+      "mathRaw": "45",
+      "schoolGradeRaw": "B"
+    },
+    "7601": {
+      "row": 1114,
+      "englishRaw": "72",
+      "mathRaw": "52",
+      "schoolGradeRaw": "B"
+    },
+    "7641": {
+      "row": 1115,
+      "englishRaw": "54",
+      "mathRaw": "69",
+      "schoolGradeRaw": "A"
+    },
+    "7672": {
+      "row": 1116,
+      "englishRaw": "56",
+      "mathRaw": "40",
+      "schoolGradeRaw": "C"
+    },
+    "7701": {
+      "row": 1117,
+      "englishRaw": "56",
+      "mathRaw": "41",
+      "schoolGradeRaw": "B"
+    },
+    "7721": {
+      "row": 1118,
+      "englishRaw": "52",
+      "mathRaw": "42",
+      "schoolGradeRaw": "B"
+    },
+    "7731": {
+      "row": 1119,
+      "englishRaw": "51",
+      "mathRaw": "48",
+      "schoolGradeRaw": "B"
+    },
+    "7741": {
+      "row": 1120,
+      "englishRaw": "65",
+      "mathRaw": "56",
+      "schoolGradeRaw": "A"
+    },
+    "7751": {
+      "row": 1121,
+      "englishRaw": "69",
+      "mathRaw": "61",
+      "schoolGradeRaw": "A"
+    },
+    "7781": {
+      "row": 1122,
+      "englishRaw": "54",
+      "mathRaw": "48",
+      "schoolGradeRaw": "B"
+    },
+    "7791": {
+      "row": 1123,
+      "englishRaw": "36",
+      "mathRaw": "50",
+      "schoolGradeRaw": "B"
+    },
+    "7901": {
+      "row": 1124,
+      "englishRaw": "93",
+      "mathRaw": "71",
+      "schoolGradeRaw": "A"
+    }
+  },
+  "verifiedNameAliases": {
+    "academir middle school of math and science": "2032",
+    "academir charter school east middle": "0422",
+    "doral academy north charter elementary": "5219",
+    "mater academy biscayne north miami high school": "5556",
+    "mater academy biscayne north miami middle school": "5555"
+  },
+  "schoolNumberAliases": {
+    "4002": "6034"
+  },
+  "crosswalkEvidence": {
+    "file": "school-data/missing-school-reconciliation.json",
+    "blankCountyIds": [
+      {
+        "name": "AcadeMir Middle School of Math and Science",
+        "schoolNumber": "2032",
+        "countyObjectId": "178",
+        "countyRawId": "",
+        "countyGlobalId": "0938cc67-5eec-46cb-a714-aebca342f5bc",
+        "schoolKey": "13-2032"
+      },
+      {
+        "name": "AcadeMir Charter School East Middle",
+        "schoolNumber": "0422",
+        "countyObjectId": "179",
+        "countyRawId": "",
+        "countyGlobalId": "5153e391-7e1d-42da-8ae3-a6976d48c773",
+        "schoolKey": "13-0422"
+      },
+      {
+        "name": "Doral Academy North Charter Elementary",
+        "schoolNumber": "5219",
+        "countyObjectId": "180",
+        "countyRawId": "",
+        "countyGlobalId": "bb06d900-58c0-44d9-9532-f25a9d1444e3",
+        "schoolKey": "13-5219"
+      },
+      {
+        "name": "Mater Academy Biscayne North Miami High School",
+        "schoolNumber": "5556",
+        "countyObjectId": "184",
+        "countyRawId": "",
+        "countyGlobalId": "cd66f831-364a-4c78-afce-852f74f63550",
+        "schoolKey": "13-5556"
+      },
+      {
+        "name": "Mater Academy Biscayne North Miami Middle School",
+        "schoolNumber": "5555",
+        "countyObjectId": "185",
+        "countyRawId": "",
+        "countyGlobalId": "d759955e-4b7d-4fc7-b2eb-31e880ba07bf",
+        "schoolKey": "13-5555"
+      }
+    ],
+    "schoolNumberAliases": [
+      {
+        "from": "4002",
+        "to": "6034",
+        "sourceUrl": "https://pdfs.dadeschools.net/Bdarch/2023/bd051723/lastbda.pdf",
+        "locator": "PDF page 5, Beacon elementary 4002/middle 6034 consolidation into K-8, approved May 17, 2023"
+      }
+    ]
+  }
+}

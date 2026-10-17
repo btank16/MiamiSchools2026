@@ -1,4 +1,6 @@
 import type { Place } from './data'
+import { getAcademics } from '@/lib/academics'
+import { programsFor, programServesGrades } from '@/lib/after-school'
 
 export const TYPES = ['Public', 'Charter', 'Private', 'Childcare', 'Head Start'] as const
 export type PlaceType = (typeof TYPES)[number]
@@ -12,8 +14,14 @@ export const LEVELS = [
 ] as const
 export type Level = (typeof LEVELS)[number]['id']
 
-export type Filters = { types: PlaceType[]; levels: Level[]; grades: string[]; distance: number | null; cost: Cost | null }
-export const emptyFilters: Filters = { types: [], levels: [], grades: [], distance: null, cost: null }
+export type AfterSchoolType = 'listed' | 'care' | 'clubs'
+export type AfterSchoolCost = 'free' | 'paid'
+export type Filters = {
+  types: PlaceType[]; levels: Level[]; grades: string[]; distance: number | null; cost: Cost | null
+  afterSchool: AfterSchoolType | null; afterSchoolCost: AfterSchoolCost | null; careUntil: number | null
+}
+export const emptyFilters: Filters = { types: [], levels: [], grades: [], distance: null, cost: null, afterSchool: null, afterSchoolCost: null, careUntil: null }
+export const hasProgramFilters = (f: Filters) => f.afterSchool != null || f.afterSchoolCost != null || f.careUntil != null
 
 // annual tuition bands, matched on the cheapest grade's price; places with no tuition data drop out
 export const COSTS = [
@@ -91,17 +99,37 @@ export function matches(p: Place, f: Filters): boolean {
     const band = COSTS.find((c) => c.id === f.cost)!
     if (!p.tuition || p.tuition.low < band.min || p.tuition.low > band.max) return false
   }
+  if (hasProgramFilters(f)) {
+    const grades = f.grades.length ? f.grades : f.levels.length ? gradeOptions(f.levels).map(g => g.id) : []
+    // All program conditions must be true for one program. A paid care program
+    // plus a separate free club does not establish free care.
+    const found = programsFor(p).some(program => {
+      if (f.afterSchool === 'care' && program.activityType !== 'care') return false
+      if (f.afterSchool === 'clubs' && program.activityType !== 'extracurricular') return false
+      if (f.afterSchoolCost && program.payment_status !== f.afterSchoolCost) return false
+      if (!programServesGrades(program, grades)) return false
+      if (f.careUntil !== null) {
+        if (program.activityType !== 'care' || !program.endTime) return false
+        const [hours, minutes] = program.endTime.split(':').map(Number)
+        if (hours * 60 + minutes < f.careUntil * 60) return false
+      }
+      return true
+    })
+    if (!found) return false
+  }
   return true
 }
 
 export const isFiltering = (f: Filters) =>
-  f.types.length + f.levels.length + f.grades.length > 0 || f.distance != null || f.cost != null
+  f.types.length + f.levels.length + f.grades.length > 0 || f.distance != null || f.cost != null || hasProgramFilters(f)
 
 export const SORTS = [
   { id: 'default', label: 'Default' },
   { id: 'distance', label: 'Distance' },
   { id: 'rating', label: 'Rating' },
-  { id: 'price', label: 'Price (low to high)' },
+  { id: 'math', label: 'Math achievement' },
+  { id: 'english', label: 'English / ELA achievement' },
+  { id: 'price', label: 'Tuition (low to high)' },
   { id: 'name', label: 'Name (A–Z)' },
 ] as const
 export type Sort = (typeof SORTS)[number]['id']
@@ -116,6 +144,8 @@ export function sortPlaces(places: Place[], sort: Sort): Place[] {
     distance: (a, b) => (a.distanceMiles ?? Infinity) - (b.distanceMiles ?? Infinity) || byName(a, b),
     // places GreatSchools has not rated go last
     rating: (a, b) => (BAND_RANK[a.ratingBand ?? ''] ?? 3) - (BAND_RANK[b.ratingBand ?? ''] ?? 3) || byName(a, b),
+    math: (a, b) => (getAcademics(b)?.math ?? -1) - (getAcademics(a)?.math ?? -1) || byName(a, b),
+    english: (a, b) => (getAcademics(b)?.english ?? -1) - (getAcademics(a)?.english ?? -1) || byName(a, b),
     // places without tuition data go last
     price: (a, b) => (a.tuition?.low ?? Infinity) - (b.tuition?.low ?? Infinity) || byName(a, b),
     name: byName,

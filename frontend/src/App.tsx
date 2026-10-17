@@ -6,9 +6,10 @@ import { MapPanel } from '@/components/clone/MapPanel'
 import { SchoolPage } from '@/components/clone/SchoolPage'
 import { Footer } from '@/components/clone/Footer'
 import { directory, type Place } from '@/components/clone/data'
-import { emptyFilters, isFiltering, matches, sortPlaces, type Filters, type Sort } from '@/components/clone/filters'
+import { emptyFilters, hasProgramFilters, isFiltering, matches, sortPlaces, type Filters, type Sort } from '@/components/clone/filters'
 import { SEARCH_RADIUS_MILES, type PlaceSuggestion } from '@/lib/api'
 import { useSchoolSearch } from '@/lib/useSchoolSearch'
+import { getAcademics } from '@/lib/academics'
 
 export default function App() {
   const [view, setView] = useState<View>('split')
@@ -19,7 +20,17 @@ export default function App() {
   const result = search.status === 'done' ? search : null
   // every place until an address is searched, then the places near that address
   const base = result ? result.places : directory
-  const shown = useMemo(() => sortPlaces(base.filter((p) => matches(p, filters)), sort), [base, filters, sort])
+  const academicFirst = !result && sort === 'default'
+  const shown = useMemo(() => {
+    const filtered = base.filter((p) => matches(p, filters))
+    if (!academicFirst) return sortPlaces(filtered, sort)
+    const hasResults = (p: Place) => {
+      const academic = getAcademics(p)
+      return academic?.math != null || academic?.english != null
+    }
+    // Availability first, keeping the existing order within each group. This is not a ranking.
+    return filtered.sort((a, b) => Number(hasResults(b)) - Number(hasResults(a)))
+  }, [base, filters, sort, academicFirst])
   const filtering = isFiltering(filters)
 
   const onSearch = (s: PlaceSuggestion, session: string) => {
@@ -45,6 +56,7 @@ export default function App() {
       {navbar}
       <FilterBar view={view} onView={setView} filters={filters} onFilters={setFilters} sort={sort} onSort={setSort} hasOrigin={!!result} />
       <main className="pt-[var(--header-h,133px)]">
+        {hasProgramFilters(filters) && <p role="status" className="border-b border-line bg-bar px-6 py-3 text-xs leading-relaxed text-neutral-600">Showing schools with matching after-school information. A listing does not guarantee a place; programs with unknown prices or hours won’t match a specific price or time filter.</p>}
         <div className="flex items-start">
           {view !== 'map' && (
             <ResultsPanel
@@ -52,6 +64,7 @@ export default function App() {
               places={shown}
               total={base.length}
               filtering={filtering}
+              academicFirst={academicFirst && shown.some((p) => getAcademics(p)?.math != null || getAcademics(p)?.english != null)}
               onClear={() => setFilters(emptyFilters)}
               onOpen={setOpen}
               className={view === 'split' ? 'w-full lg:w-1/2' : 'w-full'}

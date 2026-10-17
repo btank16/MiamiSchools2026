@@ -148,7 +148,7 @@ export function Navbar({ busy = false, onSearch }: { busy?: boolean; onSearch: (
     <header className="fixed inset-x-0 top-0 z-40 flex h-[70px] items-center justify-between gap-4 border-b border-line bg-bar px-6">
       <a href="/" className="flex shrink-0 items-center sm:w-[229px] gap-2 text-xl font-bold tracking-tight text-deep">
         <img src={logo} alt="Miami-Dade County Public Schools" className="size-9" />
-        <span className="max-sm:hidden">School Navigator</span>
+        <span className="max-sm:hidden">TheBridge</span>
       </a>
 
       <AddressSearch busy={busy} onSearch={onSearch} />

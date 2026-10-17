@@ -9,6 +9,8 @@ import { isStreetView, photoUrl, usePhotoNames } from '@/lib/photos'
 import { STYLE } from './MapPanel'
 import type { Origin, Place } from './data'
 import { RatingChip, ZonedBadge, enrollmentText, miles, tuitionText, zonedLabel } from './ListingCard'
+import { AcademicResults } from './AcademicResults'
+import { AfterSchoolPrograms } from './AfterSchoolPrograms'
 
 function Divider() {
   return <hr className="my-8 border-line" />
@@ -67,7 +69,7 @@ const TUITION_SOURCE: Record<string, string> = {
 function tuitionFact(place: Place): string | null {
   const { tuition } = place
   if (!tuition) return null
-  if (tuition.source === 'free') return 'No tuition. Public, charter and Head Start programs are free.'
+  if (tuition.source === 'free') return 'No tuition. After-school care and enrichment may have separate fees.'
   const text = tuitionText(tuition)
   if (tuition.source === 'estimate') {
     return `${text}. This school doesn't publish its rates, so this is the typical price for similar schools.`
@@ -261,6 +263,7 @@ export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Or
             </p>
           )}
           {place.summary && <p className="mt-5 leading-relaxed">{place.summary}</p>}
+          <AcademicResults place={place} variant="detail" />
 
           <Divider />
           <h2 className="mb-5 text-[22px] font-semibold">At a glance</h2>
@@ -275,6 +278,11 @@ export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Or
               </li>
             ))}
           </ul>
+
+          {['Public', 'Charter', 'Private'].includes(place.kind) && <>
+            <Divider />
+            <AfterSchoolPrograms key={place.id} place={place} />
+          </>}
 
           <Divider />
           <h2 className="mb-1 text-[22px] font-semibold">Where it is</h2>

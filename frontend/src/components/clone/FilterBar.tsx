@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { ArrowUpDown, Award, Bell, ChevronDown, MapPin, SlidersHorizontal } from 'lucide-react'
+import { ArrowUpDown, Bell, ChevronDown, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -12,12 +12,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import { COSTS, DISTANCES, LEVELS, SORTS, TYPES, gradeOptions, levelOfGrade, type Cost, type Filters, type Sort } from './filters'
+import { COSTS, DISTANCES, LEVELS, SORTS, TYPES, gradeOptions, levelOfGrade, hasProgramFilters, type AfterSchoolCost, type AfterSchoolType, type Cost, type Filters, type Sort } from './filters'
 
 export type View = 'list' | 'split' | 'map'
-
-// placeholders until their data exists
-const pills = ['Programs']
 
 const pill = 'h-10 rounded-md px-3 text-[15px] font-medium text-ink'
 
@@ -102,7 +99,7 @@ function CostDropdown({ value, onChange }: { value: Cost | null; onChange: (v: C
       <DropdownMenuTrigger
         render={<Button variant="outline" className={cn(pill, current && 'border-primary bg-primary/10 text-primary')} />}
       >
-        {current ? current.label : 'Cost'}
+        {current ? `Tuition: ${current.label}` : 'Tuition'}
         <ChevronDown className="size-3.5!" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="min-w-56">
@@ -120,6 +117,39 @@ function CostDropdown({ value, onChange }: { value: Cost | null; onChange: (v: C
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+
+function ProgramsDropdown({ filters, onChange }: { filters: Filters; onChange: (filters: Filters) => void }) {
+  const active = hasProgramFilters(filters)
+  const kind = filters.afterSchool === 'care' ? 'After-school care' : filters.afterSchool === 'clubs' ? 'Clubs & enrichment' : 'After school'
+  const label = filters.careUntil ? `Care until ${filters.careUntil - 12} p.m.` : kind
+  return <DropdownMenu>
+    <DropdownMenuTrigger render={<Button variant="outline" className={cn(pill, active && 'border-primary bg-primary/10 text-primary')} />}>
+      {label}{filters.afterSchoolCost ? ` · ${filters.afterSchoolCost === 'paid' ? 'Paid' : 'Free'}` : active && filters.afterSchool === 'listed' ? ' · Listed' : ''}<ChevronDown className="size-3.5!" />
+    </DropdownMenuTrigger>
+    <DropdownMenuContent align="start" className="min-w-72 max-w-[calc(100vw-2rem)]">
+      <DropdownMenuGroup><DropdownMenuLabel>After-school programs</DropdownMenuLabel></DropdownMenuGroup>
+      <DropdownMenuRadioGroup value={filters.afterSchool ?? 'any'} onValueChange={value => onChange({ ...filters, afterSchool: value === 'any' ? null : value as AfterSchoolType, careUntil: value === 'care' ? filters.careUntil : null, ...(value === 'any' ? { afterSchoolCost: null } : {}) })}>
+        <DropdownMenuRadioItem value="any">No program requirement</DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value="listed">Any after-school listing</DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value="care">After-school care</DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value="clubs">Clubs & enrichment</DropdownMenuRadioItem>
+      </DropdownMenuRadioGroup>
+      <DropdownMenuGroup className="mt-2 border-t border-line pt-2"><DropdownMenuLabel>Program fees · separate from tuition</DropdownMenuLabel></DropdownMenuGroup>
+      <DropdownMenuRadioGroup value={filters.afterSchoolCost ?? 'any'} onValueChange={value => onChange({ ...filters, afterSchool: filters.afterSchool ?? (value === 'any' ? null : 'listed'), afterSchoolCost: value === 'any' ? null : value as AfterSchoolCost })}>
+        <DropdownMenuRadioItem value="any">Any or unknown price</DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value="free">Published as free</DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value="paid">Paid programs</DropdownMenuRadioItem>
+      </DropdownMenuRadioGroup>
+      <DropdownMenuGroup className="mt-2 border-t border-line pt-2"><DropdownMenuLabel>Care available until</DropdownMenuLabel></DropdownMenuGroup>
+      <DropdownMenuRadioGroup value={filters.careUntil?.toString() ?? 'any'} onValueChange={value => onChange({ ...filters, ...(value !== 'any' ? { afterSchool: 'care' as const } : {}), careUntil: value === 'any' ? null : Number(value) })}>
+        <DropdownMenuRadioItem value="any">Any or unknown hours</DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value="17">5 p.m. or later</DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value="18">6 p.m. or later</DropdownMenuRadioItem>
+      </DropdownMenuRadioGroup>
+      <p className="px-2 pb-2 pt-3 text-xs leading-relaxed text-muted-foreground">Care times apply to care programs. Unknown prices or hours won’t match a specific price or time filter. Selected grades also apply to programs.</p>
+    </DropdownMenuContent>
+  </DropdownMenu>
 }
 
 function FilterDropdown({
@@ -236,21 +266,8 @@ export function FilterBar({
         />
         <DistanceDropdown value={filters.distance} disabled={!hasOrigin} onChange={(distance) => onFilters({ ...filters, distance })} />
         <CostDropdown value={filters.cost} onChange={(cost) => onFilters({ ...filters, cost })} />
-        {pills.map((p) => (
-          <Button key={p} variant="outline" className={pill}>
-            {p}
-            <ChevronDown className="size-3.5!" />
-          </Button>
-        ))}
-        <Button variant="outline" className={pill}>
-          <Award />
-          Highest rated
-        </Button>
+        <ProgramsDropdown filters={filters} onChange={onFilters} />
       </div>
-        <Button variant="outline" className={cn(pill, 'shrink-0')}>
-          <SlidersHorizontal />
-          More
-        </Button>
       </div>
 
       <div className="flex shrink-0 items-center gap-2">

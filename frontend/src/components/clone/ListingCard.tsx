@@ -4,10 +4,12 @@ import { cn } from '@/lib/utils'
 import { isStreetView, photoCount, photoUrl, usePhotoNames } from '@/lib/photos'
 import type { Tuition } from '@/lib/tuition'
 import type { Place, ZoneLevel } from './data'
+import { AcademicResults } from './AcademicResults'
+import { programSummary } from '@/lib/after-school'
 
 // whole card opens the school page; buttons and links (save, arrows, dots, website) keep their own behaviour
 export const opensPage = (place: Place, onOpen: (p: Place) => void) => (e: React.MouseEvent) => {
-  if ((e.target as HTMLElement).closest('button, a')) return
+  if ((e.target as HTMLElement).closest('button, a, details')) return
   e.preventDefault()
   onOpen(place)
 }
@@ -110,14 +112,14 @@ export function Photo({ place, className, children, arrows, width = 480 }: { pla
   )
 }
 
-function Save({ name }: { name: string }) {
+function Save({ name, className }: { name: string; className?: string }) {
   const [on, setOn] = useState(false)
   return (
     <button
       aria-label={`Save ${name}`}
       aria-pressed={on}
       onClick={() => setOn(!on)}
-      className="absolute right-3 top-3 z-10 grid size-8 place-items-center text-white drop-shadow"
+      className={cn('absolute right-3 top-3 z-10 grid size-8 place-items-center text-white drop-shadow', className)}
     >
       <Bookmark className={cn('size-7', on && 'fill-white')} strokeWidth={2} />
     </button>
@@ -149,7 +151,7 @@ export function enrollmentText(place: Place): string | null {
 // "$36,400–$56,100/yr", "~$16,000/yr (estimate)" or "Free"; null when there is no tuition data
 export function tuitionText(tuition: Tuition | null): string | null {
   if (!tuition) return null
-  if (tuition.source === 'free') return 'Free'
+  if (tuition.source === 'free') return 'Tuition-free'
   const money = (n: number) => `$${n.toLocaleString()}`
   const range = tuition.low === tuition.high ? money(tuition.low) : `${money(tuition.low)}–${money(tuition.high)}`
   return tuition.source === 'estimate' ? `~${range}/yr (estimate)` : `${range}/yr`
@@ -158,6 +160,7 @@ export function tuitionText(tuition: Tuition | null): string | null {
 // the zoned schools for the searched address
 export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   const enrollment = enrollmentText(place)
+  const programs = programSummary(place)
   return (
     <article className="relative cursor-pointer overflow-hidden rounded-xl bg-deep text-white" onClick={opensPage(place, onOpen)}>
       <Photo place={place} width={640} className="h-[280px]">
@@ -178,6 +181,8 @@ export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Pla
           {place.ratingBand && <RatingChip band={place.ratingBand} />}
         </p>
         {enrollment && <p className="text-sm">{enrollment}</p>}
+        <AcademicResults place={place} inverted />
+        {programs && <p className="text-xs leading-relaxed">{programs}</p>}
         <div className="flex items-center gap-4 pt-3">
           {place.phone && (
             <a href={`tel:${place.phone}`} className="flex items-center gap-2 text-sm font-semibold">
@@ -199,31 +204,28 @@ export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Pla
 export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   const enrollment = enrollmentText(place)
   const tuition = tuitionText(place.tuition)
+  const programs = programSummary(place)
   return (
-    <article className="cursor-pointer overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
-      <Photo place={place} className="h-[160px]">
-        <Save name={place.name} />
-        {place.distanceMiles != null && (
-          <span className="absolute bottom-3 right-3 z-10 rounded-full bg-ink/70 px-2 py-0.5 text-xs text-white">
-            {miles(place.distanceMiles)}
-          </span>
-        )}
-      </Photo>
-      <div className="space-y-1.5 px-4 pb-4 pt-3">
+    <article className="relative cursor-pointer overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
+      <Save name={place.name} className="text-brand drop-shadow-none" />
+      <div className="space-y-1.5 px-4 pb-4 pt-4">
         {place.ratingBand && (
           <p className="flex items-center gap-2 text-sm">
             <RatingChip band={place.ratingBand} />
             <span className="text-neutral-600">GreatSchools rating</span>
           </p>
         )}
-        <h3 className="text-lg font-bold leading-snug">{place.name}</h3>
+        <h3 className="pr-9 text-lg font-bold leading-snug">{place.name}</h3>
+        <AcademicResults place={place} />
         <p className="text-sm text-neutral-600">{place.address}</p>
         <p className="text-sm">
           {place.kind}
+          {place.distanceMiles != null && <><span className="mx-1 text-neutral-300">|</span>{miles(place.distanceMiles)}</>}
           {place.grades && <><span className="mx-1 text-neutral-300">|</span>{place.grades}</>}
           {enrollment && <><span className="mx-1 text-neutral-300">|</span>{enrollment}</>}
         </p>
         {tuition && <p className="text-sm font-semibold">{tuition}</p>}
+        {programs && <p className="text-xs leading-relaxed text-neutral-600">{programs}</p>}
         <div className="flex items-center gap-4 border-t border-line pt-3">
           {place.website ? (
             <a
