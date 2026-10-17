@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import { DISTANCES, LEVELS, SORTS, TYPES, gradeOptions, levelOfGrade, type Filters, type Sort } from './filters'
+import { COSTS, DISTANCES, LEVELS, SORTS, TYPES, gradeOptions, levelOfGrade, type Cost, type Filters, type Sort } from './filters'
 
 export type View = 'list' | 'split' | 'map'
 
@@ -87,6 +87,33 @@ function DistanceDropdown({
           {DISTANCES.map((d) => (
             <DropdownMenuRadioItem key={d} value={String(d)}>
               Within {d} {d === 1 ? 'mile' : 'miles'}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+function CostDropdown({ value, onChange }: { value: Cost | null; onChange: (v: Cost | null) => void }) {
+  const current = COSTS.find((c) => c.id === value)
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={<Button variant="outline" className={cn(pill, current && 'border-primary bg-primary/10 text-primary')} />}
+      >
+        {current ? current.label : 'Cost'}
+        <ChevronDown className="size-3.5!" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="min-w-56">
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Yearly tuition, lowest grade</DropdownMenuLabel>
+        </DropdownMenuGroup>
+        <DropdownMenuRadioGroup value={value ?? 'any'} onValueChange={(v) => onChange(v === 'any' ? null : (v as Cost))}>
+          <DropdownMenuRadioItem value="any">Any cost</DropdownMenuRadioItem>
+          {COSTS.map((c) => (
+            <DropdownMenuRadioItem key={c.id} value={c.id}>
+              {c.label}
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
@@ -208,6 +235,7 @@ export function FilterBar({
           }}
         />
         <DistanceDropdown value={filters.distance} disabled={!hasOrigin} onChange={(distance) => onFilters({ ...filters, distance })} />
+        <CostDropdown value={filters.cost} onChange={(cost) => onFilters({ ...filters, cost })} />
         {pills.map((p) => (
           <Button key={p} variant="outline" className={pill}>
             {p}

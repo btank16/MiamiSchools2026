@@ -41,6 +41,10 @@ Estimates cover schools whose rates aren't published, schools the research didn'
 limit ran out), and 6 researched figures that looked wrong. Rows flagged closed or not a school also have an
 estimate; filter on `data_flag` before showing them.
 
+The app reads these columns from `frontend/src/data/tuition.json`. After editing `schools.csv`, rebuild it with
+`python3 school-data/build_tuition_json.py`. The script also marks rows whose flag says the school is closed, isn't
+a school, or serves only adults; the app leaves those out.
+
 ## Raw files
 
 | File | Source | Rows | Notes |
