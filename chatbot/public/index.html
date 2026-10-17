@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>School Finder Chat</title>
+<style>
+  /* Colors from colors.md */
+  :root {
+    --primary: #2256BB;
+    --primary-700: #17439A;
+    --bay: #052739;
+    --canvas: #FFFFFF;
+    --subtle: #F9FAFD;
+    --text: #060D1A;
+    --muted: #5E636D;
+    --border: #E5E8ED;
+    --danger: #BE2323;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--canvas); color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: flex; flex-direction: column;
+  }
+  header {
+    background: var(--bay); color: #fff; padding: 14px 16px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  header h1 { font-size: 18px; margin: 0; font-weight: 650; }
+  header p { margin: 2px 0 0; font-size: 13px; color: #C9D6E2; }
+  header button {
+    background: transparent; color: #fff; border: 1px solid #ffffff55; border-radius: 8px;
+    padding: 6px 12px; font: inherit; font-size: 14px; cursor: pointer; white-space: nowrap;
+  }
+  header button:hover { background: #ffffff1a; }
+  main { flex: 1; overflow-y: auto; background: var(--subtle); }
+  #log { max-width: 760px; margin: 0 auto; padding: 20px 16px 8px; display: flex; flex-direction: column; gap: 14px; }
+  .msg { max-width: 92%; padding: 10px 14px; border-radius: 14px; overflow-wrap: anywhere; }
+  .user { align-self: flex-end; background: var(--primary); color: #fff; border-bottom-right-radius: 4px; white-space: pre-wrap; }
+  .bot { align-self: flex-start; background: var(--canvas); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+  .bot p { margin: 0 0 8px; } .bot p:last-child { margin-bottom: 0; }
+  .bot ul, .bot ol { margin: 4px 0 8px; padding-left: 22px; } .bot li { margin: 4px 0; }
+  .bot a { color: var(--primary); }
+  .bot h3 { font-size: 16px; margin: 8px 0 4px; }
+  .error { align-self: flex-start; color: var(--danger); font-size: 14px; }
+  .searched { align-self: flex-start; color: var(--muted); font-size: 13px; margin-bottom: -8px; }
+  .typing { color: var(--muted); font-style: italic; }
+  .suggestions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .suggestions button {
+    background: var(--canvas); color: var(--primary); border: 1px solid var(--border); border-radius: 999px;
+    padding: 6px 12px; font: inherit; font-size: 14px; cursor: pointer; text-align: left;
+  }
+  .suggestions button:hover { border-color: var(--primary); }
+  form { border-top: 1px solid var(--border); background: var(--canvas); padding: 12px 16px; }
+  .row { max-width: 760px; margin: 0 auto; display: flex; gap: 8px; }
+  textarea {
+    flex: 1; resize: none; font: inherit; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px;
+    min-height: 44px; max-height: 160px; color: var(--text); background: var(--canvas);
+  }
+  textarea:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  form button {
+    background: var(--primary); color: #fff; border: 0; border-radius: 10px; padding: 0 18px; font: inherit; font-weight: 600; cursor: pointer;
+  }
+  form button:hover { background: var(--primary-700); }
+  form button:disabled { opacity: .55; cursor: default; }
+  .note { max-width: 760px; margin: 6px auto 0; font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Miami-Dade School Finder</h1>
+    <p>Ask about public, charter, private and Head Start schools, infant through grade 12.</p>
+  </div>
+  <button id="reset" type="button">New chat</button>
+</header>
+<main id="scroller">
+  <div id="log" aria-live="polite"></div>
+</main>
+<form id="form">
+  <div class="row">
+    <textarea id="input" rows="1" placeholder="Ask about schools…" aria-label="Your question" maxlength="2000"></textarea>
+    <button id="send" type="submit">Send</button>
+  </div>
+  <p class="note">Answers come from county and federal school lists and can be out of date. Confirm details with the school.</p>
+</form>
+<script>
+  const log = document.getElementById("log");
+  const scroller = document.getElementById("scroller");
+  const form = document.getElementById("form");
+  const input = document.getElementById("input");
+  const sendBtn = document.getElementById("send");
+  let sessionId = null;
+  let busy = false;
+
+  const SUGGESTIONS = [
+    "Which public high schools are near zip code 33186?",
+    "I need infant care in Hialeah. What Early Head Start sites are there?",
+    "How many private schools are in Coral Gables?",
+    "¿Qué escuelas charter K-8 hay en Doral?",
+  ];
+
+  // Minimal markdown: escape everything first, then add bold, italics, code, links, headings and lists.
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+  function inline(s) {
+    return escapeHtml(s)
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/(^|[^*])\*([^*\s][^*]*?)\*(?!\*)/g, "$1<em>$2</em>")
+      .replace(/`([^`]+)`/g, "<code>$1</code>")
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+      .replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer">$2</a>');
+  }
+  function renderMarkdown(text) {
+    const out = [];
+    let list = null;
+    let para = [];
+    const flushPara = () => { if (para.length) { out.push("<p>" + para.map(inline).join("<br>") + "</p>"); para = []; } };
+    const closeList = () => { if (list) { out.push(`</${list}>`); list = null; } };
+    for (const raw of text.split("\n")) {
+      const line = raw.trimEnd();
+      const bullet = line.match(/^\s*[-*•]\s+(.*)$/);
+      const numbered = line.match(/^\s*\d+[.)]\s+(.*)$/);
+      const heading = line.match(/^#{1,6}\s+(.*)$/);
+      if (bullet || numbered) {
+        flushPara();
+        const kind = bullet ? "ul" : "ol";
+        if (list !== kind) { closeList(); out.push(`<${kind}>`); list = kind; }
+        out.push("<li>" + inline((bullet || numbered)[1]) + "</li>");
+      } else if (heading) {
+        flushPara(); closeList(); out.push("<h3>" + inline(heading[1]) + "</h3>");
+      } else if (!line.trim()) {
+        flushPara(); closeList();
+      } else if (list && /^\s+\S/.test(raw)) {
+        // An indented line continues the bullet above it.
+        out[out.length - 1] = out[out.length - 1].replace(/<\/li>$/, "<br>" + inline(line.trim()) + "</li>");
+      } else {
+        closeList(); para.push(line);
+      }
+    }
+    flushPara(); closeList();
+    return out.join("");
+  }
+
+  function add(kind, content, html = false) {
+    const el = document.createElement("div");
+    el.className = kind === "error" || kind === "searched" ? kind : `msg ${kind}`;
+    if (html) el.innerHTML = content; else el.textContent = content;
+    log.appendChild(el);
+    scroller.scrollTop = scroller.scrollHeight;
+    return el;
+  }
+
+  function describeCall(call) {
+    const i = call.input || {};
+    const bits = [];
+    if (i.types?.length) bits.push(i.types.join(", "));
+    if (i.grade) bits.push(`grade ${i.grade}`);
+    if (i.name) bits.push(`"${i.name}"`);
+    if (i.city) bits.push(i.city);
+    if (i.zip) bits.push(i.zip);
+    if (i.near) bits.push(`near ${i.near.zip || i.near.school || "a point"}`);
+    return (call.name === "count_schools" ? "Counted " : "Searched ") + (bits.join(" · ") || "all schools");
+  }
+
+  function welcome() {
+    log.innerHTML = "";
+    add("bot", renderMarkdown("Hi! I can help you find schools and early learning programs in Miami-Dade County, from infant care to grade 12. Tell me a zip code, city or school name, the grade, and the kind of school you want."), true);
+    const box = document.createElement("div");
+    box.className = "suggestions";
+    for (const s of SUGGESTIONS) {
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = s;
+      b.onclick = () => { box.remove(); ask(s); };
+      box.appendChild(b);
+    }
+    log.appendChild(box);
+  }
+
+  async function ask(text) {
+    if (busy || !text.trim()) return;
+    busy = true; sendBtn.disabled = true;
+    document.querySelector(".suggestions")?.remove();
+    add("user", text);
+    const typing = add("bot", "Looking that up…");
+    typing.classList.add("typing");
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ sessionId, message: text }),
+      });
+      const data = await res.json().catch(() => ({}));
+      typing.remove();
+      if (data.sessionId) sessionId = data.sessionId;
+      if (!res.ok) { add("error", data.error || "Something went wrong. Please try again."); return; }
+      const calls = data.toolCalls || [];
+      if (calls.length) add("searched", calls.map(describeCall).join(" · "));
+      add("bot", renderMarkdown(data.reply || ""), true);
+    } catch {
+      typing.remove();
+      add("error", "Couldn't reach the chatbot server. Is it running?");
+    } finally {
+      busy = false; sendBtn.disabled = false; input.focus();
+    }
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = input.value;
+    input.value = ""; input.style.height = "";
+    ask(text);
+  });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+  });
+  input.addEventListener("input", () => { input.style.height = ""; input.style.height = input.scrollHeight + "px"; });
+  document.getElementById("reset").addEventListener("click", async () => {
+    if (sessionId) fetch("/api/reset", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ sessionId }) }).catch(() => {});
+    sessionId = null;
+    welcome();
+    input.focus();
+  });
+
+  welcome();
+</script>
+</body>
+</html>
