@@ -5,6 +5,7 @@ import {
   MapPin, Phone, Printer, Share, Users,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { isStreetView, photoUrl, usePhotoNames } from '@/lib/photos'
 import { STYLE } from './MapPanel'
 import type { Origin, Place } from './data'
 import { RatingChip, ZonedBadge, enrollmentText, miles, zonedLabel } from './ListingCard'
@@ -13,24 +14,40 @@ function Divider() {
   return <hr className="my-8 border-line" />
 }
 
-function Tile({ place, offset, className, children }: { place: Place; offset: number; className?: string; children?: React.ReactNode }) {
+// the gradient is the fallback: shown while the photo loads, when a school has fewer than five, or on error
+function Tile({ place, offset, name, width, className }: { place: Place; offset: number; name?: string; width: number; className?: string }) {
+  const [failed, setFailed] = useState(false)
+  const [retried, setRetried] = useState(false) // one more try before the gradient stays
   return (
     <div
       className={cn('relative overflow-hidden', className)}
       style={{ backgroundImage: `linear-gradient(${135 + offset * 30}deg, oklch(0.8 0.08 ${place.hue + offset * 18}), oklch(0.52 0.12 ${place.hue + 40 + offset * 18}))` }}
     >
-      {children}
+      {name && !failed && (
+        <img
+          key={String(retried)}
+          src={photoUrl(name, width) + (retried ? '&retry=1' : '')}
+          alt={`${place.name}, photo ${offset + 1}`}
+          loading={offset === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+          onError={() => (retried ? setFailed(true) : setRetried(true))}
+          className="absolute inset-0 size-full object-cover"
+        />
+      )}
+      {name && !failed && isStreetView(name) && (
+        <span className="absolute bottom-3 left-3 rounded-full bg-ink/70 px-2 py-0.5 text-[11px] text-white">Street View</span>
+      )}
     </div>
   )
 }
 
-// placeholder tiles until the sources have photos
 function PhotoGrid({ place }: { place: Place }) {
+  const names = usePhotoNames(place)
   return (
     <div className="relative grid h-[240px] grid-cols-1 gap-2 overflow-hidden rounded-xl md:h-[360px] md:grid-cols-4 md:grid-rows-2">
-      <Tile place={place} offset={0} className="md:col-span-2 md:row-span-2" />
+      <Tile place={place} offset={0} name={names[0]} width={960} className="md:col-span-2 md:row-span-2" />
       {[1, 2, 3, 4].map((n) => (
-        <Tile key={n} place={place} offset={n} className="max-md:hidden" />
+        <Tile key={n} place={place} offset={n} name={names[n]} width={480} className="max-md:hidden" />
       ))}
     </div>
   )

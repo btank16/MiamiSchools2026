@@ -20,7 +20,7 @@ export function PlacePopup({ place, onClose, onOpen }: { place: Place; onClose: 
       onClose={onClose}
     >
       <article className="w-[280px] cursor-pointer bg-white text-ink" onClick={opensPage(place, onOpen)}>
-        <Photo place={place} arrows className="h-[150px]">
+        <Photo place={place} arrows width={560} className="h-[150px]">
           <div className="absolute right-3 top-3 z-10 flex gap-2">
             <button
               aria-label={`Save ${place.name}`}

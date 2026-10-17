@@ -3,6 +3,9 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
+// the page adds retry=1 to re-request a photo that errored; Google rejects unknown parameters
+const dropRetry = (s: string) => s.replace(/&?retry=1/, '')
+
 export default defineConfig(({ mode }) => {
   // GOOGLE_PHOTOS_KEY lives in .env.local (gitignored); it stays on this server and never reaches the browser
   const photosKey = loadEnv(mode, import.meta.dirname, '').GOOGLE_PHOTOS_KEY
@@ -19,7 +22,7 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: (p) => {
             const [route, query = ''] = p.replace('/gphoto', '/v1').split('?')
-            return `${route}/media?${query}`
+            return `${route}/media?${dropRetry(query)}`
           },
           configure: (proxy) => {
             proxy.on('proxyReq', (req) => req.setHeader('X-Goog-Api-Key', photosKey ?? ''))
@@ -33,7 +36,7 @@ export default defineConfig(({ mode }) => {
         '/gsv': {
           target: 'https://maps.googleapis.com',
           changeOrigin: true,
-          rewrite: (p) => `${p.replace('/gsv', '/maps/api/streetview')}&key=${photosKey ?? ''}`,
+          rewrite: (p) => `${dropRetry(p.replace('/gsv', '/maps/api/streetview'))}&key=${photosKey ?? ''}`,
           configure: (proxy) => {
             proxy.on('proxyRes', (res) => {
               res.headers['cache-control'] = 'public, max-age=86400'
