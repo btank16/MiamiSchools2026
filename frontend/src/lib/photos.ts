@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 import index from '@/data/photo-index.json'
 import type { Place } from '@/components/clone/data'
+import { API_BASE } from '@/lib/api'
 
 // Photos are Google Places photo ids listed per school in /photos/<id>.json; the images themselves are
-// fetched from Google on demand through the key-holding proxy (dev: vite.config.ts, prod: backend route).
+// fetched from Google on demand through the schools API, which holds the Google key (the "googlemap"
+// Amplify secret, or GOOGLE_MAPS_API_KEY in backend/.env when VITE_API_URL points at a local backend).
 // Schools arrive from the live search with their own ids, so each one is matched to the photo index by
 // place and name (see data/build_frontend_data.py for how the index is built).
-const PHOTO_BASE = import.meta.env.VITE_PHOTO_BASE ?? '/gphoto'
-const STREETVIEW_BASE = import.meta.env.VITE_STREETVIEW_BASE ?? '/gsv'
-
 type Entry = { id: string; lng: number; lat: number; name: string; words: Set<string>; count: number }
 
 const STOP = new Set(['the', 'of', 'and', 'at', 'inc', 'llc', 'school', 'schools', 'a'])
@@ -73,9 +72,10 @@ export function photoUrl(name: string, width: number) {
   if (isStreetView(name)) {
     const [, pano, heading, fov] = name.split(':')
     const w = Math.min(width, 640) // Street View Static tops out at 640 px
-    return `${STREETVIEW_BASE}?pano=${pano}&heading=${heading}&fov=${fov}&pitch=8&size=${w}x${Math.round(w * 0.65)}`
+    return `${API_BASE}/streetview?pano=${pano}&heading=${heading}&fov=${fov}&pitch=8&size=${w}x${Math.round(w * 0.65)}`
   }
-  return `${PHOTO_BASE}/${name}?maxWidthPx=${width}`
+  // name is places/<placeId>/photos/<ref>, which is also the API route
+  return `${API_BASE}/${name}?maxWidthPx=${width}`
 }
 
 export function usePhotoNames(place: Place): string[] {

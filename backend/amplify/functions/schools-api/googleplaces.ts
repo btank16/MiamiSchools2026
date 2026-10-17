@@ -1,8 +1,12 @@
-// Thin client for Google Places API (New): address autocomplete + place lookup.
+// Thin client for Google Places API (New): address autocomplete + place lookup + school photos,
+// plus Street View Static for schools without Places photos.
 // Docs: https://developers.google.com/maps/documentation/places/web-service/place-autocomplete
 //       https://developers.google.com/maps/documentation/places/web-service/place-details
+//       https://developers.google.com/maps/documentation/places/web-service/place-photos
+//       https://developers.google.com/maps/documentation/streetview/request-streetview
 
 const BASE_URL = 'https://places.googleapis.com/v1';
+const STREETVIEW_URL = 'https://maps.googleapis.com/maps/api/streetview';
 
 // Only request what we return. These fields all bill under the cheapest
 // "Place Details Essentials" SKU.
@@ -37,6 +41,15 @@ export interface Place {
   lat: number | null;
   lon: number | null;
   types: string[];
+}
+
+export interface StreetViewParams {
+  pano: string;
+  heading: number;
+  fov: number;
+  pitch: number;
+  width: number;
+  height: number;
 }
 
 export class GooglePlacesError extends Error {
@@ -88,13 +101,43 @@ export class GooglePlacesClient {
     return normalizePlace(raw);
   }
 
-  private async request(path: string, fieldMask: string, init: RequestInit): Promise<any> {
+  // `name` is a Places photo resource name: places/{placeId}/photos/{photoRef}. skipHttpRedirect returns
+  // the image's own URL as JSON, so the browser can be redirected to it without ever seeing the key.
+  async photoUri(name: string, maxWidthPx: number): Promise<string> {
+    const query = new URLSearchParams({ maxWidthPx: String(maxWidthPx), skipHttpRedirect: 'true' });
+    const raw = await this.request(`/${name}/media?${query}`, null, { method: 'GET' });
+    if (!raw.photoUri) throw new GooglePlacesError(`Google Places returned no photoUri for ${name}`, 502);
+    return raw.photoUri;
+  }
+
+  // Street View Static only accepts the key as a query parameter, so the image is fetched here and
+  // returned as bytes rather than redirecting the browser to a URL that carries the key.
+  async streetView(p: StreetViewParams): Promise<{ image: Buffer; contentType: string }> {
+    const query = new URLSearchParams({
+      pano: p.pano,
+      heading: String(p.heading),
+      fov: String(p.fov),
+      pitch: String(p.pitch),
+      size: `${p.width}x${p.height}`,
+      // 404 instead of Google's grey "no imagery" placeholder, so the page shows its own fallback
+      return_error_code: 'true',
+      key: this.apiKey,
+    });
+    const res = await fetch(`${STREETVIEW_URL}?${query}`);
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      throw new GooglePlacesError(`Street View ${res.status} for pano ${p.pano}: ${body.slice(0, 300)}`, res.status);
+    }
+    return { image: Buffer.from(await res.arrayBuffer()), contentType: res.headers.get('content-type') ?? 'image/jpeg' };
+  }
+
+  private async request(path: string, fieldMask: string | null, init: RequestInit): Promise<any> {
     const res = await fetch(BASE_URL + path, {
       ...init,
       headers: {
         'Content-Type': 'application/json',
         'X-Goog-Api-Key': this.apiKey,
-        'X-Goog-FieldMask': fieldMask,
+        ...(fieldMask && { 'X-Goog-FieldMask': fieldMask }),
       },
     });
     if (!res.ok) {
