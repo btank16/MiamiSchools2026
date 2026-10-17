@@ -15,13 +15,9 @@ export type Level = (typeof LEVELS)[number]['id']
 export type Filters = { types: PlaceType[]; levels: Level[]; grades: string[]; distance: number | null }
 export const emptyFilters: Filters = { types: [], levels: [], grades: [], distance: null }
 
-// Miami-Dade's built-up area runs ~45 mi north to south and ~20 mi east to west, so more than 15 mi
-// is a different part of the county. 1 mi walkable, 2 mi bike or short drive, 5 mi neighborhood,
-// 10 mi across a few areas, 15 mi the widest anyone commutes to a school.
-export const DISTANCES = [1, 2, 5, 10, 15] as const
-
-// stand-in for the user's search location until location search exists (downtown Miami) [lng, lat]
-export const ORIGIN = { name: 'downtown Miami', lngLat: [-80.1918, 25.7617] as [number, number] }
+// Searches cover 5 mi around the address (the most the county data allows), so options stop there.
+// 1 mi walkable, 2 mi bike or short drive, 3 mi a few neighborhoods, 5 mi the whole search.
+export const DISTANCES = [1, 2, 3, 5] as const
 
 export function milesBetween([lng1, lat1]: [number, number], [lng2, lat2]: [number, number]) {
   const rad = Math.PI / 180
@@ -59,7 +55,8 @@ function gradeRange(grades: string): [number, number] {
 }
 
 // "PK–8", "K–8", "Infant–PK", "9–12" -> the levels that range touches
-export function levelsOf(grades: string): Level[] {
+export function levelsOf(grades: string | null): Level[] {
+  if (!grades) return []
   const [lo, hi] = gradeRange(grades)
   const out: Level[] = []
   if (lo <= -2) out.push('infant')
@@ -75,10 +72,11 @@ export function matches(p: Place, f: Filters): boolean {
   if (f.types.length && !f.types.includes(p.kind as PlaceType)) return false
   if (f.levels.length && !levelsOf(p.grades).some((l) => f.levels.includes(l))) return false
   if (f.grades.length) {
+    if (!p.grades) return false
     const [lo, hi] = gradeRange(p.grades)
     if (!f.grades.some((g) => rank(g) >= lo && rank(g) <= hi)) return false
   }
-  if (f.distance != null && milesBetween(ORIGIN.lngLat, p.lngLat) > f.distance) return false
+  if (f.distance != null && p.distanceMiles > f.distance) return false
   return true
 }
 
