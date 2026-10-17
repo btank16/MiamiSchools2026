@@ -8,7 +8,7 @@ import { Footer } from '@/components/clone/Footer'
 export default function App() {
   const [view, setView] = useState<View>('split')
   return (
-    <div className="min-h-screen bg-white text-ink">
+    <div className="min-h-screen bg-white text-foreground">
       <Navbar />
       <FilterBar view={view} onView={setView} />
       <main className="pt-[133px]">
