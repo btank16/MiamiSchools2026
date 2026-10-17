@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import type { LambdaFunctionURLEvent } from 'aws-lambda';
 import type { ChatRequest, ChatResult } from '@openrouter/sdk/models';
-import { answer, MODEL, type SendChat } from './bot';
+import { answer, MODELS, type SendChat } from './bot';
 import { handleChat } from './handler';
 import { filterSchools, INFANT, KINDERGARTEN, parseGrades, PREK, type School } from './schools';
 import { runTool, toolDefinitions } from './tools';
@@ -13,7 +13,7 @@ const schools = schoolsData as School[];
 
 function result(message: ChatResult['choices'][number]['message'], finishReason: string = 'stop'): ChatResult {
   return {
-    id: 'gen-1', created: 0, model: MODEL, object: 'chat.completion', systemFingerprint: null,
+    id: 'gen-1', created: 0, model: MODELS[0], object: 'chat.completion', systemFingerprint: null,
     choices: [{ index: 0, finishReason: finishReason as never, message }],
   };
 }
@@ -90,7 +90,8 @@ test('runs a tool round, passes reasoning back, and returns the answer', async (
   assert.equal(reply.reply, 'There are 180 charter campuses.');
   assert.deepEqual(reply.toolCalls, [{ name: 'count_schools', input: { types: ['Charter'] } }]);
 
-  assert.equal(requests[0].model, 'thinkingmachines/inkling:free');
+  assert.deepEqual(requests[0].models, ['google/gemma-4-31b-it:free', 'nvidia/nemotron-3-super-120b-a12b:free']);
+  assert.deepEqual(reply.models, [MODELS[0]]);
   assert.equal(requests[0].messages[0].role, 'system');
   const second = requests[1].messages;
   const assistant = second[2] as { role: string; toolCalls?: unknown[]; reasoningDetails?: unknown[] };
