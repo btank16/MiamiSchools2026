@@ -1,0 +1,14 @@
+version: 1
+applications:
+  - appRoot: backend
+    frontend:
+      phases:
+        build:
+          commands:
+            - echo "Building backend"
+      artifacts:
+        baseDirectory: .
+        files:
+          - '**/*'
+      cache:
+        paths: []
