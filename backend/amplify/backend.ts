@@ -79,7 +79,7 @@ backend.addOutput({
     },
     chat: {
       endpoint: chatUrl.url,
-      model: 'thinkingmachines/inkling:free',
+      models: ['google/gemma-4-31b-it:free', 'nvidia/nemotron-3-super-120b-a12b:free'],
     },
   },
 });

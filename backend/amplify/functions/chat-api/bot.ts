@@ -1,11 +1,13 @@
 // The chatbot: a system prompt, the school-search tools, and the loop that runs them,
-// using the free Thinking Machines Inkling model through OpenRouter.
+// using free models through OpenRouter.
 import { OpenRouter } from '@openrouter/sdk';
 import type { ChatMessages, ChatRequest, ChatResult } from '@openrouter/sdk/models';
 import type { School } from './schools';
 import { runTool, toolDefinitions } from './tools';
 
-export const MODEL = 'thinkingmachines/inkling:free';
+// OpenRouter tries these in order, moving to the next when one errors (rate limit, outage).
+// Free models share one daily request cap per account, so a used-up cap fails them all.
+export const MODELS = ['google/gemma-4-31b-it:free', 'nvidia/nemotron-3-super-120b-a12b:free'];
 const MAX_TOOL_ROUNDS = 6;
 // Stop starting new model calls after this long, so the reply lands inside the Lambda timeout.
 const TURN_BUDGET_MS = 90_000;
@@ -38,6 +40,8 @@ export type ChatReply = {
   reply: string;
   toolCalls: { name: string; input: unknown }[];
   finishReason: string | null;
+  /** The models that answered, as OpenRouter reports them, so logs show when the backup was used. */
+  models: string[];
 };
 
 /** Sends one non-streaming chat request. Swappable so tests can run without the network. */
@@ -75,9 +79,11 @@ export async function answer(history: HistoryMessage[], schools: School[], send:
   const started = now();
   const messages: ChatMessages[] = [{ role: 'system', content: SYSTEM_PROMPT }, ...history];
   const toolCalls: ChatReply['toolCalls'] = [];
+  const models = new Set<string>();
 
   for (let round = 0; round <= MAX_TOOL_ROUNDS; round++) {
-    const result = await send({ model: MODEL, messages, tools: toolDefinitions, maxTokens: 8000 });
+    const result = await send({ models: MODELS, messages, tools: toolDefinitions, maxTokens: 8000 });
+    models.add(result.model);
     const choice = result.choices[0];
     if (!choice) throw new Error('OpenRouter returned no choices');
     const message = choice.message;
@@ -87,7 +93,7 @@ export async function answer(history: HistoryMessage[], schools: School[], send:
       let reply = textOf(message.content).trim();
       if (choice.finishReason === 'length') reply += '\n\n(My answer was cut off. Ask me to continue.)';
       if (!reply && message.refusal) reply = 'Sorry, I can\'t help with that one. I can help you find schools in Miami-Dade.';
-      return { reply: reply || 'Sorry, I didn\'t get an answer. Please try again.', toolCalls, finishReason: choice.finishReason };
+      return { reply: reply || 'Sorry, I didn\'t get an answer. Please try again.', toolCalls, finishReason: choice.finishReason, models: [...models] };
     }
 
     if (round === MAX_TOOL_ROUNDS || now() - started > TURN_BUDGET_MS) break;
@@ -110,5 +116,6 @@ export async function answer(history: HistoryMessage[], schools: School[], send:
     reply: 'That search needed more steps than I can take at once. Could you narrow it down, for example by zip code, grade or type of school?',
     toolCalls,
     finishReason: 'tool_rounds_exceeded',
+    models: [...models],
   };
 }

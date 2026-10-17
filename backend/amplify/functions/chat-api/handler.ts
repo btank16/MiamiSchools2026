@@ -1,6 +1,7 @@
 import type { APIGatewayProxyStructuredResultV2, LambdaFunctionURLEvent } from 'aws-lambda';
 import {
   ConnectionError,
+  ForbiddenResponseError,
   OpenRouterError,
   PaymentRequiredResponseError,
   RequestTimeoutError,
@@ -53,6 +54,7 @@ export async function handleChat(event: LambdaFunctionURLEvent, makeSender: () =
 
   try {
     const result = await answer(history, schools, send);
+    console.log(`Answered by ${result.models.join(', ')}`);
     return respond(200, { reply: result.reply, toolCalls: result.toolCalls });
   } catch (err) {
     logError(err);
@@ -61,6 +63,8 @@ export async function handleChat(event: LambdaFunctionURLEvent, makeSender: () =
     }
     if (err instanceof UnauthorizedResponseError) return respond(502, { error: 'OpenRouter rejected the chatbot\'s API key.' });
     if (err instanceof PaymentRequiredResponseError) return respond(502, { error: 'The OpenRouter account needs credits for this request.' });
+    // e.g. OpenRouter restricting a free model to approved apps
+    if (err instanceof ForbiddenResponseError) return respond(502, { error: 'OpenRouter isn\'t letting the chatbot use its AI model right now.' });
     if (err instanceof OpenRouterError) return respond(502, { error: 'The AI service had a problem. Please try again.' });
     if (err instanceof RequestTimeoutError) return respond(504, { error: 'The AI service took too long to answer. Please try again.' });
     if (err instanceof ConnectionError) return respond(503, { error: 'Couldn\'t reach the AI service. Please try again shortly.' });
