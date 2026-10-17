@@ -7,7 +7,10 @@
   "scripts": {
     "dev": "node --env-file-if-exists=.env --watch --import tsx scripts/dev-server.ts",
     "sandbox": "ampx sandbox",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "dev:chat": "node --env-file-if-exists=.env --import tsx scripts/chat-dev-server.ts",
+    "build:chat-data": "tsx scripts/build-chat-data.ts",
+    "test": "tsx --test amplify/functions/chat-api/*.test.ts"
   },
   "license": "ISC",
   "devDependencies": {
@@ -22,6 +25,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "aws-amplify": "^6.22.2"
+    "@openrouter/sdk": "^1.4.25",
+    "aws-amplify": "^6.22.2",
+    "zod": "^3.25.17"
   }
 }

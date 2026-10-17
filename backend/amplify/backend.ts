@@ -1,9 +1,11 @@
 import { defineBackend } from '@aws-amplify/backend';
-import { Stack } from 'aws-cdk-lib';
+import { Duration, Stack } from 'aws-cdk-lib';
 import { Cors, LambdaIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway';
+import { FunctionUrlAuthType, HttpMethod } from 'aws-cdk-lib/aws-lambda';
 import { auth } from './auth/resource';
 import { data } from './data/resource';
 import { schoolsApi } from './functions/schools-api/resource';
+import { chatApi } from './functions/chat-api/resource';
 
 /**
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
@@ -12,6 +14,7 @@ const backend = defineBackend({
   auth,
   data,
   schoolsApi,
+  chatApi,
 });
 
 // REST API in front of the schools-api Lambda, which proxies GreatSchools, Google Places and Miami-Dade County GIS.
@@ -45,7 +48,19 @@ places.addResource('autocomplete').addMethod('GET', integration);
 places.addResource('{placeId}').addMethod('GET', integration);
 restApi.root.addResource('address').addResource('report').addMethod('GET', integration);
 
-// Exposed to the frontend via amplify_outputs.json -> custom.API
+// The chatbot gets a Function URL instead of a REST API route: API Gateway caps requests at 29s,
+// and a thinking model with a few tool rounds can take longer.
+const chatUrl = backend.chatApi.resources.lambda.addFunctionUrl({
+  authType: FunctionUrlAuthType.NONE,
+  cors: {
+    allowedOrigins: ['*'],
+    allowedMethods: [HttpMethod.POST],
+    allowedHeaders: ['content-type'],
+    maxAge: Duration.minutes(10),
+  },
+});
+
+// Exposed to the frontend via amplify_outputs.json -> custom.API and custom.chat
 backend.addOutput({
   custom: {
     API: {
@@ -54,6 +69,10 @@ backend.addOutput({
         region: Stack.of(restApi).region,
         apiName: restApi.restApiName,
       },
+    },
+    chat: {
+      endpoint: chatUrl.url,
+      model: 'thinkingmachines/inkling:free',
     },
   },
 });
