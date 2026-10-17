@@ -2,6 +2,16 @@
 
 Raw CSV exports kept as-is. Nothing else in the repo reads these files yet.
 
+## `schools.csv`
+
+All four files below combined into one list of Miami-Dade schools, infant through grade 12 (1,677 rows):
+358 public, 180 charter campuses, 949 active private, 86 Head Start and 104 Early Head Start sites.
+Offices, adult ed, closed private schools and out-of-state Head Start sites are left out.
+Columns: `name, type, level, grades, address, city, zip, phone, website, lat, lon, source, source_id`.
+`source` and `source_id` point back to the row in the raw file.
+
+## Raw files
+
 | File | Source | Rows | Notes |
 |---|---|---|---|
 | `public_schools.csv` | Miami-Dade County GIS `SchoolSite_gdb` | 451 | Every M-DCPS facility. Keep `TYPE` in `E`, `M`, `S`, `ALT`, `SPC` for schools (358 rows). `A` and `PLC` are offices; `O` is adult ed. |
