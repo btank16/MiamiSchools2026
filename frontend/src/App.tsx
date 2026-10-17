@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Navbar } from '@/components/clone/Navbar'
 import { FilterBar, type View } from '@/components/clone/FilterBar'
 import { ResultsPanel } from '@/components/clone/ResultsPanel'
@@ -14,44 +14,50 @@ export default function App() {
   const [open, setOpen] = useState<Place | null>(null)
   const shown = useMemo(() => places.filter((p) => matches(p, filters)), [filters])
   const filtering = isFiltering(filters)
-  // the school page replaces the results; going back remounts them with filters intact
-  if (open) {
-    return (
-      <div className="min-h-screen bg-white text-ink">
-        <Navbar />
-        <main className="pt-[70px]">
-          <SchoolPage place={open} onBack={() => setOpen(null)} />
-          <Footer />
-        </main>
-      </div>
-    )
+  // the results stay mounted (just hidden) behind the school page, so going back keeps
+  // the loaded cards, the map position and the scroll place instead of starting over
+  const scrollY = useRef(0)
+  const openPage = (p: Place) => {
+    scrollY.current = window.scrollY
+    setOpen(p)
+  }
+  const back = () => {
+    setOpen(null)
+    requestAnimationFrame(() => window.scrollTo(0, scrollY.current))
   }
   return (
     <div className="min-h-screen bg-white text-ink">
       <Navbar />
-      <FilterBar view={view} onView={setView} filters={filters} onFilters={setFilters} />
-      <main className="pt-[133px]">
-        <div className="flex items-start">
-          {view !== 'map' && (
-            <ResultsPanel
-              places={shown}
-              filtering={filtering}
-              onClear={() => setFilters(emptyFilters)}
-              onOpen={setOpen}
-              className={view === 'split' ? 'w-full lg:w-1/2' : 'w-full'}
-            />
-          )}
-          {view !== 'list' && (
-            <MapPanel
-              places={shown}
-              showDots={!filtering}
-              onOpen={setOpen}
-              className={view === 'split' ? 'hidden lg:block lg:w-1/2' : 'w-full'}
-            />
-          )}
-        </div>
-        {view !== 'map' && <Footer />}
-      </main>
+      {open && (
+        <main className="pt-[70px]">
+          <SchoolPage place={open} onBack={back} />
+          <Footer />
+        </main>
+      )}
+      <div hidden={!!open}>
+        <FilterBar view={view} onView={setView} filters={filters} onFilters={setFilters} />
+        <main className="pt-[133px]">
+          <div className="flex items-start">
+            {view !== 'map' && (
+              <ResultsPanel
+                places={shown}
+                filtering={filtering}
+                onClear={() => setFilters(emptyFilters)}
+                onOpen={openPage}
+                className={view === 'split' ? 'w-full lg:w-1/2' : 'w-full'}
+              />
+            )}
+            {view !== 'list' && (
+              <MapPanel
+                places={shown}
+                onOpen={openPage}
+                className={view === 'split' ? 'hidden lg:block lg:w-1/2' : 'w-full'}
+              />
+            )}
+          </div>
+          {view !== 'map' && <Footer />}
+        </main>
+      </div>
     </div>
   )
 }

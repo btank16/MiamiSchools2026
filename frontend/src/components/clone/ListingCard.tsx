@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { BadgeCheck, Bookmark, CalendarDays, ChevronLeft, ChevronRight, Star } from 'lucide-react'
+import { BadgeCheck, Bookmark, CalendarDays, ChevronLeft, ChevronRight, MapPinHouse, Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { isStreetView, photoUrl, usePhotoNames } from '@/lib/photos'
 import type { Place } from './data'
 
 // whole card opens the school page; buttons (save, arrows, dots, tour) keep their own behaviour
@@ -10,9 +11,14 @@ export const opensPage = (place: Place, onOpen: (p: Place) => void) => (e: React
   onOpen(place)
 }
 
-export function Photo({ place, className, children, arrows }: { place: Place; className?: string; children?: React.ReactNode; arrows?: boolean }) {
+// real photos load one at a time (the current slide) from Google, so a page of cards stays light;
+// the gradient shows while loading, for schools without photos, and when an image fails
+export function Photo({ place, className, children, arrows, width = 480 }: { place: Place; className?: string; children?: React.ReactNode; arrows?: boolean; width?: number }) {
   const [slide, setSlide] = useState(0)
-  const dots = 4
+  const [failed, setFailed] = useState<string[]>([])
+  const names = usePhotoNames(place)
+  const dots = place.photos ?? 1
+  const name = names[slide]
   return (
     <div
       className={cn('relative overflow-hidden', className)}
@@ -20,8 +26,22 @@ export function Photo({ place, className, children, arrows }: { place: Place; cl
         backgroundImage: `linear-gradient(${135 + slide * 25}deg, oklch(0.78 0.09 ${place.hue}), oklch(0.5 0.12 ${place.hue + 40}))`,
       }}
     >
+      {name && !failed.includes(name) && (
+        <img
+          key={name}
+          src={photoUrl(name, width)}
+          alt={`${place.name}, photo ${slide + 1}`}
+          loading="lazy"
+          decoding="async"
+          onError={() => setFailed((f) => [...f, name])}
+          className="absolute inset-0 size-full object-cover"
+        />
+      )}
+      {name && !failed.includes(name) && isStreetView(name) && (
+        <span className="absolute bottom-2.5 left-3 z-10 rounded-full bg-ink/70 px-2 py-0.5 text-[11px] text-white">Street View</span>
+      )}
       {children}
-      {arrows && (
+      {arrows && dots > 1 && (
         <>
           {slide > 0 && (
             <button
@@ -43,17 +63,34 @@ export function Photo({ place, className, children, arrows }: { place: Place; cl
           )}
         </>
       )}
-      <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1">
-        {Array.from({ length: dots }, (_, i) => (
-          <button
-            key={i}
-            aria-label={`Photo ${i + 1} of ${dots}`}
-            onClick={() => setSlide(i)}
-            className={cn('size-1.5 rounded-full bg-white', i === slide ? 'opacity-100' : 'opacity-60')}
-          />
-        ))}
-      </div>
+      {dots > 1 && (
+        <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1">
+          {Array.from({ length: dots }, (_, i) => (
+            <button
+              key={i}
+              aria-label={`Photo ${i + 1} of ${dots}`}
+              onClick={() => setSlide(i)}
+              className={cn('size-1.5 rounded-full bg-white', i === slide ? 'opacity-100' : 'opacity-60')}
+            />
+          ))}
+        </div>
+      )}
     </div>
+  )
+}
+
+// top-left tag for the school the searched address is zoned for: the one place the accent color is used
+function ZonedBadge({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn(
+        'absolute z-10 flex h-8 items-center gap-1.5 rounded-md bg-highlight pl-2 pr-3 text-sm font-bold text-ink shadow-md ring-1 ring-ink/10',
+        className,
+      )}
+    >
+      <MapPinHouse className="size-4" strokeWidth={2.4} />
+      Your zoned school
+    </span>
   )
 }
 
@@ -86,12 +123,21 @@ function Chip({ children, dark }: { children: React.ReactNode; dark?: boolean })
 
 export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   return (
-    <article className="relative cursor-pointer overflow-hidden rounded-xl bg-deep text-white" onClick={opensPage(place, onOpen)}>
+    <article
+      className={cn('relative cursor-pointer overflow-hidden rounded-xl bg-deep text-white', place.zoned && 'ring-2 ring-highlight')}
+      onClick={opensPage(place, onOpen)}
+    >
       <Photo place={place} className="h-[350px]">
-        <span className="absolute left-4 top-4 z-10 flex h-[22px] items-center gap-1 rounded-sm bg-white px-3 text-sm text-neutral-800">
-          <Star className="size-3.5 fill-brand text-brand" />
-          {place.badge}
-        </span>
+        {place.zoned ? (
+          <ZonedBadge className="left-4 top-4" />
+        ) : (
+          place.badge && (
+            <span className="absolute left-4 top-4 z-10 flex h-[22px] items-center gap-1 rounded-sm bg-white px-3 text-sm text-neutral-800">
+              <Star className="size-3.5 fill-brand text-brand" />
+              {place.badge}
+            </span>
+          )
+        )}
         <Save name={place.name} />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-deep via-deep/80 to-transparent" />
         <div className="absolute inset-x-4 bottom-9 z-10">
@@ -128,10 +174,14 @@ export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Pla
 
 export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   return (
-    <article className="cursor-pointer overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
+    <article
+      className={cn('cursor-pointer overflow-hidden rounded-xl border border-line bg-white', place.zoned && 'ring-2 ring-highlight')}
+      onClick={opensPage(place, onOpen)}
+    >
       <Photo place={place} className="h-[207px]">
         <Save name={place.name} />
-        {place.badge && (
+        {place.zoned && <ZonedBadge className="left-3 top-3" />}
+        {!place.zoned && place.badge && (
           <span className="absolute left-3 top-3 z-10 rounded-sm bg-white px-2.5 py-0.5 text-sm text-neutral-800">
             {place.badge}
           </span>
