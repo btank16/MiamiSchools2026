@@ -3,9 +3,20 @@ applications:
   - appRoot: backend
     backend:
       phases:
+        preBuild:
+          commands:
+            # Match the Lambda runtime and keep CI npm in step with the npm that
+            # wrote package-lock.json, so lockfile validation behaves the same
+            # locally and in the build.
+            - nvm use 22
         build:
           commands:
-            - npm ci --cache .npm --prefer-offline
+            # `npm install` (not `npm ci`): @aws-amplify/data-construct and
+            # graphql-api-construct ship bundled @opentelemetry packages whose
+            # internal versions disagree. `npm ci` validates those bundled edges
+            # and fails with "Missing: @opentelemetry/core@2.0.0 from lock file";
+            # `npm install` trusts the bundle and still installs the locked versions.
+            - npm install --no-audit --no-fund --cache .npm --prefer-offline
             - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
     frontend:
       phases:
