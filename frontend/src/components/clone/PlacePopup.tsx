@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Popup } from 'react-map-gl/maplibre'
 import { Heart, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { Photo, RatingChip, ZonedBadge, miles, opensPage } from './ListingCard'
+import { Photo, RatingChip, ZonedBadge, miles, opensPage, tuitionText } from './ListingCard'
 import type { Place } from './data'
 
 // click popup for a map pin: photo carousel on top, summary below (Airbnb-style card, our palette)
@@ -44,6 +44,7 @@ export function PlacePopup({ place, onClose, onOpen }: { place: Place; onClose: 
             {place.grades && <><span className="mx-1 text-neutral-300">|</span>{place.grades}</>}
             {place.distanceMiles != null && <><span className="mx-1 text-neutral-300">|</span>{miles(place.distanceMiles)}</>}
           </p>
+          {place.tuition && <p className="text-sm font-semibold">{tuitionText(place.tuition)}</p>}
           <div className="flex items-center justify-between gap-3 pt-2">
             {place.ratingBand ? <RatingChip band={place.ratingBand} /> : <span />}
             <button

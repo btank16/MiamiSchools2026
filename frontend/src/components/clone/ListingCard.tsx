@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Bookmark, ChevronLeft, ChevronRight, ExternalLink, Phone, Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { isStreetView, photoCount, photoUrl, usePhotoNames } from '@/lib/photos'
+import type { Tuition } from '@/lib/tuition'
 import type { Place, ZoneLevel } from './data'
 
 // whole card opens the school page; buttons and links (save, arrows, dots, website) keep their own behaviour
@@ -145,6 +146,15 @@ export function enrollmentText(place: Place): string | null {
   return null
 }
 
+// "$36,400–$56,100/yr", "~$16,000/yr (estimate)" or "Free"; null when there is no tuition data
+export function tuitionText(tuition: Tuition | null): string | null {
+  if (!tuition) return null
+  if (tuition.source === 'free') return 'Free'
+  const money = (n: number) => `$${n.toLocaleString()}`
+  const range = tuition.low === tuition.high ? money(tuition.low) : `${money(tuition.low)}–${money(tuition.high)}`
+  return tuition.source === 'estimate' ? `~${range}/yr (estimate)` : `${range}/yr`
+}
+
 // the zoned schools for the searched address
 export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   const enrollment = enrollmentText(place)
@@ -164,6 +174,7 @@ export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Pla
           {place.distanceMiles != null && miles(place.distanceMiles)}
           <Chip dark>{place.kind}</Chip>
           {place.grades && <Chip dark>{place.grades}</Chip>}
+          {place.tuition && <Chip dark>{tuitionText(place.tuition)}</Chip>}
           {place.ratingBand && <RatingChip band={place.ratingBand} />}
         </p>
         {enrollment && <p className="text-sm">{enrollment}</p>}
@@ -187,6 +198,7 @@ export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Pla
 
 export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   const enrollment = enrollmentText(place)
+  const tuition = tuitionText(place.tuition)
   return (
     <article className="cursor-pointer overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
       <Photo place={place} className="h-[160px]">
@@ -211,6 +223,7 @@ export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place
           {place.grades && <><span className="mx-1 text-neutral-300">|</span>{place.grades}</>}
           {enrollment && <><span className="mx-1 text-neutral-300">|</span>{enrollment}</>}
         </p>
+        {tuition && <p className="text-sm font-semibold">{tuition}</p>}
         <div className="flex items-center gap-4 border-t border-line pt-3">
           {place.website ? (
             <a

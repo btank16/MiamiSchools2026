@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import Map, { Marker } from 'react-map-gl/maplibre'
 import {
   Baby, BadgeCheck, Building2, CalendarDays, ChevronLeft, ExternalLink, GraduationCap, Heart, Home, IdCard, Mail,
-  MapPin, Phone, Printer, Share, Users,
+  MapPin, Phone, Printer, Share, Users, Wallet,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { isStreetView, photoUrl, usePhotoNames } from '@/lib/photos'
 import { STYLE } from './MapPanel'
 import type { Origin, Place } from './data'
-import { RatingChip, ZonedBadge, enrollmentText, miles, zonedLabel } from './ListingCard'
+import { RatingChip, ZonedBadge, enrollmentText, miles, tuitionText, zonedLabel } from './ListingCard'
 
 function Divider() {
   return <hr className="my-8 border-line" />
@@ -58,6 +58,23 @@ function countyField(place: Place, key: string): unknown {
   return (place.sources.county?.record as Record<string, unknown> | undefined)?.[key]
 }
 
+const TUITION_SOURCE: Record<string, string> = {
+  official: "From the school's website",
+  third_party: 'From a school directory or news report',
+  estimate: 'Estimate: the median of researched Miami-Dade schools of the same type',
+}
+
+function tuitionFact(place: Place): string | null {
+  const { tuition } = place
+  if (!tuition) return null
+  if (tuition.source === 'free') return 'No tuition. Public, charter and Head Start programs are free.'
+  const text = tuitionText(tuition)
+  if (tuition.source === 'estimate') {
+    return `${text}. This school doesn't publish its rates, so this is the typical price for similar schools.`
+  }
+  return `${text}${tuition.year ? ` for ${tuition.year}` : ''}, base tuition from the lowest to the highest grade. Fees are extra.`
+}
+
 const HEAD_START_PROGRAM: Record<string, string> = {
   'early-head-start': 'Early Head Start (infants and toddlers)',
   'grantee-agency': 'Head Start, run by the grantee agency',
@@ -79,6 +96,8 @@ function facts(place: Place, origin: Origin | null) {
     })
   }
   if (place.grades) list.push({ icon: GraduationCap, title: 'Grades', text: place.grades })
+  const tuition = tuitionFact(place)
+  if (tuition) list.push({ icon: Wallet, title: 'Tuition', text: tuition })
   const coed = countyField(place, 'coed')
   if (typeof coed === 'string') list.push({ icon: Users, title: 'Students', text: coed === 'coed' ? 'Coed' : `${coed[0].toUpperCase()}${coed.slice(1)} only` })
   const year = countyField(place, 'yearEstablished')
@@ -227,7 +246,9 @@ export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Or
             {city && ` in ${city}, Florida`}
           </h2>
           <p className="mt-1 text-neutral-600">
-            {[place.grades, enrollment, place.distanceMiles != null && miles(place.distanceMiles)].filter(Boolean).join(' · ')}
+            {[place.grades, enrollment, tuitionText(place.tuition), place.distanceMiles != null && miles(place.distanceMiles)]
+              .filter(Boolean)
+              .join(' · ')}
           </p>
           {(place.zoned.length > 0 || place.ratingBand) && (
             <p className="mt-3 flex flex-wrap items-center gap-2">
@@ -302,6 +323,9 @@ export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Or
           <div className="space-y-6">
             {county && <SourceTable title="Miami-Dade County GIS" subtitle={county.dataset} record={county.record} />}
             {greatSchools && <SourceTable title="GreatSchools" subtitle="NearbySchools API" record={greatSchools} />}
+            {place.tuition && place.tuition.source !== 'free' && (
+              <SourceTable title="Tuition" subtitle={TUITION_SOURCE[place.tuition.source]} record={place.tuition} />
+            )}
           </div>
         </div>
 
