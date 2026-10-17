@@ -1,9 +1,9 @@
 {
   "auth": {
-    "user_pool_id": "us-east-1_WW6DMhfPt",
+    "user_pool_id": "us-east-1_SaZgPKyer",
     "aws_region": "us-east-1",
-    "user_pool_client_id": "a3v9g10rvvubi02dd6fvgfoj8",
-    "identity_pool_id": "us-east-1:a07f55c1-0f99-4cd7-a58f-38d368001d9a",
+    "user_pool_client_id": "7p1io1pp6ej0bcqlki833o5g95",
+    "identity_pool_id": "us-east-1:e545de47-b830-4406-9c2f-7a2e656ec35e",
     "mfa_methods": [],
     "standard_required_attributes": [
       "email"
@@ -26,7 +26,7 @@
     "unauthenticated_identities_enabled": true
   },
   "data": {
-    "url": "https://iepucyqafvay5nq43sqfdqih2i.appsync-api.us-east-1.amazonaws.com/graphql",
+    "url": "https://eynatkd6tnbmziwthovx3nqeg4.appsync-api.us-east-1.amazonaws.com/graphql",
     "aws_region": "us-east-1",
     "default_authorization_type": "AWS_IAM",
     "authorization_types": [
@@ -109,10 +109,14 @@
   "custom": {
     "API": {
       "miami-schools-api": {
-        "endpoint": "https://qjr360kfx6.execute-api.us-east-1.amazonaws.com/dev/",
+        "endpoint": "https://of7p59x9w9.execute-api.us-east-1.amazonaws.com/dev/",
         "region": "us-east-1",
         "apiName": "miami-schools-api"
       }
+    },
+    "chat": {
+      "endpoint": "https://etmj4p2u3gam26lgt3ce4qc4ke0jdkus.lambda-url.us-east-1.on.aws/",
+      "model": "thinkingmachines/inkling:free"
     }
   }
 }
