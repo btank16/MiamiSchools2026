@@ -2,35 +2,52 @@ import { useEffect, useState } from 'react'
 import Map, { Marker } from 'react-map-gl/maplibre'
 import {
   Baby, BadgeCheck, Building2, CalendarDays, ChevronLeft, ExternalLink, GraduationCap, Heart, Home, IdCard, Mail,
-  MapPin, Phone, Printer, Share, Users,
+  MapPin, Phone, Printer, Share, Users, Wallet,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { isStreetView, photoUrl, usePhotoNames } from '@/lib/photos'
 import { STYLE } from './MapPanel'
 import type { Origin, Place } from './data'
-import { RatingChip, ZonedBadge, enrollmentText, miles, zonedLabel } from './ListingCard'
+import { RatingChip, ZonedBadge, enrollmentText, miles, tuitionText, zonedLabel } from './ListingCard'
 
 function Divider() {
   return <hr className="my-8 border-line" />
 }
 
-function Tile({ place, offset, className, children }: { place: Place; offset: number; className?: string; children?: React.ReactNode }) {
+// the gradient is the fallback: shown while the photo loads, when a school has fewer than five, or on error
+function Tile({ place, offset, name, width, className }: { place: Place; offset: number; name?: string; width: number; className?: string }) {
+  const [failed, setFailed] = useState(false)
+  const [retried, setRetried] = useState(false) // one more try before the gradient stays
   return (
     <div
       className={cn('relative overflow-hidden', className)}
       style={{ backgroundImage: `linear-gradient(${135 + offset * 30}deg, oklch(0.8 0.08 ${place.hue + offset * 18}), oklch(0.52 0.12 ${place.hue + 40 + offset * 18}))` }}
     >
-      {children}
+      {name && !failed && (
+        <img
+          key={String(retried)}
+          src={photoUrl(name, width) + (retried ? '&retry=1' : '')}
+          alt={`${place.name}, photo ${offset + 1}`}
+          loading={offset === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+          onError={() => (retried ? setFailed(true) : setRetried(true))}
+          className="absolute inset-0 size-full object-cover"
+        />
+      )}
+      {name && !failed && isStreetView(name) && (
+        <span className="absolute bottom-3 left-3 rounded-full bg-ink/70 px-2 py-0.5 text-[11px] text-white">Street View</span>
+      )}
     </div>
   )
 }
 
-// placeholder tiles until the sources have photos
 function PhotoGrid({ place }: { place: Place }) {
+  const names = usePhotoNames(place)
   return (
     <div className="relative grid h-[240px] grid-cols-1 gap-2 overflow-hidden rounded-xl md:h-[360px] md:grid-cols-4 md:grid-rows-2">
-      <Tile place={place} offset={0} className="md:col-span-2 md:row-span-2" />
+      <Tile place={place} offset={0} name={names[0]} width={960} className="md:col-span-2 md:row-span-2" />
       {[1, 2, 3, 4].map((n) => (
-        <Tile key={n} place={place} offset={n} className="max-md:hidden" />
+        <Tile key={n} place={place} offset={n} name={names[n]} width={480} className="max-md:hidden" />
       ))}
     </div>
   )
@@ -41,15 +58,32 @@ function countyField(place: Place, key: string): unknown {
   return (place.sources.county?.record as Record<string, unknown> | undefined)?.[key]
 }
 
+const TUITION_SOURCE: Record<string, string> = {
+  official: "From the school's website",
+  third_party: 'From a school directory or news report',
+  estimate: 'Estimate: the median of researched Miami-Dade schools of the same type',
+}
+
+function tuitionFact(place: Place): string | null {
+  const { tuition } = place
+  if (!tuition) return null
+  if (tuition.source === 'free') return 'No tuition. Public, charter and Head Start programs are free.'
+  const text = tuitionText(tuition)
+  if (tuition.source === 'estimate') {
+    return `${text}. This school doesn't publish its rates, so this is the typical price for similar schools.`
+  }
+  return `${text}${tuition.year ? ` for ${tuition.year}` : ''}, base tuition from the lowest to the highest grade. Fees are extra.`
+}
+
 const HEAD_START_PROGRAM: Record<string, string> = {
   'early-head-start': 'Early Head Start (infants and toddlers)',
   'grantee-agency': 'Head Start, run by the grantee agency',
   'delegate-agency': 'Head Start, run by a delegate agency',
 }
 
-function facts(place: Place, origin: Origin) {
+function facts(place: Place, origin: Origin | null) {
   const list: { icon: typeof MapPin; title: string; text: string }[] = []
-  if (place.zoned.length) {
+  if (place.zoned.length && origin) {
     list.push({ icon: MapPin, title: zonedLabel(place.zoned), text: `${origin.formattedAddress} is in this school's attendance zone.` })
   }
   const enrollment = enrollmentText(place)
@@ -62,6 +96,8 @@ function facts(place: Place, origin: Origin) {
     })
   }
   if (place.grades) list.push({ icon: GraduationCap, title: 'Grades', text: place.grades })
+  const tuition = tuitionFact(place)
+  if (tuition) list.push({ icon: Wallet, title: 'Tuition', text: tuition })
   const coed = countyField(place, 'coed')
   if (typeof coed === 'string') list.push({ icon: Users, title: 'Students', text: coed === 'coed' ? 'Coed' : `${coed[0].toUpperCase()}${coed.slice(1)} only` })
   const year = countyField(place, 'yearEstablished')
@@ -172,7 +208,7 @@ function SourceTable({ title, subtitle, record }: { title: string; subtitle: str
   )
 }
 
-export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Origin; onBack: () => void }) {
+export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Origin | null; onBack: () => void }) {
   const [liked, setLiked] = useState(false)
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -210,7 +246,9 @@ export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Or
             {city && ` in ${city}, Florida`}
           </h2>
           <p className="mt-1 text-neutral-600">
-            {[place.grades, enrollment, miles(place.distanceMiles)].filter(Boolean).join(' · ')}
+            {[place.grades, enrollment, tuitionText(place.tuition), place.distanceMiles != null && miles(place.distanceMiles)]
+              .filter(Boolean)
+              .join(' · ')}
           </p>
           {(place.zoned.length > 0 || place.ratingBand) && (
             <p className="mt-3 flex flex-wrap items-center gap-2">
@@ -241,27 +279,34 @@ export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Or
           <Divider />
           <h2 className="mb-1 text-[22px] font-semibold">Where it is</h2>
           <p className="mb-5 text-neutral-600">
-            {place.address} · {miles(place.distanceMiles)} from {origin.street ?? origin.formattedAddress}
+            {place.address}
+            {origin && place.distanceMiles != null && <> · {miles(place.distanceMiles)} from {origin.street ?? origin.formattedAddress}</>}
           </p>
           <div className="h-[380px] overflow-hidden rounded-xl border border-line">
             <Map
-              initialViewState={{
-                bounds: [
-                  [Math.min(place.lngLat[0], origin.lon), Math.min(place.lngLat[1], origin.lat)],
-                  [Math.max(place.lngLat[0], origin.lon), Math.max(place.lngLat[1], origin.lat)],
-                ],
-                fitBoundsOptions: { padding: 70, maxZoom: 15 },
-              }}
+              initialViewState={
+                origin
+                  ? {
+                      bounds: [
+                        [Math.min(place.lngLat[0], origin.lon), Math.min(place.lngLat[1], origin.lat)],
+                        [Math.max(place.lngLat[0], origin.lon), Math.max(place.lngLat[1], origin.lat)],
+                      ],
+                      fitBoundsOptions: { padding: 70, maxZoom: 15 },
+                    }
+                  : { longitude: place.lngLat[0], latitude: place.lngLat[1], zoom: 14 }
+              }
               mapStyle={STYLE}
               style={{ width: '100%', height: '100%' }}
               attributionControl={false}
               scrollZoom={false}
             >
-              <Marker longitude={origin.lon} latitude={origin.lat}>
-                <span className="grid size-8 place-items-center rounded-full border-2 border-white bg-ink text-white shadow">
-                  <Home className="size-4" />
-                </span>
-              </Marker>
+              {origin && (
+                <Marker longitude={origin.lon} latitude={origin.lat}>
+                  <span className="grid size-8 place-items-center rounded-full border-2 border-white bg-ink text-white shadow">
+                    <Home className="size-4" />
+                  </span>
+                </Marker>
+              )}
               <Marker longitude={place.lngLat[0]} latitude={place.lngLat[1]}>
                 <span className="grid size-12 place-items-center rounded-full bg-brand/20">
                   <span className="grid size-8 place-items-center rounded-full bg-brand text-white shadow">
@@ -278,6 +323,9 @@ export function SchoolPage({ place, origin, onBack }: { place: Place; origin: Or
           <div className="space-y-6">
             {county && <SourceTable title="Miami-Dade County GIS" subtitle={county.dataset} record={county.record} />}
             {greatSchools && <SourceTable title="GreatSchools" subtitle="NearbySchools API" record={greatSchools} />}
+            {place.tuition && place.tuition.source !== 'free' && (
+              <SourceTable title="Tuition" subtitle={TUITION_SOURCE[place.tuition.source]} record={place.tuition} />
+            )}
           </div>
         </div>
 

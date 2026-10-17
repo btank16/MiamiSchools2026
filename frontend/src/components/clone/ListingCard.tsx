@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Bookmark, ChevronLeft, ChevronRight, ExternalLink, Phone, Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { isStreetView, photoCount, photoUrl, usePhotoNames } from '@/lib/photos'
+import type { Tuition } from '@/lib/tuition'
 import type { Place, ZoneLevel } from './data'
 
 // whole card opens the school page; buttons and links (save, arrows, dots, website) keep their own behaviour
@@ -39,9 +41,15 @@ export function ZonedBadge({ place, className }: { place: Place; className?: str
   )
 }
 
-export function Photo({ place, className, children, arrows }: { place: Place; className?: string; children?: React.ReactNode; arrows?: boolean }) {
+// real photos load one at a time (the current slide) from Google, so a page of cards stays light;
+// the gradient shows while loading, for schools without photos, and when an image fails
+export function Photo({ place, className, children, arrows, width = 480 }: { place: Place; className?: string; children?: React.ReactNode; arrows?: boolean; width?: number }) {
   const [slide, setSlide] = useState(0)
-  const dots = 4
+  const [failed, setFailed] = useState<string[]>([])
+  const [retried, setRetried] = useState<string[]>([]) // a photo that errors gets one more try before the gradient stays
+  const names = usePhotoNames(place)
+  const dots = photoCount(place) || 1
+  const name = names[slide]
   return (
     <div
       className={cn('relative overflow-hidden', className)}
@@ -49,8 +57,22 @@ export function Photo({ place, className, children, arrows }: { place: Place; cl
         backgroundImage: `linear-gradient(${135 + slide * 25}deg, oklch(0.78 0.09 ${place.hue}), oklch(0.5 0.12 ${place.hue + 40}))`,
       }}
     >
+      {name && !failed.includes(name) && (
+        <img
+          key={name + retried.includes(name)}
+          src={photoUrl(name, width) + (retried.includes(name) ? '&retry=1' : '')}
+          alt={`${place.name}, photo ${slide + 1}`}
+          loading="lazy"
+          decoding="async"
+          onError={() => (retried.includes(name) ? setFailed((f) => [...f, name]) : setRetried((r) => [...r, name]))}
+          className="absolute inset-0 size-full object-cover"
+        />
+      )}
+      {name && !failed.includes(name) && isStreetView(name) && (
+        <span className="absolute bottom-2.5 right-3 z-10 rounded-full bg-ink/70 px-2 py-0.5 text-[11px] text-white">Street View</span>
+      )}
       {children}
-      {arrows && (
+      {arrows && dots > 1 && (
         <>
           {slide > 0 && (
             <button
@@ -72,16 +94,18 @@ export function Photo({ place, className, children, arrows }: { place: Place; cl
           )}
         </>
       )}
-      <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1">
-        {Array.from({ length: dots }, (_, i) => (
-          <button
-            key={i}
-            aria-label={`Photo ${i + 1} of ${dots}`}
-            onClick={() => setSlide(i)}
-            className={cn('size-1.5 rounded-full bg-white', i === slide ? 'opacity-100' : 'opacity-60')}
-          />
-        ))}
-      </div>
+      {dots > 1 && (
+        <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1">
+          {Array.from({ length: dots }, (_, i) => (
+            <button
+              key={i}
+              aria-label={`Photo ${i + 1} of ${dots}`}
+              onClick={() => setSlide(i)}
+              className={cn('size-1.5 rounded-full bg-white', i === slide ? 'opacity-100' : 'opacity-60')}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -122,12 +146,21 @@ export function enrollmentText(place: Place): string | null {
   return null
 }
 
+// "$36,400–$56,100/yr", "~$16,000/yr (estimate)" or "Free"; null when there is no tuition data
+export function tuitionText(tuition: Tuition | null): string | null {
+  if (!tuition) return null
+  if (tuition.source === 'free') return 'Free'
+  const money = (n: number) => `$${n.toLocaleString()}`
+  const range = tuition.low === tuition.high ? money(tuition.low) : `${money(tuition.low)}–${money(tuition.high)}`
+  return tuition.source === 'estimate' ? `~${range}/yr (estimate)` : `${range}/yr`
+}
+
 // the zoned schools for the searched address
 export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   const enrollment = enrollmentText(place)
   return (
     <article className="relative cursor-pointer overflow-hidden rounded-xl bg-deep text-white" onClick={opensPage(place, onOpen)}>
-      <Photo place={place} className="h-[280px]">
+      <Photo place={place} width={640} className="h-[280px]">
         <ZonedBadge place={place} className="absolute left-4 top-4 z-10" />
         <Save name={place.name} />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-deep via-deep/80 to-transparent" />
@@ -138,9 +171,10 @@ export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Pla
       <div className="space-y-2 px-4 pb-5 pt-3">
         <p className="text-sm">{place.address}</p>
         <p className="flex flex-wrap items-center gap-2 pt-1 text-sm font-bold">
-          {miles(place.distanceMiles)}
+          {place.distanceMiles != null && miles(place.distanceMiles)}
           <Chip dark>{place.kind}</Chip>
           {place.grades && <Chip dark>{place.grades}</Chip>}
+          {place.tuition && <Chip dark>{tuitionText(place.tuition)}</Chip>}
           {place.ratingBand && <RatingChip band={place.ratingBand} />}
         </p>
         {enrollment && <p className="text-sm">{enrollment}</p>}
@@ -164,13 +198,16 @@ export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Pla
 
 export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   const enrollment = enrollmentText(place)
+  const tuition = tuitionText(place.tuition)
   return (
     <article className="cursor-pointer overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
       <Photo place={place} className="h-[160px]">
         <Save name={place.name} />
-        <span className="absolute bottom-3 right-3 z-10 rounded-full bg-ink/70 px-2 py-0.5 text-xs text-white">
-          {miles(place.distanceMiles)}
-        </span>
+        {place.distanceMiles != null && (
+          <span className="absolute bottom-3 right-3 z-10 rounded-full bg-ink/70 px-2 py-0.5 text-xs text-white">
+            {miles(place.distanceMiles)}
+          </span>
+        )}
       </Photo>
       <div className="space-y-1.5 px-4 pb-4 pt-3">
         {place.ratingBand && (
@@ -186,6 +223,7 @@ export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place
           {place.grades && <><span className="mx-1 text-neutral-300">|</span>{place.grades}</>}
           {enrollment && <><span className="mx-1 text-neutral-300">|</span>{enrollment}</>}
         </p>
+        {tuition && <p className="text-sm font-semibold">{tuition}</p>}
         <div className="flex items-center gap-4 border-t border-line pt-3">
           {place.website ? (
             <a

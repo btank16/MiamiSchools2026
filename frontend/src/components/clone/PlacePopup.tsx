@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Popup } from 'react-map-gl/maplibre'
 import { Heart, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { Photo, RatingChip, ZonedBadge, miles, opensPage } from './ListingCard'
+import { Photo, RatingChip, ZonedBadge, miles, opensPage, tuitionText } from './ListingCard'
 import type { Place } from './data'
 
 // click popup for a map pin: photo carousel on top, summary below (Airbnb-style card, our palette)
@@ -20,7 +20,7 @@ export function PlacePopup({ place, onClose, onOpen }: { place: Place; onClose: 
       onClose={onClose}
     >
       <article className="w-[280px] cursor-pointer bg-white text-ink" onClick={opensPage(place, onOpen)}>
-        <Photo place={place} arrows className="h-[150px]">
+        <Photo place={place} arrows width={560} className="h-[150px]">
           <div className="absolute right-3 top-3 z-10 flex gap-2">
             <button
               aria-label={`Save ${place.name}`}
@@ -42,9 +42,9 @@ export function PlacePopup({ place, onClose, onOpen }: { place: Place; onClose: 
           <p className="text-sm">
             {place.kind}
             {place.grades && <><span className="mx-1 text-neutral-300">|</span>{place.grades}</>}
-            <span className="mx-1 text-neutral-300">|</span>
-            {miles(place.distanceMiles)}
+            {place.distanceMiles != null && <><span className="mx-1 text-neutral-300">|</span>{miles(place.distanceMiles)}</>}
           </p>
+          {place.tuition && <p className="text-sm font-semibold">{tuitionText(place.tuition)}</p>}
           <div className="flex items-center justify-between gap-3 pt-2">
             {place.ratingBand ? <RatingChip band={place.ratingBand} /> : <span />}
             <button

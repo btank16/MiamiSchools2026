@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Map, { Layer, Marker, NavigationControl, Source, type MapLayerMouseEvent, type MapRef } from 'react-map-gl/maplibre'
-import { setWorkerUrl, type Map as MaplibreMap } from 'maplibre-gl'
+import { setWorkerUrl, type ExpressionSpecification, type GeoJSONSource } from 'maplibre-gl'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { Check, Home, MapPin } from 'lucide-react'
+import { Check, Group, Home, MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Origin, Place } from './data'
-import type { PlaceType } from './filters'
 import { PlacePopup } from './PlacePopup'
 import county from '@/assets/miami-dade-county.json'
 import type { Feature, FeatureCollection, MultiPolygon, Point, Polygon } from 'geojson'
@@ -22,53 +21,14 @@ const countyShape = county as unknown as FeatureCollection<Polygon | MultiPolygo
 // world-sized polygon with the county cut out, so only the outside gets the haze
 const outside = mask(countyShape.features[0])
 
-// one color and one shape per kind (colors.md section 5), so kinds stay apart for color-blind readers
-export const KIND_STYLE: Record<PlaceType, { color: string; shape: Shape }> = {
-  Public: { color: '#2256BB', shape: 'circle' },
-  Charter: { color: '#966CD7', shape: 'square' },
-  Private: { color: '#C9690C', shape: 'diamond' },
-  Childcare: { color: '#088F77', shape: 'triangle' },
-  'Head Start': { color: '#741E34', shape: 'hexagon' },
-}
-const ZONED = '#F7BE2B'
-const SELECTED_RING = '#060D1A'
+const ZONED = '#F7BE2B' // marigold is reserved for "your zoned school" (colors.md)
+const INK = '#0A0F1C'
+const DOT = '#2256BB'
+const CLUSTER = '#08354A'
 
-type Shape = 'circle' | 'square' | 'diamond' | 'triangle' | 'hexagon'
-
-// Pins are map images rather than DOM markers: a search returns hundreds of places.
-const PIN_PX = 16
-const PIXEL_RATIO = 2
-function pinImage(shape: Shape, color: string): ImageData {
-  const size = PIN_PX * PIXEL_RATIO
-  const ctx = document.createElement('canvas').getContext('2d')!
-  ctx.canvas.width = ctx.canvas.height = size
-  const c = size / 2
-  const r = c - 2 * PIXEL_RATIO
-  ctx.beginPath()
-  if (shape === 'circle') ctx.arc(c, c, r, 0, Math.PI * 2)
-  else if (shape === 'square') ctx.rect(c - r * 0.85, c - r * 0.85, r * 1.7, r * 1.7)
-  else {
-    const corners = shape === 'diamond' ? 4 : shape === 'triangle' ? 3 : 6
-    const start = shape === 'hexagon' ? Math.PI / 6 : -Math.PI / 2
-    for (let i = 0; i < corners; i++) {
-      const a = start + (i * Math.PI * 2) / corners
-      ctx.lineTo(c + r * Math.cos(a), c + r * Math.sin(a) + (shape === 'triangle' ? r * 0.15 : 0))
-    }
-    ctx.closePath()
-  }
-  ctx.fillStyle = color
-  ctx.fill()
-  ctx.lineWidth = 2 * PIXEL_RATIO
-  ctx.strokeStyle = '#ffffff'
-  ctx.stroke()
-  return ctx.getImageData(0, 0, size, size)
-}
-
-function addPinImages(map: MaplibreMap) {
-  for (const [kind, { color, shape }] of Object.entries(KIND_STYLE)) {
-    if (!map.hasImage(`pin-${kind}`)) map.addImage(`pin-${kind}`, pinImage(shape, color), { pixelRatio: PIXEL_RATIO })
-  }
-}
+// One small dot per place, drawn by the map itself. By default every place shows on its own; the
+// "Group nearby" switch merges close dots into a numbered circle that splits as you zoom in.
+const CLUSTER_MAX_ZOOM = 13
 
 export function MapPanel({
   places,
@@ -88,23 +48,23 @@ export function MapPanel({
   const [refresh, setRefresh] = useState(true)
   const [selected, setSelected] = useState<Place | null>(null)
   const [hovering, setHovering] = useState(false)
+  const [grouped, setGrouped] = useState(false)
 
   // react-map-gl's default export shadows the global Map
   const byId = useMemo(() => new globalThis.Map(places.map((p) => [p.id, p] as const)), [places])
   // a selection that the filters have since hidden should not keep its popup
   const shownSelected = selected && byId.has(selected.id) ? selected : null
 
-  const points = useMemo<FeatureCollection<Point>>(
-    () => ({
-      type: 'FeatureCollection',
-      features: places.map((p) => ({
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: p.lngLat },
-        properties: { id: p.id, kind: p.kind, zoned: p.zoned.length > 0 },
-      })),
-    }),
-    [places],
-  )
+  const toPoints = (list: Place[]): FeatureCollection<Point> => ({
+    type: 'FeatureCollection',
+    features: list.map((p) => ({
+      type: 'Feature',
+      geometry: { type: 'Point', coordinates: p.lngLat },
+      properties: { id: p.id },
+    })),
+  })
+  const points = useMemo(() => toPoints(places.filter((p) => !p.zoned.length)), [places])
+  const zonedPoints = useMemo(() => toPoints(places.filter((p) => p.zoned.length > 0)), [places])
   const ring = useMemo<Feature<Polygon> | null>(
     () => (origin ? circle(origin.lngLat, radiusMiles, { units: 'miles', steps: 96 }) : null),
     [origin, radiusMiles],
@@ -117,28 +77,36 @@ export function MapPanel({
     map.current?.fitBounds([[w, s], [e, n]], { padding: 40, duration: 900 })
   }, [loaded, ring])
 
+  const sel: ExpressionSpecification = ['==', ['get', 'id'], shownSelected?.id ?? '']
+
   const onClick = (e: MapLayerMouseEvent) => {
-    const id = e.features?.[0]?.properties?.id as string | undefined
+    const feature = e.features?.[0]
+    if (feature?.properties?.cluster) {
+      // a numbered circle zooms in to where it splits
+      const source = map.current?.getSource('places') as GeoJSONSource | undefined
+      source?.getClusterExpansionZoom(feature.properties.cluster_id).then((zoom) => {
+        map.current?.easeTo({ center: (feature.geometry as Point).coordinates as [number, number], zoom, duration: 500 })
+      })
+      return
+    }
+    const id = feature?.properties?.id as string | undefined
     setSelected(id ? (byId.get(id) ?? null) : null)
   }
 
   return (
-    <div className={cn('relative sticky top-[133px] h-[calc(100vh-133px)] self-start', className)}>
+    <div className={cn('relative sticky top-[var(--header-h,133px)] h-[calc(100vh-var(--header-h,133px))] self-start', className)}>
       <Map
         ref={map}
         initialViewState={{ longitude: -80.23, latitude: 25.78, zoom: 10.4 }}
         mapStyle={STYLE}
         style={{ width: '100%', height: '100%' }}
         attributionControl={false}
-        interactiveLayerIds={loaded ? ['place-pins'] : []}
+        interactiveLayerIds={loaded ? (grouped ? ['place-clusters', 'place-dots', 'place-zoned'] : ['place-single', 'place-zoned']) : []}
         cursor={hovering ? 'pointer' : undefined}
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
         onClick={onClick}
-        onLoad={(e) => {
-          addPinImages(e.target)
-          setLoaded(true)
-        }}
+        onLoad={() => setLoaded(true)}
       >
         {/* border is a map layer, so it stays locked to the coastline at every zoom */}
         <Source id="outside" type="geojson" data={outside}>
@@ -163,33 +131,75 @@ export function MapPanel({
           </Source>
         )}
         {loaded && (
-          <Source id="places" type="geojson" data={points}>
-            {/* zoned schools get the marigold halo, the selected pin a dark ring */}
-            <Layer
-              id="place-zoned-halo"
-              type="circle"
-              filter={['==', ['get', 'zoned'], true]}
-              paint={{ 'circle-radius': 12, 'circle-color': ZONED, 'circle-stroke-color': SELECTED_RING, 'circle-stroke-width': 1 }}
-            />
-            <Layer
-              id="place-selected-ring"
-              type="circle"
-              filter={['==', ['get', 'id'], shownSelected?.id ?? '']}
-              paint={{ 'circle-radius': 13, 'circle-opacity': 0, 'circle-stroke-color': SELECTED_RING, 'circle-stroke-width': 2.5 }}
-            />
-            <Layer
-              id="place-pins"
-              type="symbol"
-              layout={{
-                'icon-image': ['concat', 'pin-', ['get', 'kind']],
-                'icon-size': ['case', ['==', ['get', 'id'], shownSelected?.id ?? ''], 1.35, ['get', 'zoned'], 1.2, 1],
-                'icon-allow-overlap': true,
-                'icon-ignore-placement': true,
-                // zoned schools draw on top of their neighbors
-                'symbol-sort-key': ['case', ['get', 'zoned'], 1, 0],
-              }}
-            />
-          </Source>
+          <>
+            {/* clustering is fixed when a source is created, so each mode has its own source and the switch shows one */}
+            <Source id="places" type="geojson" data={points} cluster clusterRadius={44} clusterMaxZoom={CLUSTER_MAX_ZOOM}>
+              <Layer
+                id="place-clusters"
+                type="circle"
+                layout={{ visibility: grouped ? 'visible' : 'none' }}
+                filter={['has', 'point_count']}
+                paint={{
+                  'circle-color': CLUSTER,
+                  'circle-radius': ['step', ['get', 'point_count'], 13, 10, 16, 50, 20, 200, 25],
+                  'circle-stroke-color': '#ffffff',
+                  'circle-stroke-width': 2,
+                }}
+              />
+              <Layer
+                id="place-cluster-count"
+                type="symbol"
+                filter={['has', 'point_count']}
+                layout={{
+                  visibility: grouped ? 'visible' : 'none',
+                  'text-field': ['get', 'point_count_abbreviated'],
+                  'text-font': ['Noto Sans Bold'],
+                  'text-size': 12,
+                  'text-allow-overlap': true,
+                }}
+                paint={{ 'text-color': '#ffffff' }}
+              />
+              <Layer
+                id="place-dots"
+                type="circle"
+                layout={{ visibility: grouped ? 'visible' : 'none' }}
+                filter={['!', ['has', 'point_count']]}
+                paint={{
+                  'circle-color': ['case', sel, INK, DOT],
+                  'circle-radius': ['case', sel, 8, 5],
+                  'circle-stroke-color': '#ffffff',
+                  'circle-stroke-width': 1.5,
+                }}
+              />
+            </Source>
+            <Source id="places-single" type="geojson" data={points}>
+              <Layer
+                id="place-single"
+                type="circle"
+                layout={{ visibility: grouped ? 'none' : 'visible' }}
+                paint={{
+                  'circle-color': ['case', sel, INK, DOT],
+                  // dots start small when zoomed out so thousands of them overlap less
+                  'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, ['case', sel, 5, 2.5], 12, ['case', sel, 7, 4], 15, ['case', sel, 9, 6]],
+                  'circle-stroke-color': '#ffffff',
+                  'circle-stroke-width': 1.5,
+                }}
+              />
+            </Source>
+            {/* the zoned school never clusters and always sits on top */}
+            <Source id="zoned" type="geojson" data={zonedPoints}>
+              <Layer
+                id="place-zoned"
+                type="circle"
+                paint={{
+                  'circle-color': ZONED,
+                  'circle-radius': ['case', ['==', ['get', 'id'], shownSelected?.id ?? ''], 10, 8],
+                  'circle-stroke-color': INK,
+                  'circle-stroke-width': 1.5,
+                }}
+              />
+            </Source>
+          </>
         )}
         {origin && (
           <Marker longitude={origin.lngLat[0]} latitude={origin.lngLat[1]} anchor="bottom">
@@ -211,7 +221,17 @@ export function MapPanel({
         <MapPin className="size-4 text-brand" /> Points of interest
       </button>
 
-      <Legend />
+      <button
+        aria-pressed={grouped}
+        onClick={() => setGrouped(!grouped)}
+        title="Merge nearby schools into numbered circles"
+        className={cn(
+          'absolute bottom-[104px] right-2.5 flex h-9 items-center gap-2 rounded-md border bg-white px-3 text-sm font-medium shadow-md',
+          grouped ? 'border-brand bg-brand/10 text-brand' : 'border-line text-ink hover:bg-muted',
+        )}
+      >
+        <Group className="size-4" /> Group nearby
+      </button>
 
       <label className="absolute bottom-8 left-5 flex cursor-pointer items-center gap-3 rounded-md border border-line bg-white px-4 py-3 text-base font-medium shadow-md">
         <span
@@ -226,30 +246,5 @@ export function MapPanel({
         Refresh as I move map
       </label>
     </div>
-  )
-}
-
-const SHAPE_CLASS: Record<Shape, string> = {
-  circle: 'rounded-full',
-  square: 'rounded-[1px]',
-  diamond: 'rotate-45 scale-[0.8] rounded-[1px]',
-  triangle: '[clip-path:polygon(50%_5%,100%_95%,0_95%)]',
-  hexagon: '[clip-path:polygon(25%_5%,75%_5%,100%_50%,75%_95%,25%_95%,0_50%)]',
-}
-
-function Legend() {
-  return (
-    <ul className="absolute right-5 top-5 space-y-1.5 rounded-md border border-line bg-white px-3 py-2.5 text-[13px] shadow-sm">
-      {Object.entries(KIND_STYLE).map(([kind, { color, shape }]) => (
-        <li key={kind} className="flex items-center gap-2">
-          <span className={cn('block size-3', SHAPE_CLASS[shape])} style={{ backgroundColor: color }} />
-          {kind}
-        </li>
-      ))}
-      <li className="flex items-center gap-2">
-        <span className="block size-3 rounded-full" style={{ backgroundColor: ZONED }} />
-        Your zoned school
-      </li>
-    </ul>
   )
 }
