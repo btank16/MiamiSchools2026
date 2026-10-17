@@ -1,120 +1,181 @@
 import { useState } from 'react'
-import { Bookmark, MapPinCheck } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { BadgeCheck, Bookmark, CalendarDays, ChevronLeft, ChevronRight, Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { sectors, type Grade, type Place } from './data'
-import { SectorPin } from './SectorPin'
+import type { Place } from './data'
 
-function GradeBadge({ grade, dark }: { grade: Grade; dark?: boolean }) {
-  const k = grade.toLowerCase()
+// whole card opens the school page; buttons (save, arrows, dots, tour) keep their own behaviour
+export const opensPage = (place: Place, onOpen: (p: Place) => void) => (e: React.MouseEvent) => {
+  if ((e.target as HTMLElement).closest('button')) return
+  e.preventDefault()
+  onOpen(place)
+}
+
+export function Photo({ place, className, children, arrows }: { place: Place; className?: string; children?: React.ReactNode; arrows?: boolean }) {
+  const [slide, setSlide] = useState(0)
+  const dots = 4
   return (
-    <span
-      className={cn('inline-flex h-6 items-center whitespace-nowrap rounded-md px-2 text-[13px] font-semibold', dark && 'ring-1 ring-white/30')}
-      style={{ background: `var(--grade-${k}-bg)`, color: `var(--grade-${k}-fg)` }}
+    <div
+      className={cn('relative overflow-hidden', className)}
+      style={{
+        backgroundImage: `linear-gradient(${135 + slide * 25}deg, oklch(0.78 0.09 ${place.hue}), oklch(0.5 0.12 ${place.hue + 40}))`,
+      }}
     >
-      State grade {grade}
-    </span>
+      {children}
+      {arrows && (
+        <>
+          {slide > 0 && (
+            <button
+              aria-label="Previous photo"
+              onClick={() => setSlide(slide - 1)}
+              className="absolute left-3 top-1/2 z-10 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-white shadow"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+          )}
+          {slide < dots - 1 && (
+            <button
+              aria-label="Next photo"
+              onClick={() => setSlide(slide + 1)}
+              className="absolute right-3 top-1/2 z-10 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-white shadow"
+            >
+              <ChevronRight className="size-4" />
+            </button>
+          )}
+        </>
+      )}
+      <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1">
+        {Array.from({ length: dots }, (_, i) => (
+          <button
+            key={i}
+            aria-label={`Photo ${i + 1} of ${dots}`}
+            onClick={() => setSlide(i)}
+            className={cn('size-1.5 rounded-full bg-white', i === slide ? 'opacity-100' : 'opacity-60')}
+          />
+        ))}
+      </div>
+    </div>
   )
 }
 
-function SectorLabel({ place, dark }: { place: Place; dark?: boolean }) {
-  return (
-    <span className={cn('inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-medium', dark ? 'text-on-dark' : 'text-text-secondary')}>
-      <SectorPin sector={place.sector} size={18} />
-      {sectors[place.sector].label}
-      <span aria-hidden="true" className={dark ? 'text-on-dark-muted' : 'text-muted-foreground'}>/</span>
-      <span className="sr-only">, grades</span>
-      {place.grades}
-    </span>
-  )
-}
-
-function Save({ name, dark }: { name: string; dark?: boolean }) {
+function Save({ name }: { name: string }) {
   const [on, setOn] = useState(false)
   return (
     <button
       aria-label={`Save ${name}`}
       aria-pressed={on}
       onClick={() => setOn(!on)}
-      className={cn(
-        'grid size-9 shrink-0 place-items-center rounded-full transition',
-        dark ? 'text-on-dark hover:bg-white/10' : 'text-text-secondary hover:bg-muted',
-        on && 'text-highlight-text',
-      )}
+      className="absolute right-3 top-3 z-10 grid size-8 place-items-center text-white drop-shadow"
     >
-      <Bookmark className={cn('size-5', on && 'fill-highlight text-highlight-text')} strokeWidth={2} aria-hidden="true" />
+      <Bookmark className={cn('size-7', on && 'fill-white')} strokeWidth={2} />
     </button>
   )
 }
 
-function ZonedTag() {
+function Chip({ children, dark }: { children: React.ReactNode; dark?: boolean }) {
   return (
-    <span className="inline-flex h-6 items-center gap-1 whitespace-nowrap rounded-md bg-highlight px-2 text-[13px] font-semibold text-highlight-foreground">
-      <MapPinCheck className="size-3.5" aria-hidden="true" />
-      Your zoned school
+    <span
+      className={cn(
+        'rounded-full px-3 py-1 text-[13px] font-semibold',
+        dark ? 'bg-white/15 text-white' : 'bg-[#e9f3f3] text-deep',
+      )}
+    >
+      {children}
     </span>
   )
 }
 
-// stand-in for a photo: a flat wash of the place's own color, so the card still reads without an image
-function Placeholder({ place, className }: { place: Place; className?: string }) {
+export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   return (
-    <div
-      className={cn('grid place-items-center', className)}
-      style={{ background: `color-mix(in oklab, var(--sector-${place.sector}) 14%, white)` }}
-      aria-hidden="true"
-    >
-      <div className="opacity-90">
-        <SectorPin sector={place.sector} size={56} />
-      </div>
-    </div>
-  )
-}
-
-export function SpotlightCard({ place }: { place: Place }) {
-  return (
-    <article className="flex flex-col overflow-hidden rounded-xl bg-surface-dark text-on-dark">
-      <Placeholder place={place} className="h-[150px]" />
-      <div className="flex flex-1 flex-col gap-3 p-5">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-xl font-semibold leading-snug tracking-tight">{place.name}</h3>
-          <Save name={place.name} dark />
+    <article className="relative cursor-pointer overflow-hidden rounded-xl bg-deep text-white" onClick={opensPage(place, onOpen)}>
+      <Photo place={place} className="h-[350px]">
+        <span className="absolute left-4 top-4 z-10 flex h-[22px] items-center gap-1 rounded-sm bg-white px-3 text-sm text-neutral-800">
+          <Star className="size-3.5 fill-brand text-brand" />
+          {place.badge}
+        </span>
+        <Save name={place.name} />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-deep via-deep/80 to-transparent" />
+        <div className="absolute inset-x-4 bottom-9 z-10">
+          <h3 className="flex items-center gap-1.5 text-xl font-bold">
+            {place.name}
+            {place.verified && <BadgeCheck className="size-5" />}
+          </h3>
         </div>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <SectorLabel place={place} dark />
-          {place.zoned && <ZonedTag />}
-          {place.grade && <GradeBadge grade={place.grade} dark />}
-        </div>
-        <p className="text-sm text-on-dark-muted">{place.address}</p>
-        <p className="text-sm text-on-dark-muted">{place.tags.join(', ')}</p>
-        <div className="mt-auto flex items-center justify-between gap-3 pt-3">
-          <p className="font-semibold">{place.cost}</p>
-          <Button className="h-10 rounded-md bg-white px-4 text-[15px] font-semibold text-surface-dark hover:bg-white/90">View details</Button>
+      </Photo>
+      <div className="space-y-2 px-4 pb-5 pt-3">
+        <p className="text-sm">{place.address}</p>
+        <p className="text-sm">
+          <a href="#" className="underline">Quick look</a>
+          <span className="mx-2 opacity-50">|</span>
+          <a href="#" className="underline">View details</a>
+        </p>
+        <p className="flex flex-wrap items-center gap-2 pt-1 text-sm font-bold">
+          {place.cost}
+          <Chip dark>{place.kind}</Chip>
+          <Chip dark>{place.grades}</Chip>
+        </p>
+        <div className="flex items-center gap-4 pt-4">
+          <button className="flex items-center gap-2 text-sm font-semibold">
+            <CalendarDays className="size-4" /> Tour
+          </button>
+          <button className="h-10 flex-1 rounded-md bg-white text-sm font-semibold text-ink hover:bg-neutral-100">
+            Check availability
+          </button>
         </div>
       </div>
     </article>
   )
 }
 
-export function ListingCard({ place }: { place: Place }) {
+export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-xl border border-border bg-card transition hover:border-primary/40 hover:shadow-[0_6px_20px_-8px_rgb(8_53_74/0.25)]">
-      <Placeholder place={place} className="h-[120px]" />
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-lg font-semibold leading-snug tracking-tight">{place.name}</h3>
-          <Save name={place.name} />
+    <article className="cursor-pointer overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
+      <Photo place={place} className="h-[207px]">
+        <Save name={place.name} />
+        {place.badge && (
+          <span className="absolute left-3 top-3 z-10 rounded-sm bg-white px-2.5 py-0.5 text-sm text-neutral-800">
+            {place.badge}
+          </span>
+        )}
+        {place.posted && (
+          <span className="absolute bottom-3 right-3 z-10 rounded-full bg-ink/70 px-2 py-0.5 text-xs text-white">
+            {place.posted}
+          </span>
+        )}
+      </Photo>
+      <div className="space-y-1.5 px-4 pb-4 pt-3">
+        <div className="flex items-center gap-2 text-sm">
+          {place.rating && (
+            <>
+              <span className="rounded-sm bg-violet px-1.5 py-0.5 text-xs font-bold text-white">{place.rating}</span>
+              <span>{place.ratingLabel}</span>
+            </>
+          )}
+          {place.verified && (
+            <span className="flex items-center gap-1">
+              <BadgeCheck className="size-4" /> Verified
+            </span>
+          )}
+          <a href="#" className="ml-auto text-sm text-violet">Quick look</a>
         </div>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <SectorLabel place={place} />
-          {place.grade && <GradeBadge grade={place.grade} />}
-        </div>
-        <p className="text-sm text-muted-foreground">{place.address}</p>
-        <p className="text-sm text-text-secondary">{place.tags.join(', ')}</p>
-        <p className="mt-auto pt-2 text-base font-semibold">{place.cost}</p>
-        <div className="flex items-center gap-2 border-t border-border pt-3">
-          <Button variant="outline" className="h-10 flex-1 rounded-md text-[15px] font-semibold">Compare</Button>
-          <Button className="h-10 flex-1 rounded-md bg-primary text-[15px] font-semibold text-primary-foreground hover:bg-primary-hover active:bg-primary-pressed">View details</Button>
+        <h3 className="text-lg font-bold leading-snug">{place.name}</h3>
+        <p className="text-sm text-neutral-600">{place.address}</p>
+        <p className="truncate text-sm">{place.tags.join('  |  ')}</p>
+        <p className="text-sm">
+          {place.kind} <span className="mx-1 text-neutral-300">|</span> {place.grades}
+          <span className="mx-1 text-neutral-300">|</span>
+          <a href="#" className="underline">View details</a>
+        </p>
+        <p className="flex items-center gap-2 text-xl font-bold">
+          {place.cost}
+          <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold">Total cost</span>
+        </p>
+        <div className="flex items-center gap-4 border-t border-line pt-3">
+          <button className="flex items-center gap-2 text-sm font-semibold">
+            <CalendarDays className="size-4" /> Tour
+          </button>
+          <button className="h-10 flex-1 rounded-md bg-deep text-sm font-semibold text-white hover:bg-deep/90">
+            Check availability
+          </button>
         </div>
       </div>
     </article>

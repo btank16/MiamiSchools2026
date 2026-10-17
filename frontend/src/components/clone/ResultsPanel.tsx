@@ -1,59 +1,55 @@
-import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { places, sectors, type Sector } from './data'
+import type { Place } from './data'
 import { ListingCard, SpotlightCard } from './ListingCard'
-import { SectorPin } from './SectorPin'
 
-export function ResultsPanel({ className }: { className?: string }) {
-  const [active, setActive] = useState<Sector[]>([])
-  const toggle = (s: Sector) => setActive((a) => (a.includes(s) ? a.filter((x) => x !== s) : [...a, s]))
-  const shown = places.filter((p) => !active.length || active.includes(p.sector))
-  const spotlight = shown.filter((p) => p.featured)
-  const rest = shown.filter((p) => !p.featured)
-
+export function ResultsPanel({
+  places,
+  filtering,
+  onClear,
+  onOpen,
+  className,
+}: {
+  places: Place[]
+  filtering: boolean
+  onClear: () => void
+  onOpen: (p: Place) => void
+  className?: string
+}) {
+  const spotlight = places.filter((p) => p.spotlight)
+  const rest = places.filter((p) => !p.spotlight)
   return (
     <section className={cn('px-6 pb-12 pt-8', className)}>
-      <h1 className="max-w-[18ch] text-[40px] font-semibold leading-[1.05] tracking-tight">Schools and childcare in Miami, FL</h1>
-      <p className="mt-3 text-text-secondary">3,382 places, from official county, state and federal records</p>
+      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ink">Schools and childcare in</p>
+      <h1 className="mt-2 text-[44px] font-bold leading-none tracking-tight">Miami, FL</h1>
+      <p className="mt-4 font-semibold">
+        {filtering ? `${places.length} matching places` : '3,382 places available'}
+      </p>
 
-      <div role="group" aria-label="Filter by kind of place" className="mt-6 flex flex-wrap gap-2">
-        {(Object.keys(sectors) as Sector[]).map((s) => {
-          const on = active.includes(s)
-          return (
-            <button
-              key={s}
-              aria-pressed={on}
-              onClick={() => toggle(s)}
-              className={cn(
-                'inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-full border px-3 text-sm font-medium transition',
-                on ? 'border-primary bg-selected text-primary-700' : 'border-border bg-white text-foreground hover:bg-muted',
-              )}
-            >
-              <SectorPin sector={s} size={16} />
-              {sectors[s].label}
-              <span className="text-muted-foreground tabular-nums">{sectors[s].count.toLocaleString()}</span>
-            </button>
-          )
-        })}
-      </div>
-
-      <div className="mb-5 mt-8 flex items-center justify-between">
-        <h2 className="text-xl font-semibold tracking-tight">All places</h2>
-        <button className="flex items-center gap-1 text-sm font-medium text-text-secondary hover:text-foreground">
-          Sort by: Relevance <ChevronDown className="size-4" aria-hidden="true" />
+      <div className="mb-6 mt-8 flex items-center justify-between">
+        <h2 className="text-2xl font-bold">All places</h2>
+        <button className="flex items-center gap-1 text-sm font-semibold">
+          Sort by: Relevance <ChevronDown className="size-4" />
         </button>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      {places.length === 0 && (
+        <div className="rounded-xl border border-line p-8 text-center">
+          <p className="font-semibold">No places match these filters yet</p>
+          <button onClick={onClear} className="mt-2 text-sm font-semibold text-primary underline">
+            Clear filters
+          </button>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {spotlight.map((p) => (
-          <SpotlightCard key={p.id} place={p} />
+          <SpotlightCard key={p.id} place={p} onOpen={onOpen} />
         ))}
         {rest.map((p) => (
-          <ListingCard key={p.id} place={p} />
+          <ListingCard key={p.id} place={p} onOpen={onOpen} />
         ))}
       </div>
-      {!shown.length && <p className="py-12 text-text-secondary">No places match these filters. Clear a filter to see more.</p>}
     </section>
   )
 }
