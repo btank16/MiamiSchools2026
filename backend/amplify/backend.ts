@@ -17,7 +17,8 @@ const backend = defineBackend({
   chatApi,
 });
 
-// REST API in front of the schools-api Lambda, which proxies GreatSchools, Google Places and Miami-Dade County GIS.
+// REST API in front of the schools-api Lambda, which proxies GreatSchools, Google Places (incl. photos),
+// Street View and Miami-Dade County GIS.
 const apiStack = backend.createStack('schools-api-stack');
 
 const restApi = new RestApi(apiStack, 'SchoolsRestApi', {
@@ -29,6 +30,9 @@ const restApi = new RestApi(apiStack, 'SchoolsRestApi', {
     throttlingRateLimit: 10,
     throttlingBurstLimit: 20,
   },
+  // Lets /streetview return image bytes. Every route is a GET with no request body, so treating all
+  // types as binary only affects responses the Lambda marks isBase64Encoded.
+  binaryMediaTypes: ['*/*'],
   defaultCorsPreflightOptions: {
     allowOrigins: Cors.ALL_ORIGINS,
     allowMethods: ['GET', 'OPTIONS'],
@@ -45,7 +49,10 @@ schools.addResource('{universalId}').addMethod('GET', integration);
 restApi.root.addResource('usage').addMethod('GET', integration);
 const places = restApi.root.addResource('places');
 places.addResource('autocomplete').addMethod('GET', integration);
-places.addResource('{placeId}').addMethod('GET', integration);
+const place = places.addResource('{placeId}');
+place.addMethod('GET', integration);
+place.addResource('photos').addResource('{photoRef}').addMethod('GET', integration);
+restApi.root.addResource('streetview').addMethod('GET', integration);
 restApi.root.addResource('address').addResource('report').addMethod('GET', integration);
 
 // The chatbot gets a Function URL instead of a REST API route: API Gateway caps requests at 29s,

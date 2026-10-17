@@ -12,7 +12,7 @@ npm run build                              # type check + production build; must
 | Setting | Where | What it does |
 |---|---|---|
 | `VITE_API_URL` | `frontend/.env.local` | Empty = the deployed API in `amplify_outputs.json`. `http://localhost:3001` = a local backend (`npm run dev` in `backend/`). |
-| `GOOGLE_PHOTOS_KEY` | `frontend/.env.local` (gitignored) | Used only by the dev-server proxy in `vite.config.ts` to fetch Google Places photos and Street View. Never reaches the browser and is not in the repo. |
+| Google photos | none in `frontend/` | School photos and Street View load through the schools API (`/places/<id>/photos/<ref>`, `/streetview`), so they follow `VITE_API_URL`: the deployed API uses the `googlemap` Amplify secret, a local backend uses `GOOGLE_MAPS_API_KEY` in `backend/.env`. The key never reaches the browser. |
 | `VITE_MAPBOX_TOKEN` | `frontend/.env.local` | Not used today. The map runs on MapLibre with the keyless OpenFreeMap style. |
 
 Stack: Vite 8, React 19, TypeScript, Tailwind 4, shadcn/ui (base-nova, built on `@base-ui/react`), lucide-react, react-map-gl with maplibre-gl 6, turf.
@@ -114,7 +114,7 @@ Before merging a branch into this one, check these, which are the places branche
 3. `ResultsPanel.tsx`: the directory list shows with no search; searching adds a notice, it never replaces the list.
 4. `data.ts`: `distanceMiles` is `number | null`.
 5. `ListingCard.tsx`: equal-height cards.
-6. `vite.config.ts`: the `maplibre-gl` exclusion and the `/gphoto` and `/gsv` proxies are present.
+6. `vite.config.ts`: the `maplibre-gl` exclusion is present, and no `/gphoto` or `/gsv` proxy has come back (photos go through the schools API).
 7. Generated data files are taken whole, not merged by line.
 8. `npm run build` passes, and with no address typed you can see the list, the dots and the popup.
 
