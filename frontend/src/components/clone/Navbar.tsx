@@ -1,10 +1,8 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { CircleUserRound, Loader2, MapPin, Menu, Search } from 'lucide-react'
+import { Loader2, MapPin, Search } from 'lucide-react'
 import logo from '@/assets/mdcps-logo.png'
 import { autocomplete, type PlaceSuggestion } from '@/lib/api'
 import { cn } from '@/lib/utils'
-
-const links = ['Compare', 'Saved places', 'Guides']
 
 // wait for a pause in typing before asking Google, so each keystroke is not a request
 const DEBOUNCE_MS = 250
@@ -145,28 +143,13 @@ function AddressSearch({ busy, onSearch }: { busy: boolean; onSearch: (s: PlaceS
 
 export function Navbar({ busy = false, onSearch }: { busy?: boolean; onSearch: (s: PlaceSuggestion, session: string) => void }) {
   return (
-    <header className="fixed inset-x-0 top-0 z-40 flex h-[70px] items-center justify-between gap-4 border-b border-line bg-bar px-6">
-      <a href="/" className="flex shrink-0 items-center sm:w-[229px] gap-2 text-xl font-bold tracking-tight text-deep">
+    <header className="fixed inset-x-0 top-0 z-40 grid h-[70px] grid-cols-[auto_minmax(0,1fr)] items-center gap-4 border-b border-line bg-bar px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)_minmax(0,1fr)]">
+      <a href="/" className="flex w-fit shrink-0 items-center gap-2 text-xl font-bold tracking-tight text-deep">
         <img src={logo} alt="Miami-Dade County Public Schools" className="size-9" />
         <span className="max-sm:hidden">TheBridge</span>
       </a>
 
       <AddressSearch busy={busy} onSearch={onSearch} />
-
-      <nav className="flex items-center gap-5 text-[15px] text-neutral-600 max-lg:hidden">
-        {links.map((l) => (
-          <a key={l} href="#" className="hover:text-ink">
-            {l}
-          </a>
-        ))}
-        <button
-          aria-label="Account menu"
-          className="flex h-10 items-center gap-2 rounded-full border border-line bg-white px-3 text-deep hover:bg-neutral-50"
-        >
-          <CircleUserRound className="size-6 text-violet" />
-          <Menu className="size-4" />
-        </button>
-      </nav>
     </header>
   )
 }

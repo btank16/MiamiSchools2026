@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { ArrowUpDown, Bell, ChevronDown, MapPin } from 'lucide-react'
+import { ArrowUpDown, ChevronDown, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -272,9 +272,6 @@ export function FilterBar({
 
       <div className="flex shrink-0 items-center gap-2">
         <SortDropdown value={sort} hasOrigin={hasOrigin} onChange={onSort} />
-        <Button variant="outline" aria-label="Save search" title="Save search" className={cn(pill, 'w-10 px-0 max-md:hidden')}>
-          <Bell />
-        </Button>
         <div role="group" aria-label="View" className="flex overflow-hidden rounded-md border border-border">
           {(['list', 'split', 'map'] as const).map((v) => (
             <button
