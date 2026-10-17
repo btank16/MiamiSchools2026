@@ -218,16 +218,23 @@ export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place
   const tuition = tuitionText(place.tuition)
   const programs = programSummary(place)
   return (
-    <article className="relative cursor-pointer overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
-      <Save name={place.name} className="text-brand drop-shadow-none" />
-      <div className="space-y-1.5 px-4 pb-4 pt-4">
+    <article className="flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
+      <Photo place={place} className="h-[160px] shrink-0">
+        <Save name={place.name} />
+        {place.distanceMiles != null && (
+          <span className="absolute bottom-3 right-3 z-10 rounded-full bg-ink/70 px-2 py-0.5 text-xs text-white">
+            {miles(place.distanceMiles)}
+          </span>
+        )}
+      </Photo>
+      <div className="flex flex-1 flex-col gap-1.5 px-4 pb-4 pt-3">
         {place.ratingBand && (
           <p className="flex items-center gap-2 text-sm">
             <RatingChip band={place.ratingBand} />
             <span className="text-neutral-600">GreatSchools rating</span>
           </p>
         )}
-        <h3 className="pr-9 text-lg font-bold leading-snug">{place.name}</h3>
+        <h3 className="text-lg font-bold leading-snug">{place.name}</h3>
         <AcademicResults place={place} />
         <p className="text-sm text-neutral-600">{place.address}</p>
         <p className="text-sm">
@@ -238,7 +245,7 @@ export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place
         </p>
         {tuition && <p className="text-sm font-semibold">{tuition}</p>}
         {programs && <p className="text-xs leading-relaxed text-neutral-600">{programs}</p>}
-        <div className="flex items-center gap-4 border-t border-line pt-3">
+        <div className="mt-auto flex items-center gap-4 border-t border-line pt-3">
           {place.website ? (
             <a
               href={place.website}

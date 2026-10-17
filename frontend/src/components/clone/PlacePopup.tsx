@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { Popup, useMap } from 'react-map-gl/maplibre'
 import { Heart, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { RatingChip, ZonedBadge, miles, opensPage, tuitionText } from './ListingCard'
+import { Photo, RatingChip, ZonedBadge, miles, opensPage, tuitionText } from './ListingCard'
 import type { Place } from './data'
 import { AcademicResults } from './AcademicResults'
 import { programSummary } from '@/lib/after-school'
 
-// Map cards put the school's academic summary first; photos live on the detail page.
+// Map cards show school photos alongside the academic summary.
 export function PlacePopup({ place, onClose, onOpen }: { place: Place; onClose: () => void; onOpen: (p: Place) => void }) {
   const programs = programSummary(place)
   const [liked, setLiked] = useState(false)
@@ -49,6 +49,7 @@ export function PlacePopup({ place, onClose, onOpen }: { place: Place; onClose: 
       onClose={onClose}
     >
       <article ref={content} className="max-h-[calc(100dvh-var(--header-h,133px)-32px)] w-[300px] max-w-[calc(100vw-40px)] cursor-pointer overflow-y-auto bg-white text-ink" onClick={opensPage(place, onOpen)}>
+        <Photo place={place} arrows width={560} className="h-[150px]" />
         <div className="space-y-1 px-4 pb-4 pt-3">
           <div className="mb-2 flex items-center justify-between gap-2">
             <span className="text-xs font-medium text-neutral-600">{place.kind}{place.grades && ` · ${place.grades}`}</span>
