@@ -96,6 +96,8 @@ export interface CharterSchool extends Located {
 }
 
 export interface PrivateSchool extends Located {
+  // The layer's OBJECTID; school-data/schools.csv uses it as source_id for private schools.
+  id: string;
   name: string;
   grades: string | null;
   address: Address;
@@ -403,6 +405,7 @@ function toCharterSchool(a: Attributes): Unlocated<CharterSchool> {
 function toPrivateSchool(a: Attributes): Unlocated<PrivateSchool> {
   const year = Number(str(a.YEARESTB));
   return {
+    id: str(a.OBJECTID) ?? '',
     name: str(a.NAME) ?? '',
     grades: grades(a.GRDLEVEL),
     address: address(a),

@@ -1,48 +1,319 @@
+import type { Address, AddressReport, NearbySchools, School } from '@/lib/api'
+import raw from '@/data/places.json'
+import { isRetired, tuitionFor, type Tuition } from '@/lib/tuition'
+import { milesBetween, type PlaceType } from './filters'
+
+export type ZoneLevel = 'elementary' | 'middle' | 'high'
+
+// One raw record per source, kept whole so the school page can show everything each one returned.
+export type Sources = {
+  greatSchools?: School
+  county?: { dataset: string; record: object }
+}
+
 export type Place = {
   id: string
   name: string
   address: string
-  kind: string
-  grades: string
-  rating?: number
-  ratingLabel?: string
-  tags: string[]
-  cost: string
-  badge?: string
-  posted?: string
-  verified?: boolean
-  spotlight?: boolean
+  kind: PlaceType
+  grades: string | null // "PK–5", "K–12", "Infant–PK"
   lngLat: [number, number]
-  hue: number
+  distanceMiles: number | null // from the searched address; null when no address was searched
+  zoned: ZoneLevel[] // attendance zones this school serves for the searched address
+  ratingBand: string | null // GreatSchools: "Above average", "Average", "Below average"
+  summary: string | null
+  phone: string | null
+  email: string | null
+  website: string | null
+  greatSchoolsUrl: string | null
+  enrollment: number | null
+  capacity: number | null
+  tuition: Tuition | null // annual; free for public, charter and Head Start; null when unknown
+  hue: number // drives the placeholder photo gradient
+  sources: Sources
 }
 
-export const places: Place[] = [
-  { id: 'p1', name: 'Brickell Preparatory', address: '2555 SW 17th St, Miami, FL 33145', kind: 'Charter', grades: 'PK–8', tags: ['Bilingual', 'After-care'], cost: 'Free', badge: 'Must-see', verified: true, spotlight: true, lngLat: [-80.215, 25.752], hue: 200 },
-  { id: 'p2', name: 'Coral Way K-8 Center', address: '1950 SW 13th Ave, Miami, FL 33145', kind: 'Public', grades: 'PK–8', tags: ['Dual language', 'Magnet'], cost: 'Free', badge: 'Must-see', verified: true, spotlight: true, lngLat: [-80.221, 25.757], hue: 160 },
-  { id: 'p3', name: 'Little Havana Early Learning', address: '7440 N Kendall Dr, Miami, FL 33156', kind: 'Childcare', grades: 'Infant–PK', rating: 9.9, ratingLabel: 'Excellent', tags: ['Infant care', 'VPK', 'Meals'], cost: '$1,100–$1,650/mo', posted: '17h ago', verified: true, lngLat: [-80.305, 25.685], hue: 28 },
-  { id: 'p4', name: 'Altos Montessori Academy', address: '2100 SW 8th St, Miami, FL 33135', kind: 'Private', grades: 'PK–5', rating: 9.6, ratingLabel: 'Excellent', tags: ['Montessori', 'Scholarships'], cost: '$9,800–$14,500/yr', posted: '3h ago', verified: true, lngLat: [-80.231, 25.765], hue: 320 },
-  { id: 'p5', name: 'Wynwood Arts Magnet', address: '2200 NW 2nd Ave, Miami, FL 33127', kind: 'Public', grades: '6–12', rating: 9.1, ratingLabel: 'Great', tags: ['Magnet', 'Arts'], cost: 'Free', badge: 'Featured', lngLat: [-80.198, 25.801], hue: 275 },
-  { id: 'p6', name: 'Edison Senior High', address: '6161 NW 5th Ct, Miami, FL 33127', kind: 'Public', grades: '9–12', rating: 8.4, ratingLabel: 'Good', tags: ['Career academy', 'AP'], cost: 'Free', badge: 'Highly rated', lngLat: [-80.205, 25.832], hue: 120 },
-  { id: 'p7', name: 'Doral Learning Center', address: '8401 NW 36th St, Doral, FL 33166', kind: 'Childcare', grades: 'Infant–PK', rating: 9.2, ratingLabel: 'Excellent', tags: ['VPK', 'Gold Seal'], cost: '$980–$1,450/mo', posted: '1d ago', verified: true, lngLat: [-80.33, 25.81], hue: 45 },
-  { id: 'p8', name: 'Gables Day School', address: '340 Palermo Ave, Coral Gables, FL 33134', kind: 'Private', grades: 'PK–12', rating: 9.4, ratingLabel: 'Excellent', tags: ['College prep', 'Sports'], cost: '$18,200–$24,000/yr', posted: '5d+ ago', lngLat: [-80.262, 25.745], hue: 230 },
-  { id: 'p9', name: 'Allapattah Charter Academy', address: '1400 NW 36th St, Miami, FL 33142', kind: 'Charter', grades: 'K–8', rating: 8.8, ratingLabel: 'Good', tags: ['STEM', 'Free lunch'], cost: 'Free', posted: '5d+ ago', lngLat: [-80.222, 25.81], hue: 190 },
-  { id: 'p10', name: 'Sunshine Head Start', address: '1300 NW 3rd Ave, Miami, FL 33136', kind: 'Head Start', grades: 'Infant–PK', rating: 8.7, ratingLabel: 'Good', tags: ['Free', 'Meals'], cost: 'Free', posted: '1d ago', verified: true, lngLat: [-80.2, 25.786], hue: 10 },
-  { id: 'p11', name: 'Kendall Lakes K-8', address: '8000 SW 142nd Ave, Miami, FL 33183', kind: 'Public', grades: 'K–8', rating: 8.9, ratingLabel: 'Good', tags: ['Gifted', 'Band'], cost: 'Free', posted: '5d+ ago', lngLat: [-80.42, 25.7], hue: 95 },
-  { id: 'p12', name: 'Brickell Child Care', address: '60 SW 13th St, Miami, FL 33130', kind: 'Childcare', grades: 'Infant–PK', rating: 9.0, ratingLabel: 'Excellent', tags: ['Infant care', 'Weekend'], cost: '$1,250–$1,900/mo', posted: '5d+ ago', verified: true, lngLat: [-80.193, 25.758], hue: 355 },
-]
+// A searched address with the coordinates the school lookups ran against.
+export type Origin = Address & { lat: number; lon: number; lngLat: [number, number] }
 
-// deterministic scatter so the map has dots before real data is wired in
-function scatter(count: number): [number, number][] {
-  let s = 7
-  const rnd = () => ((s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296)
-  return Array.from({ length: count }, () => [-80.3 + rnd() * 0.18, 25.7 + rnd() * 0.17] as [number, number])
+// How many of each kind the APIs found within the radius vs how many came back (each caps at 50).
+export type Coverage = { label: string; shown: number; total: number }[]
+
+type CountyAddress = { street: string | null; city: string | null; zip: string | null }
+type Located = { lat: number; lon: number }
+
+// Builds the result list: every GreatSchools school and every county record, with the two
+// merged where they describe the same school.
+export function buildPlaces(origin: Origin, gs: NearbySchools | null, report: AddressReport | null): Place[] {
+  const county: Place[] = []
+  const byCountyId = new Map<string, Place>()
+  const addCounty = (place: Place, countyId?: string) => {
+    if (countyId) {
+      if (byCountyId.has(countyId)) return
+      byCountyId.set(countyId, place)
+    }
+    county.push(place)
+  }
+
+  if (report) {
+    const zones = report.zonedSchools
+    for (const level of ['elementary', 'middle', 'high'] as const) {
+      for (const s of zones[level]) {
+        const existing = byCountyId.get(`public:${s.id}`)
+        if (existing) existing.zoned.push(level)
+        else if (s.lat != null && s.lon != null) {
+          addCounty({ ...fromCounty(origin, s as typeof s & Located, 'Public', 'Zoned public schools', s.grades), zoned: [level] }, `public:${s.id}`)
+        }
+      }
+    }
+    for (const s of report.nearby.publicSchools.items) {
+      if (s.lat == null || s.lon == null) continue
+      addCounty(fromCounty(origin, s as typeof s & Located, 'Public', 'Public school sites', s.grades), `public:${s.id}`)
+    }
+    for (const s of report.nearby.charterSchools.items) {
+      addCounty(fromCounty(origin, s, 'Charter', 'Charter schools', s.grades), `charter:${s.id}`)
+    }
+    for (const s of report.nearby.privateSchools.items) {
+      if (!isRetired(s.id, s.name)) addCounty(fromCounty(origin, s, 'Private', 'Private schools', s.grades))
+    }
+    // the county has no ages for these; both serve children under five
+    for (const s of report.nearby.daycares.items) addCounty(fromCounty(origin, s, 'Childcare', 'Licensed daycares', 'Infant–PK'))
+    for (const s of report.nearby.headStarts.items) addCounty(fromCounty(origin, s, 'Head Start', 'Head Start centers', 'Infant–PK'))
+  }
+
+  const merged = new Set<Place>()
+  const places: Place[] = []
+  for (const school of gs?.schools ?? []) {
+    if (school.lat == null || school.lon == null) continue
+    if (school.type === 'private' && isRetired(null, school.name)) continue
+    const match = sameByStateId(school, byCountyId) ?? sameByName(school, county, merged)
+    if (match && !merged.has(match)) {
+      merged.add(match)
+      places.push(withGreatSchools(match, school))
+    } else {
+      places.push(fromGreatSchools(origin, school as School & Located))
+    }
+  }
+  places.push(...county.filter((p) => !merged.has(p)))
+  return places.sort((a, b) => (a.distanceMiles ?? 0) - (b.distanceMiles ?? 0))
 }
 
-// placeholder details borrowed from the hand-written places until real data replaces them
-export const dots: Place[] = scatter(90).map((lngLat, i) => ({
-  ...places[i % places.length],
-  id: `d${i}`,
-  spotlight: false,
-  lngLat,
-  hue: (i * 37) % 360,
-}))
+export function coverageOf(gs: NearbySchools | null, report: AddressReport | null): Coverage {
+  const rows: Coverage = []
+  if (gs) rows.push({ label: 'GreatSchools schools', shown: gs.schools.length, total: gs.total })
+  if (report) {
+    const n = report.nearby
+    rows.push(
+      { label: 'County public schools', shown: n.publicSchools.items.length, total: n.publicSchools.total },
+      { label: 'County charter schools', shown: n.charterSchools.items.length, total: n.charterSchools.total },
+      { label: 'County private schools', shown: n.privateSchools.items.length, total: n.privateSchools.total },
+      { label: 'Licensed daycares', shown: n.daycares.items.length, total: n.daycares.total },
+      { label: 'Head Start centers', shown: n.headStarts.items.length, total: n.headStarts.total },
+      { label: 'School-based clinics', shown: n.clinics.items.length, total: n.clinics.total },
+    )
+  }
+  return rows
+}
+
+// GreatSchools' Florida state id is the district number (13 = Miami-Dade) plus the county's
+// 4-digit location id, e.g. 137001 <-> 7001. Private schools have no state id.
+function sameByStateId(school: School, byCountyId: Map<string, Place>): Place | undefined {
+  const m = school.stateId?.match(/^13(\d{4})$/)
+  if (!m) return undefined
+  const order = school.type === 'charter' ? ['charter', 'public'] : ['public', 'charter']
+  for (const dataset of order) {
+    const place = byCountyId.get(`${dataset}:${m[1]}`)
+    if (place) return place
+  }
+  return undefined
+}
+
+// Fallback for schools without a shared id: the nearest unmatched county record of a compatible
+// kind within a short walk whose distinctive words agree with this one's.
+const MATCH_MILES = 0.25
+const MATCH_SIMILARITY = 0.6
+function sameByName(school: School, county: Place[], taken: Set<Place>): Place | undefined {
+  const kinds: PlaceType[] = school.type === 'private' ? ['Private'] : ['Public', 'Charter']
+  const words = nameWords(school.name)
+  let best: { place: Place; miles: number } | undefined
+  for (const place of county) {
+    if (taken.has(place) || !kinds.includes(place.kind)) continue
+    const miles = milesBetween([school.lon!, school.lat!], place.lngLat)
+    if (miles > MATCH_MILES || (best && miles >= best.miles)) continue
+    if (similarity(words, nameWords(place.name)) >= MATCH_SIMILARITY) best = { place, miles }
+  }
+  return best?.place
+}
+
+// Words that say what kind of school it is rather than which school it is.
+const GENERIC = new Set(
+  'the of and at a an in school schools inc llc sr senior high middle elementary elem center ctr academy charter k 8 k8 prep preparatory'.split(' '),
+)
+
+function nameWords(name: string): Set<string> {
+  const words = name.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim().split(' ')
+  return new Set(words.filter((w) => w && !GENERIC.has(w)))
+}
+
+// 1 when one name's words all appear in the other ("Key Point Academy" / "Key Point Christian Academy"),
+// else the share of words in common. Campuses of a chain differ by one word ("Learning World Downtown"
+// / "Learning World Venetian"), which keeps them apart.
+function similarity(a: Set<string>, b: Set<string>): number {
+  const [small, large] = a.size <= b.size ? [a, b] : [b, a]
+  if (!small.size) return 0
+  let shared = 0
+  for (const w of small) if (large.has(w)) shared++
+  if (shared === small.size) return 1
+  return shared / (a.size + b.size - shared)
+}
+
+type CountyRecord = Located & {
+  name: string
+  address: CountyAddress
+  phone: string | null
+  email?: string | null
+  website?: string | null
+  enrollment?: number | null
+  capacity?: number | null
+}
+
+function fromCounty(origin: Origin, r: CountyRecord, kind: PlaceType, dataset: string, grades: string | null): Place {
+  const countyId = 'id' in r && r.id ? String(r.id) : null
+  const id = countyId ? `county:${kind}:${countyId}` : `county:${kind}:${r.name}:${r.lat},${r.lon}`
+  return {
+    id,
+    name: r.name,
+    address: formatAddress(r.address),
+    kind,
+    grades: normalizeGrades(grades),
+    lngLat: [r.lon, r.lat],
+    distanceMiles: milesBetween(origin.lngLat, [r.lon, r.lat]),
+    zoned: [],
+    ratingBand: null,
+    summary: null,
+    phone: r.phone,
+    email: r.email ?? null,
+    website: r.website ?? null,
+    greatSchoolsUrl: null,
+    // county layers use 0 for "not reported"
+    enrollment: r.enrollment || null,
+    capacity: r.capacity ?? null,
+    tuition: tuitionFor(kind, countyId, r.name),
+    hue: hueOf(id),
+    sources: { county: { dataset, record: r } },
+  }
+}
+
+const KIND_OF: Record<School['type'], PlaceType> = { public: 'Public', charter: 'Charter', private: 'Private' }
+
+function fromGreatSchools(origin: Origin, s: School & Located): Place {
+  const id = `gs:${s.universalId}`
+  const kind = KIND_OF[s.type] ?? 'Public'
+  return {
+    id,
+    name: s.name,
+    address: [s.street, s.city, [s.state, s.zip].filter(Boolean).join(' ')].filter(Boolean).join(', '),
+    kind,
+    grades: gradesFromList(s.grades),
+    lngLat: [s.lon, s.lat],
+    distanceMiles: milesBetween(origin.lngLat, [s.lon, s.lat]),
+    zoned: [],
+    ratingBand: s.ratingBand,
+    summary: s.summary,
+    phone: s.phone,
+    email: null,
+    website: s.website,
+    greatSchoolsUrl: s.greatSchoolsUrl,
+    enrollment: null,
+    capacity: null,
+    // no county id here, so private schools are matched to the tuition data by name
+    tuition: tuitionFor(kind, null, s.name),
+    hue: hueOf(id),
+    sources: { greatSchools: s },
+  }
+}
+
+// The county record wins on names, location and enrollment (the district's own data);
+// GreatSchools adds its rating, summary and whatever the county left blank.
+function withGreatSchools(place: Place, s: School): Place {
+  return {
+    ...place,
+    grades: place.grades ?? gradesFromList(s.grades),
+    ratingBand: s.ratingBand,
+    summary: s.summary,
+    phone: place.phone ?? s.phone,
+    website: place.website ?? s.website,
+    greatSchoolsUrl: s.greatSchoolsUrl,
+    sources: { ...place.sources, greatSchools: s },
+  }
+}
+
+function formatAddress(a: CountyAddress): string {
+  return [a.street, a.city, ['FL', a.zip].filter(Boolean).join(' ')].filter(Boolean).join(', ')
+}
+
+// Grade tokens across both sources: PK, PreK, TK (transitional K), NS (nursery), KG, K, 01-12.
+function gradeToken(raw: string): string | null {
+  const t = raw.trim().toUpperCase()
+  if (t === 'NS') return 'Infant'
+  if (t === 'INFANT') return 'Infant'
+  if (t === 'PK' || t === 'PREK' || t === 'TK') return 'PK'
+  if (t === 'K' || t === 'KG') return 'K'
+  const n = Number(t)
+  return Number.isInteger(n) && n >= 1 && n <= 12 ? String(n) : null
+}
+
+const gradeRank = (g: string) => (g === 'Infant' ? -2 : g === 'PK' ? -1 : g === 'K' ? 0 : Number(g))
+
+// Lowest to highest grade as "PK–5"; tolerates reversed ranges like the county's "05-K".
+function gradeSpan(tokens: string[]): string | null {
+  const grades = tokens.map(gradeToken).filter((g): g is string => g !== null)
+  if (!grades.length) return null
+  grades.sort((a, b) => gradeRank(a) - gradeRank(b))
+  const lo = grades[0]
+  const hi = grades[grades.length - 1]
+  return lo === hi ? lo : `${lo}–${hi}`
+}
+
+function normalizeGrades(grades: string | null): string | null {
+  return grades ? gradeSpan(grades.split(/[–-]/)) : null
+}
+
+const gradesFromList = (grades: string[]) => gradeSpan(grades)
+
+function hueOf(id: string): number {
+  let h = 0
+  for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 360
+  return h
+}
+
+type DirectoryRecord = { id: string; name: string; address: string; kind: string; grades: string; lngLat: [number, number]; hue: number; phone?: string; website?: string }
+
+// the county private-school id inside a directory id ("prv-123" -> "123")
+const privateId = (id: string) => (id.startsWith('prv-') ? id.slice(4) : null)
+
+// Every place we know about, shown before any address is searched (data/build_frontend_data.py builds the file).
+// There is no distance, zoned school or rating until an address is searched.
+export const directory: Place[] = (raw as DirectoryRecord[])
+  .filter((r) => !(privateId(r.id) && isRetired(privateId(r.id), r.name)))
+  .map((r) => ({
+    id: r.id,
+    name: r.name,
+    address: r.address,
+    kind: r.kind as PlaceType,
+    grades: normalizeGrades(r.grades),
+    lngLat: r.lngLat,
+    distanceMiles: null,
+    zoned: [],
+    ratingBand: null,
+    summary: null,
+    phone: r.phone ?? null,
+    email: null,
+    website: r.website ?? null,
+    greatSchoolsUrl: null,
+    enrollment: null,
+    capacity: null,
+    tuition: tuitionFor(r.kind as PlaceType, privateId(r.id), r.name),
+    hue: r.hue,
+    sources: {},
+  }))
