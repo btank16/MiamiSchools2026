@@ -86,64 +86,16 @@
   </div>
   <p class="note">Answers come from county and federal school lists and can be out of date. Confirm details with the school.</p>
 </form>
-<script>
+<script type="module">
+  import { SUGGESTIONS, WELCOME, renderMarkdown, describeCall, createChatClient } from "./shared.js";
+
   const log = document.getElementById("log");
   const scroller = document.getElementById("scroller");
   const form = document.getElementById("form");
   const input = document.getElementById("input");
   const sendBtn = document.getElementById("send");
-  let sessionId = null;
+  const chat = createChatClient(new URL("./", location.href));
   let busy = false;
-
-  const SUGGESTIONS = [
-    "Which public high schools are near zip code 33186?",
-    "I need infant care in Hialeah. What Early Head Start sites are there?",
-    "How many private schools are in Coral Gables?",
-    "¿Qué escuelas charter K-8 hay en Doral?",
-  ];
-
-  // Minimal markdown: escape everything first, then add bold, italics, code, links, headings and lists.
-  function escapeHtml(s) {
-    return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  }
-  function inline(s) {
-    return escapeHtml(s)
-      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-      .replace(/(^|[^*])\*([^*\s][^*]*?)\*(?!\*)/g, "$1<em>$2</em>")
-      .replace(/`([^`]+)`/g, "<code>$1</code>")
-      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-      .replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer">$2</a>');
-  }
-  function renderMarkdown(text) {
-    const out = [];
-    let list = null;
-    let para = [];
-    const flushPara = () => { if (para.length) { out.push("<p>" + para.map(inline).join("<br>") + "</p>"); para = []; } };
-    const closeList = () => { if (list) { out.push(`</${list}>`); list = null; } };
-    for (const raw of text.split("\n")) {
-      const line = raw.trimEnd();
-      const bullet = line.match(/^\s*[-*•]\s+(.*)$/);
-      const numbered = line.match(/^\s*\d+[.)]\s+(.*)$/);
-      const heading = line.match(/^#{1,6}\s+(.*)$/);
-      if (bullet || numbered) {
-        flushPara();
-        const kind = bullet ? "ul" : "ol";
-        if (list !== kind) { closeList(); out.push(`<${kind}>`); list = kind; }
-        out.push("<li>" + inline((bullet || numbered)[1]) + "</li>");
-      } else if (heading) {
-        flushPara(); closeList(); out.push("<h3>" + inline(heading[1]) + "</h3>");
-      } else if (!line.trim()) {
-        flushPara(); closeList();
-      } else if (list && /^\s+\S/.test(raw)) {
-        // An indented line continues the bullet above it.
-        out[out.length - 1] = out[out.length - 1].replace(/<\/li>$/, "<br>" + inline(line.trim()) + "</li>");
-      } else {
-        closeList(); para.push(line);
-      }
-    }
-    flushPara(); closeList();
-    return out.join("");
-  }
 
   function add(kind, content, html = false) {
     const el = document.createElement("div");
@@ -154,21 +106,9 @@
     return el;
   }
 
-  function describeCall(call) {
-    const i = call.input || {};
-    const bits = [];
-    if (i.types?.length) bits.push(i.types.join(", "));
-    if (i.grade) bits.push(`grade ${i.grade}`);
-    if (i.name) bits.push(`"${i.name}"`);
-    if (i.city) bits.push(i.city);
-    if (i.zip) bits.push(i.zip);
-    if (i.near) bits.push(`near ${i.near.zip || i.near.school || "a point"}`);
-    return (call.name === "count_schools" ? "Counted " : "Searched ") + (bits.join(" · ") || "all schools");
-  }
-
   function welcome() {
     log.innerHTML = "";
-    add("bot", renderMarkdown("Hi! I can help you find schools and early learning programs in Miami-Dade County, from infant care to grade 12. Tell me a zip code, city or school name, the grade, and the kind of school you want."), true);
+    add("bot", renderMarkdown(WELCOME), true);
     const box = document.createElement("div");
     box.className = "suggestions";
     for (const s of SUGGESTIONS) {
@@ -188,21 +128,13 @@
     const typing = add("bot", "Looking that up…");
     typing.classList.add("typing");
     try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ sessionId, message: text }),
-      });
-      const data = await res.json().catch(() => ({}));
+      const { reply, toolCalls } = await chat.send(text);
       typing.remove();
-      if (data.sessionId) sessionId = data.sessionId;
-      if (!res.ok) { add("error", data.error || "Something went wrong. Please try again."); return; }
-      const calls = data.toolCalls || [];
-      if (calls.length) add("searched", calls.map(describeCall).join(" · "));
-      add("bot", renderMarkdown(data.reply || ""), true);
-    } catch {
+      if (toolCalls.length) add("searched", toolCalls.map(describeCall).join(" · "));
+      add("bot", renderMarkdown(reply), true);
+    } catch (err) {
       typing.remove();
-      add("error", "Couldn't reach the chatbot server. Is it running?");
+      add("error", err.message);
     } finally {
       busy = false; sendBtn.disabled = false; input.focus();
     }
@@ -218,9 +150,8 @@
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
   });
   input.addEventListener("input", () => { input.style.height = ""; input.style.height = input.scrollHeight + "px"; });
-  document.getElementById("reset").addEventListener("click", async () => {
-    if (sessionId) fetch("/api/reset", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ sessionId }) }).catch(() => {});
-    sessionId = null;
+  document.getElementById("reset").addEventListener("click", () => {
+    chat.reset();
     welcome();
     input.focus();
   });

@@ -6,10 +6,20 @@ import { fileURLToPath } from "node:url";
 import Anthropic from "@anthropic-ai/sdk";
 import { ChatSession, MODEL, describeApiError, schools } from "./bot.ts";
 
-// Serves the chat page at / and the chat API at POST /api/chat.
+// Serves the chat page at /, the pop-up widget at /widget.js, and the chat API at POST /api/chat.
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const PAGE = path.resolve(here, "../public/index.html");
+const PUBLIC_DIR = path.resolve(here, "../public");
+const STATIC_FILES: Record<string, { file: string; type: string }> = {
+  "/": { file: "index.html", type: "text/html; charset=utf-8" },
+  "/widget.js": { file: "widget.js", type: "text/javascript; charset=utf-8" },
+  "/shared.js": { file: "shared.js", type: "text/javascript; charset=utf-8" },
+};
+// Sites allowed to load the widget from another origin, e.g. "https://schools.example.org".
+// The Vite dev setup proxies the chatbot under the app's own origin, so it needs none.
+const ALLOWED_ORIGINS = new Set(
+  (process.env.CHATBOT_ALLOWED_ORIGINS ?? "").split(",").map((o) => o.trim()).filter(Boolean),
+);
 const PORT = Number(process.env.PORT ?? 8787);
 const HOST = process.env.HOST ?? "127.0.0.1";
 const MAX_MESSAGE_CHARS = 2000;
@@ -54,9 +64,25 @@ async function readJson(req: http.IncomingMessage): Promise<Record<string, unkno
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");
 
-  if (req.method === "GET" && url.pathname === "/") {
-    res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
-    fs.createReadStream(PAGE).pipe(res);
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    res.setHeader("access-control-allow-origin", origin);
+    res.setHeader("vary", "Origin");
+  }
+  if (req.method === "OPTIONS") {
+    res.writeHead(204, {
+      "access-control-allow-methods": "GET, POST, OPTIONS",
+      "access-control-allow-headers": "content-type",
+      "access-control-max-age": "600",
+    });
+    res.end();
+    return;
+  }
+
+  const asset = STATIC_FILES[url.pathname];
+  if (req.method === "GET" && asset) {
+    res.writeHead(200, { "content-type": asset.type, "cache-control": "no-cache" });
+    fs.createReadStream(path.join(PUBLIC_DIR, asset.file)).pipe(res);
     return;
   }
 

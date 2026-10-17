@@ -7,6 +7,8 @@
   "scripts": {
     "start": "tsx src/server.ts",
     "chat": "tsx src/cli.ts",
+    "app": "node scripts/dev-app.mjs",
+    "app:build": "cd ../frontend && ./node_modules/.bin/vite build --config ../chatbot/app.vite.config.mjs",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test test/*.test.ts"
   },
