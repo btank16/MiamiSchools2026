@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Bookmark, ChevronLeft, ChevronRight, ExternalLink, Phone, Star } from 'lucide-react'
+import { Bookmark, ChevronLeft, ChevronRight, ExternalLink, MapPinHouse, Phone } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { isStreetView, photoCount, photoUrl, usePhotoNames } from '@/lib/photos'
 import type { Place, ZoneLevel } from './data'
@@ -30,12 +30,22 @@ export function RatingChip({ band, className }: { band: string; className?: stri
 
 export const zonedLabel = (zoned: ZoneLevel[]) => `Your zoned ${zoned.join(' & ')} school`
 
-// marigold is reserved for "your zoned school" (colors.md)
+// marigold is reserved for "your zoned school" (colors.md). A compact pill with the map-pin-house icon
+// (a star reads as a rating); ink on marigold is 11.4:1. The label stays on one line and truncates with
+// the full text in the tooltip, so it can never wrap into the save button.
 export function ZonedBadge({ place, className }: { place: Place; className?: string }) {
+  const full = zonedLabel(place.zoned)
   return (
-    <span className={cn('flex h-[22px] items-center gap-1 rounded-sm bg-[#F7BE2B] px-2.5 text-sm font-medium text-ink', className)}>
-      <Star className="size-3.5 fill-ink" />
-      {zonedLabel(place.zoned)}
+    <span
+      title={full}
+      aria-label={full}
+      className={cn(
+        'inline-flex h-6 w-fit max-w-full items-center gap-1.5 rounded-full bg-highlight pl-2 pr-2.5 text-xs font-semibold text-ink shadow-sm ring-1 ring-ink/10',
+        className,
+      )}
+    >
+      <MapPinHouse className="size-3.5 shrink-0" strokeWidth={2.25} aria-hidden />
+      <span className="min-w-0 truncate">Zoned {place.zoned.join(' & ')}</span>
     </span>
   )
 }
@@ -149,16 +159,18 @@ export function enrollmentText(place: Place): string | null {
 export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   const enrollment = enrollmentText(place)
   return (
-    <article className="relative cursor-pointer overflow-hidden rounded-xl bg-deep text-white" onClick={opensPage(place, onOpen)}>
+    <article className="relative flex h-full cursor-pointer flex-col overflow-hidden rounded-xl bg-deep text-white" onClick={opensPage(place, onOpen)}>
       <Photo place={place} width={640} className="h-[280px]">
-        <ZonedBadge place={place} className="absolute left-4 top-4 z-10" />
+        {/* leaves room for the save button on the right; a long label wraps instead of running under it */}
+        <ZonedBadge place={place} className="absolute left-4 top-4 z-10 max-w-[calc(100%-4.5rem)]" />
         <Save name={place.name} />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-deep via-deep/80 to-transparent" />
         <div className="absolute inset-x-4 bottom-9 z-10">
           <h3 className="text-xl font-bold">{place.name}</h3>
         </div>
       </Photo>
-      <div className="space-y-2 px-4 pb-5 pt-3">
+      {/* the body fills the card and the buttons sit at the bottom, so cards in one row line up */}
+      <div className="flex flex-1 flex-col gap-2 px-4 pb-5 pt-3">
         <p className="text-sm">{place.address}</p>
         <p className="flex flex-wrap items-center gap-2 pt-1 text-sm font-bold">
           {place.distanceMiles != null && miles(place.distanceMiles)}
@@ -167,7 +179,7 @@ export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Pla
           {place.ratingBand && <RatingChip band={place.ratingBand} />}
         </p>
         {enrollment && <p className="text-sm">{enrollment}</p>}
-        <div className="flex items-center gap-4 pt-3">
+        <div className="mt-auto flex items-center gap-4 pt-3">
           {place.phone && (
             <a href={`tel:${place.phone}`} className="flex items-center gap-2 text-sm font-semibold">
               <Phone className="size-4" /> {place.phone}
@@ -188,7 +200,7 @@ export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Pla
 export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   const enrollment = enrollmentText(place)
   return (
-    <article className="cursor-pointer overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
+    <article className="flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
       <Photo place={place} className="h-[160px]">
         <Save name={place.name} />
         {place.distanceMiles != null && (
@@ -197,7 +209,7 @@ export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place
           </span>
         )}
       </Photo>
-      <div className="space-y-1.5 px-4 pb-4 pt-3">
+      <div className="flex flex-1 flex-col gap-1.5 px-4 pb-4 pt-3">
         {place.ratingBand && (
           <p className="flex items-center gap-2 text-sm">
             <RatingChip band={place.ratingBand} />
@@ -211,7 +223,7 @@ export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place
           {place.grades && <><span className="mx-1 text-neutral-300">|</span>{place.grades}</>}
           {enrollment && <><span className="mx-1 text-neutral-300">|</span>{enrollment}</>}
         </p>
-        <div className="flex items-center gap-4 border-t border-line pt-3">
+        <div className="mt-auto flex items-center gap-4 border-t border-line pt-3">
           {place.website ? (
             <a
               href={place.website}
