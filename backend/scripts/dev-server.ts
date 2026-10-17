@@ -16,5 +16,5 @@ createServer(async (req, res) => {
 
   const result = await handler(event);
   res.writeHead(result.statusCode, result.headers as Record<string, string>);
-  res.end(result.body);
+  res.end(result.isBase64Encoded ? Buffer.from(result.body, 'base64') : result.body);
 }).listen(port, () => console.log(`Schools API listening on http://localhost:${port}`));

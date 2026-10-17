@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Map, { Layer, Marker, NavigationControl, Source, type MapLayerMouseEvent, type MapRef } from 'react-map-gl/maplibre'
-import { setWorkerUrl, type ExpressionSpecification, type GeoJSONSource } from 'maplibre-gl'
+import { setWorkerUrl, type CircleLayerSpecification, type ExpressionSpecification, type GeoJSONSource } from 'maplibre-gl'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { Check, Group, Home, MapPin } from 'lucide-react'
@@ -24,7 +24,9 @@ const outside = mask(countyShape.features[0])
 const ZONED = '#F7BE2B' // marigold is reserved for "your zoned school" (colors.md)
 const INK = '#0A0F1C'
 const DOT = '#2256BB'
-const CLUSTER = '#08354A'
+// cluster bubbles are one flat color that starts dark and lightens with zoom until it matches the single dots
+const CLUSTER_FILL: ExpressionSpecification = ['interpolate', ['linear'], ['zoom'], 9, '#0B2354', 14, DOT]
+const CLUSTER_RADIUS: ExpressionSpecification = ['step', ['get', 'point_count'], 14, 10, 17, 50, 21, 200, 26]
 
 // One small dot per place, drawn by the map itself. By default every place shows on its own; the
 // "Group nearby" switch merges close dots into a numbered circle that splits as you zoom in.
@@ -78,6 +80,29 @@ export function MapPanel({
   }, [loaded, ring])
 
   const sel: ExpressionSpecification = ['==', ['get', 'id'], shownSelected?.id ?? '']
+
+  // the same circle in both modes (grouped and every-place-on-its-own), so only the source differs
+  const dotShadow: CircleLayerSpecification['paint'] = {
+    'circle-color': INK,
+    'circle-opacity': 0.28,
+    'circle-blur': 0.8,
+    'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 5, 13, 7.5, 16, 10],
+    'circle-translate': [0, 1.5],
+  }
+  const dotHalo: CircleLayerSpecification['paint'] = { 'circle-color': DOT, 'circle-opacity': 0.2, 'circle-radius': 17 }
+  const dotPaint: CircleLayerSpecification['paint'] = {
+    'circle-color': ['case', sel, INK, DOT],
+    'circle-radius': [
+      'interpolate', ['linear'], ['zoom'],
+      9, ['case', sel, 7, 4],
+      13, ['case', sel, 9, 6],
+      16, ['case', sel, 11, 8],
+    ],
+    'circle-stroke-color': '#ffffff',
+    'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 9, 1.5, 14, 2.5],
+  }
+  const showGrouped = { visibility: grouped ? 'visible' : 'none' } as const
+  const showFlat = { visibility: grouped ? 'none' : 'visible' } as const
 
   const onClick = (e: MapLayerMouseEvent) => {
     const feature = e.features?.[0]
@@ -140,10 +165,8 @@ export function MapPanel({
                 layout={{ visibility: grouped ? 'visible' : 'none' }}
                 filter={['has', 'point_count']}
                 paint={{
-                  'circle-color': CLUSTER,
-                  'circle-radius': ['step', ['get', 'point_count'], 13, 10, 16, 50, 20, 200, 25],
-                  'circle-stroke-color': '#ffffff',
-                  'circle-stroke-width': 2,
+                  'circle-color': CLUSTER_FILL,
+                  'circle-radius': CLUSTER_RADIUS,
                 }}
               />
               <Layer
@@ -154,48 +177,38 @@ export function MapPanel({
                   visibility: grouped ? 'visible' : 'none',
                   'text-field': ['get', 'point_count_abbreviated'],
                   'text-font': ['Noto Sans Bold'],
-                  'text-size': 12,
+                  'text-size': 13,
                   'text-allow-overlap': true,
                 }}
                 paint={{ 'text-color': '#ffffff' }}
               />
-              <Layer
-                id="place-dots"
-                type="circle"
-                layout={{ visibility: grouped ? 'visible' : 'none' }}
-                filter={['!', ['has', 'point_count']]}
-                paint={{
-                  'circle-color': ['case', sel, INK, DOT],
-                  'circle-radius': ['case', sel, 8, 5],
-                  'circle-stroke-color': '#ffffff',
-                  'circle-stroke-width': 1.5,
-                }}
-              />
+              {/* soft drop shadow lifts each dot off the basemap */}
+              <Layer id="place-dot-shadow" type="circle" layout={showGrouped} filter={['!', ['has', 'point_count']]} paint={dotShadow} />
+              {/* the selected place gets a soft halo */}
+              <Layer id="place-selected-halo" type="circle" layout={showGrouped} filter={['==', ['get', 'id'], shownSelected?.id ?? '']} paint={dotHalo} />
+              <Layer id="place-dots" type="circle" layout={showGrouped} filter={['!', ['has', 'point_count']]} paint={dotPaint} />
             </Source>
-            <Source id="places-single" type="geojson" data={points}>
-              <Layer
-                id="place-single"
-                type="circle"
-                layout={{ visibility: grouped ? 'none' : 'visible' }}
-                paint={{
-                  'circle-color': ['case', sel, INK, DOT],
-                  // dots start small when zoomed out so thousands of them overlap less
-                  'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, ['case', sel, 5, 2.5], 12, ['case', sel, 7, 4], 15, ['case', sel, 9, 6]],
-                  'circle-stroke-color': '#ffffff',
-                  'circle-stroke-width': 1.5,
-                }}
-              />
+            {/* default: every place on its own, no grouping */}
+            <Source id="places-flat" type="geojson" data={points}>
+              <Layer id="place-flat-shadow" type="circle" layout={showFlat} paint={dotShadow} />
+              <Layer id="place-flat-halo" type="circle" layout={showFlat} filter={['==', ['get', 'id'], shownSelected?.id ?? '']} paint={dotHalo} />
+              <Layer id="place-single" type="circle" layout={showFlat} paint={dotPaint} />
             </Source>
             {/* the zoned school never clusters and always sits on top */}
             <Source id="zoned" type="geojson" data={zonedPoints}>
+              <Layer
+                id="place-zoned-shadow"
+                type="circle"
+                paint={{ 'circle-color': INK, 'circle-opacity': 0.3, 'circle-blur': 0.8, 'circle-radius': 12, 'circle-translate': [0, 1.5] }}
+              />
               <Layer
                 id="place-zoned"
                 type="circle"
                 paint={{
                   'circle-color': ZONED,
-                  'circle-radius': ['case', ['==', ['get', 'id'], shownSelected?.id ?? ''], 10, 8],
-                  'circle-stroke-color': INK,
-                  'circle-stroke-width': 1.5,
+                  'circle-radius': ['case', ['==', ['get', 'id'], shownSelected?.id ?? ''], 11, 9],
+                  'circle-stroke-color': '#ffffff',
+                  'circle-stroke-width': 2.5,
                 }}
               />
             </Source>
@@ -227,8 +240,9 @@ export function MapPanel({
         onClick={() => setGrouped(!grouped)}
         title="Merge nearby schools into numbered circles"
         className={cn(
-          'absolute bottom-[104px] right-2.5 flex h-9 items-center gap-2 rounded-md border bg-white px-3 text-sm font-medium shadow-md',
-          grouped ? 'border-brand bg-brand/10 text-brand' : 'border-line text-ink hover:bg-muted',
+          'absolute right-5 top-5 flex h-10 items-center gap-2 rounded-md border bg-white px-3 text-sm font-medium shadow-sm',
+          // on matches the List / Split / Map switch: solid deep + white
+          grouped ? 'border-deep bg-deep text-white hover:bg-deep/90' : 'border-line text-ink hover:bg-muted',
         )}
       >
         <Group className="size-4" /> Group nearby

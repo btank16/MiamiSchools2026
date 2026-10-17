@@ -18,13 +18,23 @@ applications:
             # `npm install` trusts the bundle and still installs the locked versions.
             - npm install --no-audit --no-fund --cache .npm --prefer-offline
             - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+    # Phases run from appRoot (backend/), so the Vite app is built in ../frontend
+    # and its output copied back under appRoot for Amplify Hosting to serve.
     frontend:
       phases:
+        preBuild:
+          commands:
+            - nvm use 22
+            # The frontend imports ../amplify_outputs.json; regenerate it for this
+            # branch's backend so each branch's site calls its own API.
+            - npx ampx generate outputs --branch $AWS_BRANCH --app-id $AWS_APP_ID --out-dir ..
+            - (cd ../frontend && npm ci --no-audit --no-fund)
         build:
           commands:
-            - echo "Building backend"
+            - (cd ../frontend && npm run build)
+            - rm -rf dist && cp -r ../frontend/dist dist
       artifacts:
-        baseDirectory: .
+        baseDirectory: dist
         files:
           - '**/*'
       cache:

@@ -14,7 +14,7 @@ const PAGE_LIMIT = 50
 
 // VITE_API_URL points at a local backend (`npm run dev` in backend/, http://localhost:3001);
 // otherwise use the deployed API that Amplify writes to amplify_outputs.json.
-const BASE = (import.meta.env.VITE_API_URL || outputs.custom.API['miami-schools-api'].endpoint).replace(/\/+$/, '')
+export const API_BASE = (import.meta.env.VITE_API_URL || outputs.custom.API['miami-schools-api'].endpoint).replace(/\/+$/, '')
 
 export class ApiError extends Error {
   constructor(
@@ -27,7 +27,7 @@ export class ApiError extends Error {
 
 async function get<T>(path: string, params: Record<string, string | number>, signal?: AbortSignal): Promise<T> {
   const query = new URLSearchParams(Object.entries(params).map(([k, v]) => [k, String(v)]))
-  const res = await fetch(`${BASE}${path}?${query}`, { signal })
+  const res = await fetch(`${API_BASE}${path}?${query}`, { signal })
   const body = await res.json().catch(() => null)
   if (!res.ok) throw new ApiError(body?.error ?? `Request failed (${res.status})`, res.status)
   return body as T

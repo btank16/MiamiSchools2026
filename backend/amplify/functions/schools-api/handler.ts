@@ -10,6 +10,8 @@ import { MiamiDadeGisClient, MiamiDadeGisError } from './miamidade';
 //   /usage                                  GreatSchools quota for the current key
 //   /places/autocomplete?input=[&session=]  address suggestions (Google Places)
 //   /places/{placeId}[?session=]            address + coordinates for a suggestion
+//   /places/{placeId}/photos/{photoRef}[?maxWidthPx=]  redirect to a Google Places photo
+//   /streetview?pano=&size=WxH[&heading=&fov=&pitch=]  Street View Static image
 //   /address/report?lat=&lon=[&radius=&limit=]  Miami-Dade County data for a point: zoned schools,
 //                                           School Board district, nearby schools/daycares/clinics
 // Shared school list filters: type=public,charter,private  level=e,m,h  limit=1-50  page=0+
@@ -73,6 +75,34 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       if (input.length < 2 || input.length > 200) throw new BadRequest('input must be 2-200 characters');
       const suggestions = await googlePlaces().autocomplete(input, parseSession(query));
       return respond(200, { suggestions }, { cache: false });
+    }
+
+    // Photo and Street View images may be kept by the browser for a day (see MEDIA_HEADERS) so
+    // scrolling back never re-requests them.
+    const photoMatch = path.match(/^\/places\/([^/]+)\/photos\/([^/]+)$/);
+    if (photoMatch) {
+      const [, placeId, photoRef] = photoMatch;
+      if (!/^[A-Za-z0-9_-]{10,1024}$/.test(placeId) || !/^[A-Za-z0-9_-]{10,1024}$/.test(photoRef)) {
+        throw new BadRequest('Invalid photo name');
+      }
+      const maxWidthPx = parseNumber(query, 'maxWidthPx', { min: 1, max: 4800, integer: true }) ?? 480;
+      return redirect(await googlePlaces().photoUri(`places/${placeId}/photos/${photoRef}`, maxWidthPx));
+    }
+
+    if (path === '/streetview') {
+      if (!/^[A-Za-z0-9_-]{10,256}$/.test(query.pano ?? '')) throw new BadRequest('Invalid pano id');
+      const size = query.size?.match(/^(\d{1,3})x(\d{1,3})$/);
+      if (!size) throw new BadRequest('size must be WIDTHxHEIGHT');
+      const { image, contentType } = await googlePlaces().streetView({
+        pano: query.pano!,
+        heading: parseNumber(query, 'heading', { min: 0, max: 360 }) ?? 0,
+        fov: parseNumber(query, 'fov', { min: 10, max: 120 }) ?? 90,
+        pitch: parseNumber(query, 'pitch', { min: -90, max: 90 }) ?? 0,
+        // Street View Static tops out at 640 px a side
+        width: Math.min(Number(size[1]), 640),
+        height: Math.min(Number(size[2]), 640),
+      });
+      return respondImage(image, contentType);
     }
 
     const placeMatch = path.match(/^\/places\/([^/]+)$/);
@@ -189,5 +219,24 @@ function respond(statusCode: number, body: unknown, { cache = true } = {}): APIG
       'Cache-Control': statusCode === 200 && cache ? 'public, max-age=3600' : 'no-store',
     },
     body: body === null ? '' : JSON.stringify(body),
+  };
+}
+
+const MEDIA_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Cache-Control': 'public, max-age=86400',
+};
+
+function redirect(location: string): APIGatewayProxyResult {
+  return { statusCode: 302, headers: { ...MEDIA_HEADERS, Location: location }, body: '' };
+}
+
+// API Gateway turns the base64 body back into bytes (see binaryMediaTypes in backend.ts).
+function respondImage(image: Buffer, contentType: string): APIGatewayProxyResult {
+  return {
+    statusCode: 200,
+    headers: { ...MEDIA_HEADERS, 'Content-Type': contentType },
+    body: image.toString('base64'),
+    isBase64Encoded: true,
   };
 }

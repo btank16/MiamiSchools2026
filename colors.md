@@ -184,7 +184,7 @@ Public schools use the brand blue on purpose: it is the district's own color. A 
 
 | Element | Color |
 |---|---|
-| Cluster bubble | Fill `#08354A`, count in white |
+| Cluster bubble | Fill Primary 600 `#2256BB`, Primary 700 `#17439A` from 10 places, Primary 800 `#113375` from 100, white 2 px outline, a Primary 300 `#9BBEFF` halo at 40%, count in white |
 | Selected pin | Marigold ring `#F7BE2B` around the pin, with a `#060D1A` outer line |
 | Hovered pin or card | Primary 200 `#C3D8FF` halo |
 | Zoned-school boundary | Outline `#2256BB`, fill `#C3D8FF` at about 35% opacity (the one place alpha is acceptable) |
