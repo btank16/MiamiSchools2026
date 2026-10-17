@@ -1,4 +1,5 @@
-import { CircleUserRound, Menu, School, Search } from 'lucide-react'
+import { CircleUserRound, Menu, Search } from 'lucide-react'
+import logo from '@/assets/mdcps-logo.png'
 
 const links = ['Compare', 'Saved places', 'Guides']
 
@@ -6,7 +7,7 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 flex h-[70px] items-center justify-between gap-4 border-b border-line bg-bar px-6">
       <a href="/" className="flex shrink-0 items-center sm:w-[229px] gap-2 text-xl font-bold tracking-tight text-deep">
-        <School className="size-8 text-brand" strokeWidth={2.2} />
+        <img src={logo} alt="Miami-Dade County Public Schools" className="size-9" />
         <span className="max-sm:hidden">School Navigator</span>
       </a>
 

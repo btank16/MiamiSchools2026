@@ -6,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --color-brand: #e5105a;
+    --color-brand: #2256bb;
     --color-deep: #022c3b;
     --color-ink: #0a0f1c;
     --color-bar: #f9f9f6;
@@ -132,6 +132,17 @@
     --input: #d6d5d1;
     --ring: #022c3b;
     --muted: #f3f2ee;
+}
+
+/* map click popup: drop maplibre's default padding and arrow so the card is the popup */
+.place-popup .maplibregl-popup-content {
+    padding: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgb(0 0 0 / 0.22);
+}
+.place-popup .maplibregl-popup-tip {
+    display: none;
 }
 
 @layer base {

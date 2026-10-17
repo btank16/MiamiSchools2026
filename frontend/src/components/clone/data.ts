@@ -38,4 +38,11 @@ function scatter(count: number): [number, number][] {
   return Array.from({ length: count }, () => [-80.3 + rnd() * 0.18, 25.7 + rnd() * 0.17] as [number, number])
 }
 
-export const dots = scatter(90)
+// placeholder details borrowed from the hand-written places until real data replaces them
+export const dots: Place[] = scatter(90).map((lngLat, i) => ({
+  ...places[i % places.length],
+  id: `d${i}`,
+  spotlight: false,
+  lngLat,
+  hue: (i * 37) % 360,
+}))

@@ -1,9 +1,16 @@
 import { useState } from 'react'
-import { BadgeCheck, Bookmark, CalendarDays, Star } from 'lucide-react'
+import { BadgeCheck, Bookmark, CalendarDays, ChevronLeft, ChevronRight, Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Place } from './data'
 
-function Photo({ place, className, children }: { place: Place; className?: string; children?: React.ReactNode }) {
+// whole card opens the school page; buttons (save, arrows, dots, tour) keep their own behaviour
+export const opensPage = (place: Place, onOpen: (p: Place) => void) => (e: React.MouseEvent) => {
+  if ((e.target as HTMLElement).closest('button')) return
+  e.preventDefault()
+  onOpen(place)
+}
+
+export function Photo({ place, className, children, arrows }: { place: Place; className?: string; children?: React.ReactNode; arrows?: boolean }) {
   const [slide, setSlide] = useState(0)
   const dots = 4
   return (
@@ -14,6 +21,28 @@ function Photo({ place, className, children }: { place: Place; className?: strin
       }}
     >
       {children}
+      {arrows && (
+        <>
+          {slide > 0 && (
+            <button
+              aria-label="Previous photo"
+              onClick={() => setSlide(slide - 1)}
+              className="absolute left-3 top-1/2 z-10 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-white shadow"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+          )}
+          {slide < dots - 1 && (
+            <button
+              aria-label="Next photo"
+              onClick={() => setSlide(slide + 1)}
+              className="absolute right-3 top-1/2 z-10 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-white shadow"
+            >
+              <ChevronRight className="size-4" />
+            </button>
+          )}
+        </>
+      )}
       <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1">
         {Array.from({ length: dots }, (_, i) => (
           <button
@@ -55,9 +84,9 @@ function Chip({ children, dark }: { children: React.ReactNode; dark?: boolean })
   )
 }
 
-export function SpotlightCard({ place }: { place: Place }) {
+export function SpotlightCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   return (
-    <article className="relative overflow-hidden rounded-xl bg-deep text-white">
+    <article className="relative cursor-pointer overflow-hidden rounded-xl bg-deep text-white" onClick={opensPage(place, onOpen)}>
       <Photo place={place} className="h-[350px]">
         <span className="absolute left-4 top-4 z-10 flex h-[22px] items-center gap-1 rounded-sm bg-white px-3 text-sm text-neutral-800">
           <Star className="size-3.5 fill-brand text-brand" />
@@ -97,9 +126,9 @@ export function SpotlightCard({ place }: { place: Place }) {
   )
 }
 
-export function ListingCard({ place }: { place: Place }) {
+export function ListingCard({ place, onOpen }: { place: Place; onOpen: (p: Place) => void }) {
   return (
-    <article className="overflow-hidden rounded-xl border border-line bg-white">
+    <article className="cursor-pointer overflow-hidden rounded-xl border border-line bg-white" onClick={opensPage(place, onOpen)}>
       <Photo place={place} className="h-[207px]">
         <Save name={place.name} />
         {place.badge && (
